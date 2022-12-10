@@ -1,0 +1,5 @@
+#/usr/bin/env sh
+
+mkdir -p ~/.config &&
+ln -s ~/dotfiles/chrome-flags.conf ~/.config/
+
