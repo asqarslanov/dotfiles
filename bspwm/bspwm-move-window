@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+action=$1
+direction=$2
+
+bspc node -$action $direction
+
+if [ $action = s ]; then
+	if [ $direction = west ]; then
+		bspc node -v -100 0
+	fi
+	if [ $direction = south ]; then
+		bspc node -v 0 100
+	fi
+	if [ $direction = north ]; then
+		bspc node -v 0 -100
+	fi
+	if [ $direction = east ]; then
+		bspc node -v 100 0
+	fi
+fi
+

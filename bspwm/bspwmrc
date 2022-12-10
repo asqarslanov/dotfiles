@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+~/.config/bspwm/local-config
+killall picom; picom --no-use-damage -b
+killall polybar; polybar -r &
+killall unclutter; unclutter &
+setxkbmap -layout us,ru
+setxkbmap -option grp:caps_toggle
+~/.fehbg
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+
+bspc config border_width 0
+bspc config window_gap 0
+
+bspc config split_ratio 0.5
+bspc config borderless_monocle true
+bspc config gapless_monocle false
+
