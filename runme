@@ -2,6 +2,7 @@
 
 mkdir -p ~/.config
 
+ln -s ~/dotfiles/.zshrc ~
 ln -s ~/dotfiles/bspwm ~/.config
 ln -s ~/dotfiles/chrome-flags.conf ~/.config
 ln -s ~/dotfiles/dusnt ~/.config
