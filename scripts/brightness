@@ -20,45 +20,6 @@ import typing
 STEPS = 11
 
 
-def get_nearest_index(
-        sequence: typing.Sequence[typing.SupportsFloat],
-        value: typing.SupportsFloat,
-        preference: typing.Literal['less', 'greater'] = None
-) -> int:
-    """
-    Returns the index of the closest to `value` element in `sequence`
-    with taking `preference` into account
-    (can be either `'less'` or `'greater'`, defaults to `None`).
-
-    The binary search algorithm is used.
-    """
-
-    left = 0
-    right = len(sequence)
-
-    while right - left > 1:
-        middle = (left + right) // 2
-
-        if sequence[middle] <= value:
-            left = middle
-        else:
-            right = middle
-
-    if right == len(sequence):
-        return left
-
-    match preference:
-        case 'less':
-            return left
-        case 'greater':
-            return right
-
-    if abs(value - sequence[left]) < abs(value - sequence[right]):
-        return left
-    else:
-        return right
-
-
 def get_int_output(command: str) -> int:
     """
     Returns the integer value resulting from the execution of `command`.
@@ -94,22 +55,6 @@ def set_value(value: int) -> None:
     subprocess.run(arguments, stdout=subprocess.DEVNULL)
 
 
-def value_to_step(
-        value: int,
-        steps: int,
-        min_value: int,
-        max_value: int
-) -> int:
-    x_min = math.log10(min_value)
-    x_max = math.log10(max_value)
-
-    x = math.log10(value) / (x_max - x_min)
-
-    result = round(steps * x)
-
-    return result
-
-
 def step_to_value(
         step: int,
         steps: int,
@@ -126,7 +71,93 @@ def step_to_value(
     return result
 
 
+def value_to_step(
+        value: int,
+        steps: int,
+        min_value: int,
+        max_value: int
+) -> int:
+    x_min = math.log10(min_value)
+    x_max = math.log10(max_value)
+
+    x = math.log10(value) / (x_max - x_min)
+
+    result = round(steps * x)
+
+    return result
+
+
+def get_nearest_index(
+        sequence: typing.Sequence[typing.SupportsFloat],
+        value: typing.SupportsFloat,
+        preference: typing.Literal['less', 'greater'] = None
+) -> int:
+    """
+    Returns the index of the closest to `value` element in `sequence`
+    with taking `preference` into account
+    (can be either `'less'` or `'greater'`, defaults to `None`).
+
+    The binary search algorithm is used.
+    """
+
+    left = 0
+    right = len(sequence)
+
+    while right - left > 1:
+        middle = (left + right) // 2
+
+        if sequence[middle] <= value:
+            left = middle
+        else:
+            right = middle
+
+    if right == len(sequence):
+        return left
+
+    if sequence[left] == value:
+        return left
+
+    match preference:
+        case 'less':
+            return left
+        case 'greater':
+            return right
+
+    if abs(value - sequence[left]) < abs(value - sequence[right]):
+        return left
+    else:
+        return right
+
+
+def generate_step_values(steps: int, min_value: int, max_value: int) -> list:
+    """
+    Returns a list with brightness values for each step.
+    """
+
+    max_step = value_to_step(max_value, STEPS, min_value, max_value)
+
+    step_values = steps * [None]
+
+    step_values[0] = min_value
+    step_values[-1] = max_value
+
+    for i in range(1, STEPS - 1):
+        step_values[STEPS - i - 1] = step_to_value(
+            max_step - i,
+            STEPS,
+            min_value,
+            max_value
+        )
+
+    return step_values
+
+
 def get_percent_by_step(step: int, steps: int) -> int:
+    """
+    Returns the brightness percentage for the given step.
+    Never reaches 0, returns 1 instead.
+    """
+
     percent = 100 * (step - 1) / (steps - 1)
 
     result = round(percent)
@@ -138,7 +169,7 @@ def get_percent_by_step(step: int, steps: int) -> int:
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2 or sys.argv[1] not in ('-', '+', '='):
+    if len(sys.argv) != 2 or sys.argv[1] not in ('-', '+', '%'):
         print(
             "Usage:\n"
             "  brightness.py [operation]\n"
@@ -146,56 +177,55 @@ if __name__ == '__main__':
             "Operations:\n"
             "  -\tdecrease brightness.\n"
             "  +\tincrease brightness.\n"
-            "  =\tget current brightness.\n"
+            "  %\tget current brightness.\n"
         )
 
-        sys.exit(1)
+        sys.exit(-1)
 
     operation = sys.argv[1]
 
     max_value = get_max_value()
     min_value = round(0.01 * max_value)
 
-    start_step = value_to_step(min_value, STEPS, min_value, max_value)
-
-    step_values = STEPS * [None]
-
-    step_values[0] = min_value
-    step_values[-1] = max_value
-
-    for i in range(1, STEPS - 1):
-        step_values[i] = step_to_value(
-            start_step + i,
-            STEPS,
-            min_value,
-            max_value
-        )
+    step_values = generate_step_values(STEPS, min_value, max_value)
 
     current_value = get_current_value()
 
-    if current_value not in step_values:
-        operation_to_preference = {
-            '-': 'less',
-            '+': 'greater',
-            '=': None
-        }
-        preference = operation_to_preference[operation]
+    match operation:
+        case '-':
+            current_step = get_nearest_index(
+                step_values,
+                current_value,
+                'greater'
+            )
 
-        new_step = get_nearest_index(step_values, current_value, preference)
+            if current_step == 0:
+                new_step = 0
+            else:
+                new_step = current_step - 1
 
-    else:
-        current_step = get_nearest_index(step_values, current_value)
+        case '+':
+            current_step = get_nearest_index(
+                step_values,
+                current_value,
+                'less'
+            )
 
-        match operation:
-            case '-':
-                new_step = max(current_step - 1, 0)
-            case '+':
-                new_step = min(current_step + 1, STEPS - 1)
-            case '=':
-                new_step = current_step
+            if current_step == STEPS - 1:
+                new_step = STEPS - 1
+            else:
+                new_step = current_step + 1
+
+        case '%':
+            current_step = get_nearest_index(
+                step_values,
+                current_value
+            )
+
+            new_step = current_step
+
+            percent = get_percent_by_step(new_step + 1, STEPS)
+            print(percent)
 
     new_value = step_values[new_step]
     set_value(new_value)
-
-    if operation == '=':
-        print(get_percent_by_step(new_step + 1, STEPS))
