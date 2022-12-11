@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+
+"""
+This script is made for changing screen brightness in accordance
+with human perception.
+
+The `brightnessctl` package is assumed to be installed.
+
+In the code, all values and steps in the variable names refer
+to screen brightness values and screen brightness steps, respectively.
+
+Made by Askar Arslanov (@AskarBink) thanks to Konrad Strack.
+"""
+
+import math
+import subprocess
+import sys
+import typing
+
+STEPS = 11
+
+
+def get_nearest_index(
+        sequence: typing.Sequence[typing.SupportsFloat],
+        value: typing.SupportsFloat,
+        preference: typing.Literal['less', 'greater'] = None
+) -> int:
+    """
+    Returns the index of the closest to `value` element in `sequence`
+    with taking `preference` into account
+    (can be either `'less'` or `'greater'`, defaults to `None`).
+
+    The binary search algorithm is used.
+    """
+
+    left = 0
+    right = len(sequence)
+
+    while right - left > 1:
+        middle = (left + right) // 2
+
+        if sequence[middle] <= value:
+            left = middle
+        else:
+            right = middle
+
+    if right == len(sequence):
+        return left
+
+    match preference:
+        case 'less':
+            return left
+        case 'greater':
+            return right
+
+    if abs(value - sequence[left]) < abs(value - sequence[right]):
+        return left
+    else:
+        return right
+
+
+def get_int_output(command: str) -> int:
+    """
+    Returns the integer value resulting from the execution of `command`.
+    """
+
+    arguments = command.split()
+    process = subprocess.run(arguments, capture_output=True, text=True)
+    output: str = process.stdout
+
+    result = int(output)
+
+    return result
+
+
+def get_current_value() -> int:
+    command = 'brightnessctl g'
+    result = get_int_output(command)
+
+    return result
+
+
+def get_max_value() -> int:
+    command = 'brightnessctl m'
+    result = get_int_output(command)
+
+    return result
+
+
+def set_value(value: int) -> None:
+    command = f'brightnessctl s {value}'
+
+    arguments = command.split()
+    subprocess.run(arguments, stdout=subprocess.DEVNULL)
+
+
+def value_to_step(
+        value: int,
+        steps: int,
+        min_value: int,
+        max_value: int
+) -> int:
+    x_min = math.log10(min_value)
+    x_max = math.log10(max_value)
+
+    x = math.log10(value) / (x_max - x_min)
+
+    result = round(steps * x)
+
+    return result
+
+
+def step_to_value(
+        step: int,
+        steps: int,
+        min_value: int,
+        max_value: int
+) -> int:
+    x_min = math.log10(min_value)
+    x_max = math.log10(max_value)
+
+    x = step / steps * (x_max - x_min)
+
+    result = round(10 ** x)
+
+    return result
+
+
+def get_percent_by_step(step: int, steps: int) -> int:
+    percent = 100 * (step - 1) / (steps - 1)
+
+    result = round(percent)
+
+    if result == 0:
+        return 1
+
+    return result
+
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2 or sys.argv[1] not in ('-', '+', '='):
+        print(
+            "Usage:\n"
+            "  brightness.py [operation]\n"
+            "\n"
+            "Operations:\n"
+            "  -\tdecrease brightness.\n"
+            "  +\tincrease brightness.\n"
+            "  =\tget current brightness.\n"
+        )
+
+        sys.exit(1)
+
+    operation = sys.argv[1]
+
+    max_value = get_max_value()
+    min_value = round(0.01 * max_value)
+
+    start_step = value_to_step(min_value, STEPS, min_value, max_value)
+
+    step_values = STEPS * [None]
+
+    step_values[0] = min_value
+    step_values[-1] = max_value
+
+    for i in range(1, STEPS - 1):
+        step_values[i] = step_to_value(
+            start_step + i,
+            STEPS,
+            min_value,
+            max_value
+        )
+
+    current_value = get_current_value()
+
+    if current_value not in step_values:
+        operation_to_preference = {
+            '-': 'less',
+            '+': 'greater',
+            '=': None
+        }
+        preference = operation_to_preference[operation]
+
+        new_step = get_nearest_index(step_values, current_value, preference)
+
+    else:
+        current_step = get_nearest_index(step_values, current_value)
+
+        match operation:
+            case '-':
+                new_step = max(current_step - 1, 0)
+            case '+':
+                new_step = min(current_step + 1, STEPS - 1)
+            case '=':
+                new_step = current_step
+
+    new_value = step_values[new_step]
+    set_value(new_value)
+
+    if operation == '=':
+        print(get_percent_by_step(new_step + 1, STEPS))
