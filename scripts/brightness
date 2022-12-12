@@ -20,30 +20,28 @@ import typing
 STEPS = 11
 
 
-def get_int_output(command: str) -> int:
-    """
-    Returns the integer value resulting from the execution of `command`.
-    """
-
+def get_command_output(command: str) -> str:
     arguments = command.split()
     process = subprocess.run(arguments, capture_output=True, text=True)
-    output: str = process.stdout
 
-    result = int(output)
+    result: str = process.stdout
 
     return result
 
 
 def get_current_value() -> int:
     command = 'brightnessctl g'
-    result = get_int_output(command)
+    output = get_command_output(command)
+
+    result = int(output)
 
     return result
 
 
 def get_max_value() -> int:
     command = 'brightnessctl m'
-    result = get_int_output(command)
+    output = get_command_output(command)
+    result = int(output)
 
     return result
 
@@ -172,7 +170,7 @@ if __name__ == '__main__':
     if len(sys.argv) != 2 or sys.argv[1] not in ('-', '+', '%'):
         print(
             "Usage:\n"
-            "  brightness.py [operation]\n"
+            "  brightness [operation]\n"
             "\n"
             "Operations:\n"
             "  -\tdecrease brightness.\n"
@@ -229,3 +227,4 @@ if __name__ == '__main__':
 
     new_value = step_values[new_step]
     set_value(new_value)
+
