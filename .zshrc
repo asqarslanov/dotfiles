@@ -15,4 +15,5 @@ compinit
 
 alias nv=neovide --maximized --multigrid
 PROMPT=$'%F{7}\n%~\n%F{14}>%F{15} '
+# antigen bundle zsh-users/zsh-completions
 

@@ -2,14 +2,14 @@
 
 mkdir -p ~/.config
 
-ln -s ~/dotfiles/.zshrc ~
-ln -s ~/dotfiles/bspwm ~/.config
-ln -s ~/dotfiles/chrome-flags.conf ~/.config
-ln -s ~/dotfiles/dusnt ~/.config
-ln -s ~/dotfiles/flameshot ~/.config
-ln -s ~/dotfiles/nvim ~/.config
-ln -s ~/dotfiles/paru ~/.config
-ln -s ~/dotfiles/picom ~/.config
-ln -s ~/dotfiles/polybar ~/.config
-ln -s ~/dotfiles/sxhkd ~/.config
+ln -s ~/.dotfiles/.zshrc ~
+ln -s ~/.dotfiles/bspwm ~/.config
+ln -s ~/.dotfiles/chrome-flags.conf ~/.config
+ln -s ~/.dotfiles/dusnt ~/.config
+ln -s ~/.dotfiles/flameshot ~/.config
+ln -s ~/.dotfiles/nvim ~/.config
+ln -s ~/.dotfiles/paru ~/.config
+ln -s ~/.dotfiles/picom ~/.config
+ln -s ~/.dotfiles/polybar ~/.config
+ln -s ~/.dotfiles/sxhkd ~/.config
 
