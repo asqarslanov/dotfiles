@@ -11,7 +11,8 @@ XF86AudioMute
 	pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 XF86MonBrightness{Up,Down}
-	~/.dotfiles/scripts/brightness {+,-}
+	~/.dotfiles/scripts/brightness {+,-}; \
+	notify-send -r 2929 Brightness $(~/.dotfiles/scripts/brightness %)%
 
 {_,super + }Print
 	flameshot {gui,screen}
