@@ -1,0 +1,162 @@
+#
+# scanner-meta package
+#
+# This is meta package to install "scanner" ("scanner-common-binary") and
+# "scanner-script" ("scanner-vendor-script") packages.
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+human_readable_name() {
+	echo "scanner meta package"
+}
+
+package_name() {
+	echo "scanner"
+}
+
+package_suffix(){
+	echo "-meta"
+}
+
+dependencies() {
+	echo "scanner-script scanner"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+_compose_meta_version() {
+	local BINARY_VERSION="$1"
+	local SCRIPT_VERSION="$2"
+	echo "binary-${BINARY_VERSION}-script-${SCRIPT_VERSION}"
+}
+
+#
+# Note: "INSTALL_BASE_DIR" and "VENDOR_LC" are initialized in
+# "environment_init()" at the very beginning.
+#
+package_on_load() {
+	PACKAGE_NAME=$(package_name)
+	PACKAGE_SUFFIX=$(package_suffix)
+
+
+	# _version_file( PACKAGE_NAME, PACKAGE_SUFFIX ) // ${INSTALL_BASE_DIR}, ${VENDOR_LC}
+	local BINARY_VERSION_FILE=$(_version_file "${PACKAGE_NAME}" "")
+	BINARY_VERSION=$(_load_version_from_file "${BINARY_VERSION_FILE}")
+
+	local SCRIPT_VERSION_FILE="$(_version_file "${PACKAGE_NAME}" "-script")"
+	SCRIPT_VERSION=$(_load_version_from_file "${SCRIPT_VERSION_FILE}")
+
+	META_VERSION=$(_compose_meta_version "${BINARY_VERSION}" "${SCRIPT_VERSION}")
+	log_variable META_VERSION
+
+
+	# _dist_version_file( PACKAGE_NAME, PACKAGE_SUFFIX ) // ${DIST_DIR}
+	local DIST_BINARY_VERSION_FILE="$(_dist_version_file "${PACKAGE_NAME}" "")"
+	DIST_BINARY_VERSION=$(_load_version_from_file "${DIST_BINARY_VERSION_FILE}")
+
+	local DIST_SCRIPT_VERSION_FILE="$(_dist_version_file "${PACKAGE_NAME}" "-script")"
+	DIST_SCRIPT_VERSION=$(_load_version_from_file "${DIST_SCRIPT_VERSION_FILE}")
+
+	DIST_META_VERSION=$(_compose_meta_version "${DIST_BINARY_VERSION}" "${DIST_SCRIPT_VERSION}")
+	log_variable DIST_META_VERSION
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# depends on "package_on_load()"
+#
+install_dir() {
+	if [ -z "${INSTALL_BASE_DIR}" ] ; then _abort_execution "'INSTALL_BASE_DIR' is undefined" ; fi
+	if [ -z "${VENDOR_LC}" ] ; then _abort_execution "'VENDOR_LC' is undefined" ; fi
+	if [ -z "${PACKAGE_NAME}" ] ; then _abort_execution "'PACKAGE_NAME' is undefined" ; fi
+	if [ -z "${PACKAGE_SUFFIX}" ] ; then _abort_execution "'PACKAGE_SUFFIX' is undefined" ; fi
+	echo "${INSTALL_BASE_DIR}/${VENDOR_LC}/${PACKAGE_NAME}${PACKAGE_SUFFIX}"
+}
+
+#
+# depends on "package_on_load()"
+#
+version() {
+	if [ -z "${META_VERSION}" ] ; then _abort_execution "'META_VERSION' is undefined" ; fi
+	echo "${META_VERSION}"
+}
+
+#
+# depends on "package_on_load()"
+#
+dist_version() {
+	if [ -z "${DIST_META_VERSION}" ] ; then _abort_execution "'DIST_META_VERSION' is undefined" ; fi
+	echo "${DIST_META_VERSION}"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# @return :
+# true - if new version is greater than the old one or FORCE_INSTALL=1
+# false - if new version is less than or equal to the old one
+isInstallNecessary() {
+	log_message ""
+
+	if [ -n "${FORCE_INSTALL}" ] ; then
+		echo "true"
+		return
+	fi
+
+        # Put '1' digit at the beginning to avoid implicit
+        # octal interpretation of numbers starting with 0
+
+	local BINARY_VERSION_DIGITS=1$(echo "${BINARY_VERSION}" | tr -d -c 0-9)
+	log_variable BINARY_VERSION_DIGITS
+	local DIST_BINARY_VERSION_DIGITS=1$(echo "${DIST_BINARY_VERSION}" | tr -d -c 0-9)
+	log_variable DIST_BINARY_VERSION_DIGITS
+
+	local SCRIPT_VERSION_DIGITS=1$(echo "${SCRIPT_VERSION}" | tr -d -c 0-9)
+	log_variable SCRIPT_VERSION_DIGITS
+	local DIST_SCRIPT_VERSION_DIGITS=1$(echo "${DIST_SCRIPT_VERSION}" | tr -d -c 0-9)
+	log_variable DIST_SCRIPT_VERSION_DIGITS
+
+	# If current version < dist version, do install
+	if [ -n "${FORCE_SCANNER_BINARY}" ] ; then
+		echo "true"
+		return
+	fi
+	if [ ${BINARY_VERSION_DIGITS} -lt ${DIST_BINARY_VERSION_DIGITS} ] ; then
+		echo "true"
+		return
+	fi
+	if [ -n "${FORCE_SCANNER_SCRIPT}" ] ; then
+		echo "true"
+		return
+	fi
+	if [ ${SCRIPT_VERSION_DIGITS} -lt ${DIST_SCRIPT_VERSION_DIGITS} ] ; then
+		echo "true"
+		return
+	fi
+
+	echo "false"
+}
+
+report_no_install_reason() {
+	if [ "${BINARY_VERSION}${SCRIPT_VERSION}" = "${DIST_BINARY_VERSION}${DIST_SCRIPT_VERSION}" ] ; then
+		show_nls_message "**** The same version of Scan driver is already installed."
+	else
+		show_nls_message "**** Newer version of Scan driver is already installed."
+	fi
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+after_install() {
+	log_message ""
+	show_nls_message "**** Scan driver has been installed successfully."
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+register_dependency() {
+	log_message "avoiding dependency registration"
+}

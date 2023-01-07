@@ -1,0 +1,39 @@
+SERVICE_DIR="/etc/sysconfig/SuSEfirewall2.d/services"
+SERVICE_FILE="${SERVICE_DIR}/smfp"
+
+plug_hifw_suse() {
+	# check direstory exists
+	if ! [ -d "$SERVICE_DIR" ]; then
+		return 1
+	fi
+
+	# turn off our servcie
+	yast2 firewall services remove zone=EXT service=service:smfp
+		
+	# delete our service  
+	rm -f "$SERVICE_FILE"	
+}
+
+make_hifw_suse() {
+# $1 port	
+	# check direstory exists
+	if ! [ -d "$SERVICE_DIR" ]; then
+		log_message "cannot find directory $SERVICE_DIR"
+		return 1
+	fi
+
+	# create new service  
+	touch "$SERVICE_FILE"
+	if ! [ -f "$SERVICE_FILE" ] ; then 
+		return 1
+	fi
+	
+	# full new service file	
+	echo "## Name: SMFP device discovery" > "$SERVICE_FILE"
+	echo "## Description: Open UPD port for answers to broadcast requests coming through SNMP protocol" >> "$SERVICE_FILE"
+	echo "UDP=\"$1\"" >> "$SERVICE_FILE"
+		
+	# turn on new servcie
+	yast2 firewall services add zone=EXT service=service:smfp
+}
+

@@ -1,0 +1,120 @@
+#
+# "scanner" ("scanner-common-binary") package
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+human_readable_name() {
+	echo "Scanner driver"
+}
+
+package_name() {
+	echo "scanner"
+}
+
+# Use default "empty" suffix
+#package_suffix() {
+#}
+
+dependencies() {
+	echo "security legacy_compat"
+}
+
+get_missing_requirements() {
+	log_variable FORCENOSANE
+	if [ -n "${FORCENOSANE}" ] ; then
+		echo "sane"
+	fi
+	if ! PATH=$PATH:/sbin:/usr/sbin ldconfig -p | grep '\<libsane\.so\>' 1>/dev/null 2>&1 ; then
+		echo "sane"
+	fi
+	log_message ""
+}
+
+report_missing_requirements() {
+	show_nls_message "**** SANE package is currently not installed on your system. Please install it first to install & use scan driver properly."
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+install_base_files() {
+	## packet specific files
+	local SANE_DIR=/usr/lib${LIBSFX}/sane
+	if ! [ -d "$SANE_DIR" ] ; then
+		SANE_DIR=/usr/lib/sane
+		if ! [ -d /usr/lib/sane ] ; then
+			mkdir -p /usr/lib/sane
+		fi
+	fi
+	mkdir_p "$INSTDIR_COMMON_SCANNER_LIB"
+	install_lns_data_p "${DIST_DIR}/${ARCH_SUBDIR}/libsane-smfp.so.1.0.1" "$INSTDIR_COMMON_SCANNER_LIB" "$SANE_DIR"
+
+	rm -f "$SANE_DIR/libsane-smfp.so" "$SANE_DIR/libsane-smfp.so.1"
+	lns_p "$SANE_DIR/libsane-smfp.so.1.0.1" "$SANE_DIR/libsane-smfp.so.1"
+	lns_p "$SANE_DIR/libsane-smfp.so.1" "$SANE_DIR/libsane-smfp.so"
+
+	mkdir_p "$INSTDIR_COMMON_SCANNER_SHARE"
+	mkdir_p "$INSTDIR_COMMON_SCANNER_SHARE/locale"
+	for i in $(ls "${DIST_DIR}/noarch/share/locale") ; do
+		mkdir_p "$INSTDIR_COMMON_SCANNER_SHARE/locale/$i"
+		mkdir_p "/usr/share/locale/$i/LC_MESSAGES"
+		install_lns_data_p "${DIST_DIR}/noarch/share/locale/$i/LC_MESSAGES/sane-smfp.mo" "$INSTDIR_COMMON_SCANNER_SHARE/locale/$i" /usr/share/locale/$i/LC_MESSAGES/
+	done
+
+	install_data_p "${DIST_DIR}/noarch/pagesize.xml" "$INSTDIR_COMMON_SCANNER_SHARE"
+	install_data_p "${DIST_DIR}/noarch/libsane-smfp.cfg" "$INSTDIR_COMMON_SCANNER_SHARE"
+}
+
+register_sane_backend() {
+	for SCDIR in /etc/sane.d /usr/local/etc/sane.d ; do
+		if [ -w ${SCDIR}/dll.conf ] ; then
+			if ! grep -q '^smfp$' ${SCDIR}/dll.conf ; then
+				echo "smfp" >> ${SCDIR}/dll.conf
+			fi
+			if grep -q geniusvp2 ${SCDIR}/dll.conf ; then
+				# Comment out geniusvp2 backend
+				cat ${SCDIR}/dll.conf > /tmp/mfp_dll_conf.tmp
+				cat /tmp/mfp_dll_conf.tmp | sed 's/geniusvp2/#geniusvp2/' > ${SCDIR}/dll.conf
+				rm -f /tmp/mfp_dll_conf.tmp
+			fi
+			chmod 664 ${SCDIR}/dll.conf
+		fi
+	done
+	# Create dll.conf if it does not exist
+	DLL_CONFS=`ls /etc/sane.d/dll.conf /usr/local/etc/sane.d/dll.conf 2> /dev/null`
+	if test -z "$DLL_CONFS" ; then
+		echo "smfp" >> /etc/sane.d/dll.conf
+	fi
+}
+
+unregister_sane_backend() {
+	for SCDIR in /etc/sane.d /usr/local/etc/sane.d ; do
+		if [ -w ${SCDIR}/dll.conf ] ; then
+			cat ${SCDIR}/dll.conf | grep -v "smfp" | \
+			sed 's/geniusvp2/#geniusvp2/' > /tmp/mfp_dll_conf.tmp
+			cat /tmp/mfp_dll_conf.tmp > ${SCDIR}/dll.conf
+			rm -f /tmp/mfp_dll_conf.tmp
+		fi
+	done
+}
+
+do_install() {
+	log_message "installing '$(package_name)' package"
+	install_base_files 2>&1 | log_redirected_output
+
+	show_nls_message "**** Registering SANE backend ..."
+	register_sane_backend 2>&1 | log_redirected_output
+}
+
+do_uninstall() {
+	log_message "uninstalling '$(package_name)' package"
+	show_nls_message "**** Unregistering SANE backend ..."
+	unregister_sane_backend 2>&1 | log_redirected_output
+}
+
+package_init() {
+	INSTDIR_COMMON_SCANNER_LIB="$INSTALL_DIR/lib"
+	INSTDIR_COMMON_SCANNER_SHARE="$INSTALL_DIR/share"
+}

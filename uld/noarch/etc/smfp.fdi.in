@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<deviceinfo version='0.2'>
+$(tab 1)<device>
+$(tab 1)<!-- /dev/bus/usb/00?/? -->
+$(tab 2)	<match key='info.bus' string='usb_device'>
+$(tab 3)		<match key='usb_device.vendor_id' int='0x$VID'>
+				$(for pid in $PIDS ; do \
+				echo "$(tab2 4)<match key='usb_device.product_id' int='0x$pid'>";\
+				echo "$(tab2 5)<append key='info.capabilities' type='strlist'>access_control</append>";\
+				echo "$(tab2 5)<merge key='access_control.file' type='copy_property'>linux.device_file</merge>" ;\
+				echo "$(tab2 5)<merge key='access_control.type' type='string'>scanner</merge>" ;\
+				echo "$(tab2 4)</match>";\
+				done)
+$(tab 3)		</match>
+$(tab 2)	</match>
+$(tab 2)	<!-- /dev/usb/lp0 -->
+$(tab 2)	<match key='info.bus' string='usb'>
+$(tab 3)		<match key='@info.parent:usb.vendor_id' int='0x$VID'>
+				$(for pid in $PIDS ; do \
+				echo "$(tab2 4)<match key='@info.parent:usb.product_id' int='0x$pid'>";\
+				echo "$(tab2 5)<append key='info.capabilities' type='strlist'>access_control</append>";\
+				echo "$(tab2 5)<merge key='access_control.file' type='copy_property'>linux.device_file</merge>";\
+				echo "$(tab2 5)<merge key='access_control.type' type='string'>scanner</merge>";\
+				echo "$(tab2 4)</match>";\
+				done)
+$(tab 3)		</match>
+$(tab 2)	</match>
+$(tab 1)</device>
+</deviceinfo>
+

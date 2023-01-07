@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<nameconfig>
+	<pageformat code = "statement" x = "139" y = "215" pxu_x = "6600" pxu_y = "10200">Statement</pageformat>
+	<pageformat code = "statement_rotated" x = "215" y = "139" pxu_x = "10200" pxu_y = "6600">Statement(Rotated)</pageformat>
+
+	<pageformat code = "a5" x = "148" y = "210" pxu_x = "6992" pxu_y = "9921">A5</pageformat>
+	<pageformat code = "a5_rotated" x = "210" y = "148" pxu_x = "9921" pxu_y = "6992">A5(Rotated)</pageformat>
+
+	<pageformat code = "b5_jis" x = "182" y = "257" pxu_x = "8598" pxu_y = "12141">B5(JIS)</pageformat>
+	<pageformat code = "b5_jis_rotated" x = "257" y = "182" pxu_x = "12141" pxu_y = "8598">B5(JIS)(Rotated)</pageformat>
+
+	<pageformat code = "executive" x = "184" y = "266" pxu_x = "8700" pxu_y = "12600">Executive</pageformat>
+	<pageformat code = "executive_rotated" x = "266" y = "184" pxu_x = "12600" pxu_y = "8700">Executive(Rotated)</pageformat>
+
+	<pageformat code = "a4" x = "210" y = "297" pxu_x = "9921" pxu_y = "14031">A4</pageformat>
+	<pageformat code = "a4_rotated" x = "297" y = "210" pxu_x = "14031" pxu_y = "9921">A4(Rotated)</pageformat>
+
+	<pageformat code = "letter" x = "215" y = "279" pxu_x = "10200" pxu_y = "13200">Letter</pageformat>
+	<pageformat code = "letter_rotated" x = "280" y = "215" pxu_x = "13200" pxu_y = "10200">Letter(Rotated)</pageformat>
+
+	<pageformat code = "legal" x = "215" y = "355" pxu_x = "10200" pxu_y = "16800">Legal</pageformat>
+	<pageformat code = "legal_rotated" x = "355" y = "215" pxu_x = "16800" pxu_y = "10200">Legal(Rotated)</pageformat>
+
+	<pageformat code = "folio" x = "215" y = "330" pxu_x = "10200" pxu_y = "15600">Folio</pageformat>
+	<pageformat code = "folio_rotated" x = "330" y = "215" pxu_x = "15600" pxu_y = "10200">Folio(Rotated)</pageformat>
+
+	<pageformat code = "b4_jis" x = "254" y = "364" pxu_x = "12000" pxu_y = "17196">B4(JIS)</pageformat>
+	<pageformat code = "b4_jis_rotated" x = "364" y = "254" pxu_x = "17196" pxu_y = "12000">B4(JIS)(Rotated)</pageformat>
+
+	<pageformat code = "a3" x = "297" y = "420" pxu_x = "14031" pxu_y = "19842">A3</pageformat>
+	<pageformat code = "a3_rotated" x = "420" y = "297" pxu_x = "19842" pxu_y = "14031">A3(Rotated)</pageformat>
+
+	<pageformat code = "ledger" x = "279" y = "431" pxu_x = "13200" pxu_y = "20400">Ledger</pageformat>
+	<pageformat code = "ledger_rotated" x = "431" y = "279" pxu_x = "20400" pxu_y = "13200">Ledger(Rotated)</pageformat>
+
+	<pageformat code = "oficio" x = "215" y = "342" pxu_x = "10200" pxu_y = "16200">Oficio</pageformat>
+    <pageformat code = "oficio_rotated" x = "342" y = "215" pxu_x = "16200" pxu_y = "10200">Oficio(Rotated)</pageformat>
+
+	<pageformat code = "custom" x = "0" y = "0" pxu_x = "0" pxu_y = "0">Custom</pageformat>
+
+	<!--
+	<pageformat code = "b5" x = "176" y = "250" pxu_x = "8314" pxu_y = "11811">B5 - 176x250 mm</pageformat>
+	<pageformat code = "quatro" x = "215" y = "275" pxu_x = "10157" pxu_y = "12992">Quarto - 215x275 mm</pageformat>
+	<pageformat code = "envelope_9" x = "98" y = "225" pxu_x = "4650" pxu_y = "10650">Envelope #9 - 3.875"x8.875"</pageformat>
+	<pageformat code = "envelope_10" x = "104" y = "241" pxu_x = "4950" pxu_y = "11400">Envelope #10 - 4.125"x9.5"</pageformat>
+	<pageformat code = "envelope_11" x = "114" y = "263" pxu_x = "5400" pxu_y = "12450">Envelope #11 - 4.5"x10.375"</pageformat>
+	<pageformat code = "envelope_12" x = "101" y = "279" pxu_x = "4800" pxu_y = "13200">Envelope #12 - 4"x11"</pageformat>
+	<pageformat code = "envelope_14" x = "127" y = "292" pxu_x = "6000" pxu_y = "13800">Envelope #14 - 5"x11.5"</pageformat>
+	<pageformat code = "envelope_dl" x = "110" y = "220" pxu_x = "5196" pxu_y = "10393">Envelope DL - 110x220 mm</pageformat>
+	<pageformat code = "envelope_c5" x = "162" y = "229" pxu_x = "7653" pxu_y = "10818">Envelope C5 - 162x229 mm</pageformat>
+	<pageformat code = "envelope_c6" x = "114" y = "162" pxu_x = "5385" pxu_y = "7653">Envelope C6 - 114x162 mm</pageformat>
+	<pageformat code = "envelope_c6c5" x = "114" y = "229" pxu_x = "5385" pxu_y = "10818">Envelope C6/C5 - 114x229 mm</pageformat>
+	<pageformat code = "envelope_b5" x = "176" y = "250" pxu_x = "8314" pxu_y = "11811">Envelope B5 - 176x250 mm</pageformat>
+	<pageformat code = "envelope_b6" x = "125" y = "176" pxu_x = "5905" pxu_y = "8314">Envelope B6 - 125x176 mm</pageformat>
+	<pageformat code = "envelope_110x230" x = "110" y = "230" pxu_x = "5196" pxu_y = "10866">Envelope - 110x230 mm</pageformat>
+	<pageformat code = "envelope_monarch" x = "98" y = "190" pxu_x = "4650" pxu_y = "9000">Envelope Monarch - 3.875"x7.5"</pageformat>
+	<pageformat code = "letter_plus" x = "215" y = "322" pxu_x = "10200" pxu_y = "15228">Letter Plus - 8.5"x12.69"</pageformat>
+	<pageformat code = "a4_plus" x = "210" y = "330" pxu_x = "9921" pxu_y = "15590">A4 Plus - 210x330 mm</pageformat>
+	<pageformat code = "a5_extra" x = "174" y = "235" pxu_x = "8220" pxu_y = "11102">A5 Extra - 174x235 mm</pageformat>
+	<pageformat code = "b5_extra" x = "201" y = "276" pxu_x = "9496" pxu_y = "13039">B5 (ISO) Extra - 201x276 mm</pageformat> -->
+	
+</nameconfig>

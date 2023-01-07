@@ -1,0 +1,283 @@
+*PPD-Adobe: "4.3"
+
+*FormatVersion: "4.3"
+*FileVersion: "1.9"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName:  "ML3050.ppd"
+*Manufacturer: "Samsung"
+*Product: "(LaserPrinter)"
+*ModelName:     "Samsung ML-3050 Series"
+*ShortNickName: "ML-3050"
+*NickName:      "Samsung ML-3050 Series"
+*PSVersion: "(3010.000) 550"
+*TTRasterizer:  Type42
+*cupsVersion: 1.1
+*cupsManualCopies: False
+*cupsFilter:  "application/vnd.cups-raster 0 rastertospl"
+
+*cupsModelNumber: 196
+
+*%=== Basic Capabilities ===============
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem:  False
+*Throughput:  "30"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+
+*% ====== Constraints ===========
+
+*% Base options group ===================
+*OpenGroup: General/General
+*% =========================================================
+*%  Color & Gray Option
+*% =========================================================
+*OpenUI *ColorModel/Color Mode: PickOne
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Gray
+*ColorModel Gray/Grayscale: "<</cupsColorSpace 0 /cupsBitsPerColor 8>>setpagedevice"
+*CloseUI: *ColorModel
+
+*% Paper Handling ===================
+*OpenUI *PageSize/Paper Size: PickOne
+*OrderDependency: 5 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter: "<</Policies <</PageSize 7>>  /PageSize [612 792] /ImagingBBox null>>setpagedevice"
+*PageSize Legal/Legal: "<< /Policies <</PageSize 7>> /PageSize [612 1008] /ImagingBBox null>>setpagedevice"
+*PageSize A4/A4: "<< /Policies <</PageSize 7>> /PageSize[595 842] /ImagingBBox null>>setpagedevice"
+*PageSize Executive/Executive: "<</Policies <</PageSize 7>> /PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageSize Folio/US Folio: "<</Policies <</PageSize 7>> /PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageSize JB5/JIS B5: "<</Policies <</PageSize 7>> /PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageSize B5/ISO B5: "<</Policies <</PageSize 7>> /PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageSize A5/A5: "<</Policies <</PageSize 7>> /PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageSize COM10/No.10 Env.: "<</Policies <</PageSize 7>> /PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*PageSize Monarch/Monarch Env.: "<</Policies <</PageSize 7>> /PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*PageSize DL/DL Env.: "<</Policies <</PageSize 7>> /PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*PageSize C5/C5 Env.: "<</Policies <</PageSize 7>> /PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*PageSize C6/C6 Env.: "<</Policies <</PageSize 7>> /PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*PageSize A6/A6: "<</Policies <</PageSize 7>> /PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*PageSize Oficio/Oficio: "<</Policies <</PageSize 7>> /PageSize [612 972] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter: "<</Policies <</PageSize 7>> /PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageRegion Legal/Legal: "<</Policies <</PageSize 7>> /PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageRegion A4/A4: "<</Policies <</PageSize 7>> /PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageRegion Executive/Executive: "<</Policies <</PageSize 7>> /PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageRegion Folio/US Folio: "<</Policies <</PageSize 7>> /PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageRegion JB5/JIS B5: "<</Policies <</PageSize 7>> /PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageRegion B5/ISO B5: "<</Policies <</PageSize 7>> /PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageRegion A5/A5: "<</Policies <</PageSize 7>> /PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageRegion COM10/No.10 Env.: "<</Policies <</PageSize 7>> /PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*PageRegion Monarch/Monarch Env.: "<</Policies <</PageSize 7>> /PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*PageRegion DL/DL Env.: "<</Policies <</PageSize 7>> /PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*PageRegion C5/C5 Env.: "<</Policies <</PageSize 7>> /PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*PageRegion C6/C6 Env.: "<</Policies <</PageSize 7>> /PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*PageRegion A6/A6: "<</Policies <</PageSize 7>> /PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*PageRegion Oficio/Oficio: "<</Policies <</PageSize 7>> /PageSize [612 972] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter: "12.5 12.5 599.5 779.5"
+*ImageableArea Legal/Legal: "12.5 12.5 599.5 995.5"
+*ImageableArea A4/A4: "12.5 12.5 582.5 829.5"
+*ImageableArea Executive/Executive: "12.5 12.5 509.5 743.5"
+*ImageableArea Folio/US Folio: "12.5 12.5 599.5 923.5"
+*ImageableArea JB5/JIS B5: "12.5 12.5 503.5 716.5"
+*ImageableArea B5/ISO B5: "12.5 12.5 486.5 696.5"
+*ImageableArea A5/A5: "12.5 12.5 407.5 582.5"
+*ImageableArea COM10/No.10 Env.: "12.5 12.5 284.5 671.5"
+*ImageableArea Monarch/Monarch Env.: "12.5 12.5 266.5 527.5"
+*ImageableArea DL/DL Env.: "12.5 12.5 299.5 611.5"
+*ImageableArea C5/C5 Env.: "12.5 12.5 446.5 636.5"
+*ImageableArea C6/C6 Env.: "12.5 12.5 310.5 446.5"
+*ImageableArea A6/A6: "12.5 12.5 284.5 407.5"
+*ImageableArea Oficio/Oficio: "12.5 12.5 599.5 959.5"
+
+*DefaultCompression: FBXOR
+*Compression FBXOR/FBXOR: "1"
+*Compression Adaptive/Adaptive: "1"
+
+*DefaultPaperDimension: Letter
+*PaperDimension Letter: "612 792"
+*PaperDimension Legal:  "612 1008"
+*PaperDimension A4: "595 842"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension Folio/US Folio: "612 936"
+*PaperDimension JB5/JIS B5: "516 729"
+*PaperDimension B5/ISO B5: "499 709"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension COM10/No.10 Env.: "297 684"
+*PaperDimension Monarch/Monarch Env.: "279 540"
+*PaperDimension DL/DL Env.: "312 624"
+*PaperDimension C5/C5 Env.: "459 649"
+*PaperDimension C6/C6 Env.: "323 459"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension Oficio/Oficio: "612 972"
+
+*%=== Quality Information ======================
+*OpenUI *Quality/Quality: PickOne
+*OrderDependency: 10 AnySetup *Quality
+*DefaultQuality: 600dpi
+*Quality 600dpi/600 dpi (Normal): "<</HWResolution[600 600]>>setpagedevice"
+*Quality 1200dpi/1200 dpi (Best): "<</HWResolution[1200 1200]>>setpagedevice"
+*CloseUI: *Quality
+
+*DefaultResolution: 600dpi
+
+*CloseGroup: General
+
+*% Other options group ===================
+*OpenGroup: Extra/Extras
+
+*OpenUI *InputSlot/Paper Source: PickOne
+*OrderDependency: 25 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot Auto/Auto Selection: ""
+*InputSlot Manual/Manual Feeder: ""
+*InputSlot Multi/Multi-Purpose Tray: ""
+*InputSlot Upper/Tray 1: ""
+*InputSlot Lower/Tray 2: ""
+*CloseUI: *InputSlot
+
+*JCLOpenUI *MediaType/Paper Type: PickOne
+*OrderDependency: 30 JCLSetup *MediaType
+*DefaultMediaType: Off
+*MediaType Off/Printer Default: "@PJL SET PAPERTYPE = OFF<0A>"
+*MediaType Normal/Plain Paper: "@PJL SET PAPERTYPE = NORMAL<0A>"
+*MediaType Thin/Thin Paper: "@PJL SET PAPERTYPE = THIN<0A>"
+*MediaType Thick/Thick Paper: "@PJL SET PAPERTYPE = THICK<0A>"
+*MediaType Bond/Bond Paper: "@PJL SET PAPERTYPE = BOND<0A>"
+*MediaType Ohp/Transparency: "@PJL SET PAPERTYPE = OHP<0A>"
+*MediaType Card/CardStock: "@PJL SET PAPERTYPE = CARD<0A>"
+*MediaType Label/Labels: "@PJL SET PAPERTYPE = LABEL<0A>"
+*MediaType Recycled/Recycled Paper: "@PJL SET PAPERTYPE = RECYCLED<0A>"
+*MediaType Used/Preprinted: "@PJL SET PAPERTYPE = USED<0A>"
+*MediaType Color/Color Paper: "@PJL SET PAPERTYPE = COLOR<0A>"
+*MediaType Cotton/Cotton: "@PJL SET PAPERTYPE = COTTON<0A>"
+*MediaType Env/Envelope: "@PJL SET PAPERTYPE = ENV<0A>"
+*MediaType Archive/Archive: "@PJL SET PAPERTYPE = ARCHIVE<0A>"
+*JCLCloseUI: *MediaType
+
+*JCLOpenUI *JCLRET/Image Mode: PickOne
+*DefaultJCLRET:LIGHT
+*OrderDependency: 10 JCLSetup  *JCLRET
+*JCLRET LIGHT/Text Enhancement: "@PJL SET RET = ENHANCE<0A>"
+*JCLRET OFF/Normal: "@PJL SET RET = NORMAL<0A>"
+*JCLCloseUI: *JCLRET
+
+*JCLOpenUI *JCLEconomode/Toner Save Mode: PickOne
+*OrderDependency: 35 JCLSetup *Economode
+*DefaultJCLEconomode: PRINTERDEFAULT
+*JCLEconomode PRINTERDEFAULT/Printer Setting: ""
+*JCLEconomode SAVE/On: "@PJL SET ECONOMODE = ON<0A>"
+*JCLEconomode STANDARD/Off: "@PJL SET ECONOMODE = OFF<0A>"
+*JCLCloseUI: *JCLEconomode
+
+*JCLOpenUI *Duplex/Duplex[Double-Sided Printing]: PickOne
+*OrderDependency: 20 JCLSetup *Duplex
+*DefaultDuplex: None
+*Duplex None/None: ""
+*Duplex DuplexNoTumble/Long Edge: "@PJL SET DUPLEX = ON<0A>@PJL SET BINDING = LONGEDGE<0A>"
+*Duplex DuplexTumble/Short Edge: "@PJL SET DUPLEX = ON<0A>@PJL SET BINDING = SHORTEDGE<0A>"
+*JCLCloseUI: *Duplex
+
+*CloseGroup: Extra
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
+*% =============================
+*%  User Interface Constraints
+*% =============================
+
+*%======== Not allowed Paper Size in Duplex Printing =========
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize JB5
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize B5
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize Executive
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize A5
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize A6
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize Monarch
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize COM10
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize DL
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize C5
+*UIConstraints: *Duplex DuplexNoTumble  *PageSize C6
+
+*UIConstraints: *Duplex DuplexTumble    *PageSize JB5
+*UIConstraints: *Duplex DuplexTumble    *PageSize B5
+*UIConstraints: *Duplex DuplexTumble    *PageSize Executive
+*UIConstraints: *Duplex DuplexTumble    *PageSize A5
+*UIConstraints: *Duplex DuplexTumble    *PageSize A6
+*UIConstraints: *Duplex DuplexTumble    *PageSize Monarch
+*UIConstraints: *Duplex DuplexTumble    *PageSize COM10
+*UIConstraints: *Duplex DuplexTumble    *PageSize DL
+*UIConstraints: *Duplex DuplexTumble    *PageSize C5
+*UIConstraints: *Duplex DuplexTumble    *PageSize C6
+
+*UIConstraints: *PageSize JB5           *Duplex DuplexNoTumble
+*UIConstraints: *PageSize B5            *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Executive     *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A5            *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A6            *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Monarch       *Duplex DuplexNoTumble
+*UIConstraints: *PageSize COM10         *Duplex DuplexNoTumble
+*UIConstraints: *PageSize DL            *Duplex DuplexNoTumble
+*UIConstraints: *PageSize C5            *Duplex DuplexNoTumble
+*UIConstraints: *PageSize C6            *Duplex DuplexNoTumble
+
+*UIConstraints: *PageSize JB5           *Duplex DuplexTumble
+*UIConstraints: *PageSize B5            *Duplex DuplexTumble
+*UIConstraints: *PageSize Executive     *Duplex DuplexTumble
+*UIConstraints: *PageSize A5            *Duplex DuplexTumble
+*UIConstraints: *PageSize A6            *Duplex DuplexTumble
+*UIConstraints: *PageSize Monarch       *Duplex DuplexTumble
+*UIConstraints: *PageSize COM10         *Duplex DuplexTumble
+*UIConstraints: *PageSize DL            *Duplex DuplexTumble
+*UIConstraints: *PageSize C5            *Duplex DuplexTumble
+*UIConstraints: *PageSize C6            *Duplex DuplexTumble
+
+*%======== RET is not available for 300, 1200 dpi =========
+*UIConstraints: *Quality 1200dpi  *JCLRET LIGHT
+*UIConstraints: *JCLRET LIGHT        *Quality 1200dpi
+
+*% end of PPD file for Samsung Laser Printer
+
+

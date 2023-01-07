@@ -1,0 +1,98 @@
+#
+# "printer" ("printer-common-binary") package
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+human_readable_name() {
+	echo "Printer driver"
+}
+
+package_name() {
+	echo "printer"
+}
+
+# Use default "empty" suffix
+#package_suffix() {
+#}
+
+dependencies() {
+	echo "security legacy_compat"
+}
+
+get_missing_requirements() {
+	log_variable FORCENOCUPS
+	if [ -n "${FORCENOCUPS}" ] ; then
+		echo "cups"
+	fi
+	if ! test -f /etc/cups/printers.conf && ! test -e /usr/sbin/cupsd ; then
+		echo "cups"
+	fi
+	log_message ""
+}
+
+report_missing_requirements() {
+	show_nls_message "**** CUPS package is currently not installed on your system. Please install it first to install & use print driver properly."
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+instdir_cups_bin() {
+	local d
+	if which cups-config >/dev/null 2>&1; then
+		d=$(cups-config --serverbin)
+		log_message "INSTDIR_CUPS_BIN(actual): <$d>"
+	elif [ -f /usr/lib/cups/filter/pstops ]; then
+		d=/usr/lib/cups
+		log_message "INSTDIR_CUPS_BIN(by pstops): <$d>"
+	elif [ -d /usr/lib$PLSFX/cups ]; then
+		d=/usr/lib$PLSFX/cups
+		log_message "INSTDIR_CUPS_BIN(default for arch): <$d>"
+	else
+		d=/usr/lib/cups
+		log_message "INSTDIR_CUPS_BIN(default): <$d>"
+	fi
+	echo "$d"
+}
+
+install_base_files() {
+	mkdir_p "$INSTDIR_COMMON_PRINTER_LIB"	#was install -v -m 755
+	install_p "${DIST_DIR}/${ARCH_SUBDIR}/libscmssc.so" "$INSTDIR_COMMON_PRINTER_LIB"
+
+	mkdir_p "$INSTDIR_COMMON_PRINTER_BIN"
+
+#	install_lns_p "${DIST_DIR}/${ARCH_SUBDIR}/mfp" "$INSTDIR_COMMON_PRINTER_BIN" "$INSTDIR_CUPS_BACKENDS"
+	install_lns_p "${DIST_DIR}/${ARCH_SUBDIR}/smfpnetdiscovery" "$INSTDIR_COMMON_PRINTER_BIN" "$INSTDIR_CUPS_BACKENDS"
+	register_obsolete_install_lns_p "${DIST_DIR}/${ARCH_SUBDIR}/pstospl" "$INSTDIR_COMMON_PRINTER_BIN" "$INSTDIR_CUPS_FILTERS"
+	register_obsolete_install_lns_p "${DIST_DIR}/${ARCH_SUBDIR}/pstosplc" "$INSTDIR_COMMON_PRINTER_BIN" "$INSTDIR_CUPS_FILTERS"
+	install_lns_p "${DIST_DIR}/${ARCH_SUBDIR}/rastertospl" "$INSTDIR_COMMON_PRINTER_BIN" "$INSTDIR_CUPS_FILTERS"
+	install_lns_p "${DIST_DIR}/${ARCH_SUBDIR}/pstosecps" "$INSTDIR_COMMON_PRINTER_BIN" "$INSTDIR_CUPS_FILTERS"
+	register_obsolete_install_lns_p "${DIST_DIR}/${ARCH_SUBDIR}/rastertosplc" "$INSTDIR_COMMON_PRINTER_BIN" "$INSTDIR_CUPS_FILTERS"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+do_install() {
+	log_message "installing '$(package_name)' package"
+	show_nls_message "**** Registering CUPS backend ..."
+	install_base_files 2>&1 | log_redirected_output
+}
+
+do_uninstall() {
+	log_message "uninstalling '$(package_name)' package"
+	show_nls_message "**** Unregistering CUPS backend ..."
+}
+
+# should be called after common_init
+package_init() {
+	INSTDIR_COMMON_PRINTER_LIB="$INSTALL_DIR/lib"
+	INSTDIR_COMMON_PRINTER_BIN="$INSTALL_DIR/bin"
+	INSTDIR_COMMON_PRINTER_SHARE="$INSTALL_DIR/share"
+
+	# binaries
+	INSTDIR_CUPS_BIN=$(instdir_cups_bin)
+	INSTDIR_CUPS_FILTERS="$INSTDIR_CUPS_BIN/filter"
+	INSTDIR_CUPS_BACKENDS="$INSTDIR_CUPS_BIN/backend"
+}

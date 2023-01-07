@@ -1,0 +1,112 @@
+#
+# This file contains "bash"-specific debugging support utility functions.
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+# WARNING: This file depends on functions from "run_time_utils" file.
+
+_print_call_stack() {
+    _report "call stack:"
+    local X_INDENT="${X_INDENT}${X_INDENT_STEP}"
+    #_report "[0]=${BASH_SOURCE[0]}:?:${FUNCNAME[$i]}"
+    for ((i=1, j=0; i<${#FUNCNAME[@]}; ++i, ++j)) ; do
+        _report "[$i]=${BASH_SOURCE[$i]}:${BASH_LINENO[$j]}:${FUNCNAME[$i]}"
+    done
+}
+
+_get_caller_location() {
+    local CALL_STACK_OFFSET=$(( 1 + ${CALL_STACK_OFFSET:-0} ))
+
+    local CALLER_LOCATION="${BASH_SOURCE[${CALL_STACK_OFFSET}]}:${BASH_LINENO[$(( ${CALL_STACK_OFFSET} - 1 ))]}:${FUNCNAME[${CALL_STACK_OFFSET}]}"
+
+    echo "${CALLER_LOCATION}"
+}
+
+#
+# Aborts execution printing diagnostic message.
+#
+_abort_execution() {
+	if [ $# -ne 0 ] ; then
+		_report_error "ABORT: '$@', execution aborted"
+	else
+		_report_error "ABORT: execution aborted"
+	fi
+	_print_call_stack
+	exit 1
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# Scripts debugging support.
+#
+
+#
+# Outputs arguments to "stderr" if "DEBUG_STDERR" environment variable is not
+# empty.
+#
+# Appends arguments to "${DEBUG_LOG_FILE}" file if "DEBUG_LOG_FILE" environment
+# variable is not empty.
+#
+# Appends arguments to "${SCRIPT_LOG_FILE}" file if "SCRIPT_LOG_FILE"
+# environment variable is not empty.
+#
+# Appends arguments to "${PACKAGE_LOG_FILE}" file if "PACKAGE_LOG_FILE"
+# environment variable is not empty.
+#
+log_message() {
+	local CALL_STACK_OFFSET="$(( 1 + ${CALL_STACK_OFFSET:-0} ))"
+	local CALLER_LOCATION="$(_get_caller_location)"
+	local PID="$$"
+	local LOG_MSG="${PID} ${CALLER_LOCATION} $@"
+
+	if [ -n "${DEBUG_STDERR}" ] ; then
+		>&2 echo "DEBUG: ${LOG_MSG}"
+	fi
+
+	if [ -n "${DEBUG_LOG_FILE}" ] ; then
+		>>"${DEBUG_LOG_FILE}" echo "${LOG_MSG}"
+	fi
+
+	if [ -n "${SCRIPT_LOG_FILE}" ] ; then
+		>>"${SCRIPT_LOG_FILE}" echo "${LOG_MSG}"
+	fi
+
+	if [ -n "${PACKAGE_LOG_FILE}" ] ; then
+		>>"${PACKAGE_LOG_FILE}" echo "${LOG_MSG}"
+	fi
+}
+
+#
+# Depending on enabled debug outputs copies everything from "stdin" into one of
+# "${PACKAGE_LOG_FILE}", "${SCRIPT_LOG_FILE}", "${DEBUG_LOG_FILE}", "stderr" or
+# simply discards everything.
+#
+log_redirected_output() {
+	local CALL_STACK_OFFSET="$(( 1 + ${CALL_STACK_OFFSET:-0} ))"
+
+	#log_message "vvvvv redirected_output vvvvv"
+	if [ -n "${PACKAGE_LOG_FILE}" ] ; then
+		>>"${PACKAGE_LOG_FILE}" cat
+	elif [ -n "${SCRIPT_LOG_FILE}" ] ; then
+		>>"${SCRIPT_LOG_FILE}" cat
+	elif [ -n "${DEBUG_LOG_FILE}" ] ; then
+		>>"${DEBUG_LOG_FILE}" cat
+	elif [ -n "${DEBUG_STDERR}" ] ; then
+		>&2 cat
+	else
+		>/dev/null cat
+	fi
+	#log_message "^^^^^ redirected_output ^^^^^"
+}
+
+#
+# Outputs variable name and value to debug log.
+#
+log_variable() {
+	local CALL_STACK_OFFSET="$(( 1 + ${CALL_STACK_OFFSET:-0} ))"
+
+	if [ -z "$1" ] ; then _abort_execution "variable name unspecified" ; fi
+	#log_message $(eval echo "${1}=\${${1}}")
+	log_message $(eval echo "\"${1}='\${${1}}'\"")
+}

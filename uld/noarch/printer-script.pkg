@@ -1,0 +1,189 @@
+#
+# "printer-script" ("printer-vendor-script") package
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+human_readable_name() {
+	echo "printer script package"
+}
+
+package_name() {
+	echo "printer"
+}
+
+package_suffix(){
+	echo "-script"
+}
+
+dependencies() {
+	echo "printer"
+}
+
+get_missing_requirements() {
+	log_variable FORCENOCUPS
+	if [ -n "${FORCENOCUPS}" ] ; then
+		echo "cups"
+	fi
+	if ! test -f /etc/cups/printers.conf && ! test -e /usr/sbin/cupsd ; then
+		echo "cups"
+	fi
+	log_message ""
+}
+
+report_missing_requirements() {
+	show_nls_message "**** CUPS package is currently not installed on your system. Please install it first to install & use print driver properly."
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+instdir_cups_data() {
+	local d
+	if which cups-config >/dev/null 2>&1; then
+		d=$(cups-config --datadir)
+		log_message "INSTDIR_CUPS_DATA(actual): <$d>"
+	else
+		d=/usr/share/cups
+		log_message "INSTDIR_CUPS_DATA(default): <$d>"
+	fi
+	echo "$d"
+}
+
+restart_cups() {
+	# For systems with systemd and on-demand CUPS activation,
+	# query CUPS to ensure that the service is running
+	lpstat >/dev/null 2>&1
+
+	if service cups status >/dev/null 2>&1 ; then
+		CUPS_SCRIPT="service cups"
+	elif service cups start; then
+		# it means we just started 'cups' that was 'inactive'
+		return 0
+	elif test -e /etc/init.d/cups ; then
+		CUPS_SCRIPT="/etc/init.d/cups"
+	elif test -e /etc/init.d/cupsys ; then
+		CUPS_SCRIPT="/etc/init.d/cupsys"
+	else
+		return 1
+	fi
+	log_variable CUPS_SCRIPT
+
+	$CUPS_SCRIPT restart
+}
+
+contains_item() {
+# $1 - item to check
+# $2... - items list
+	local i="$1"
+	while [ $# -gt 1 ]; do
+		shift
+		if [ "$i" = "$1" ]; then
+			return 0
+		fi
+	done
+	return 1
+}
+
+get_ppd_text() {
+# $1 - PPD file
+	grep '*NickName:' "$1" | awk -F\" '{print $2}'
+}
+
+get_ppd_id() {
+# $1 - PPD file
+	get_ppd_text "$1" | tr -d " "
+}
+
+unregister_cups_printers() {
+	log_message "unregister_cups_printers"
+	# FIXME: check if CUPS running and run it if not
+
+	PPD_DIST=`ls $INSTDIR_PPD/*.ppd 2>/dev/null`
+	PPD_CUPS=`ls /etc/cups/ppd/*.ppd 2>/dev/null`
+	log_message "PPD_DIST: '$PPD_DIST'"
+	log_message "PPD_CUPS: '$PPD_CUPS'"
+
+	if [ "$PPD_DIST" ]; then
+		for f in $PPD_DIST; do
+			PPD_ID_LIST=$PPD_ID_LIST\ $(get_ppd_id "$f")
+		done
+		log_message "PPD_ID_LIST: '$PPD_ID_LIST'"
+
+		PRINTERS_TO_UNINSTALL=
+		for f in $PPD_CUPS ; do
+			PPD_ID=$(get_ppd_id "$f")
+			if contains_item "$PPD_ID" $PPD_ID_LIST; then
+				PRINTERS_TO_UNINSTALL=$PRINTERS_TO_UNINSTALL\ $(basename "$f" .ppd)
+			fi
+		done
+		log_message "Printers to be removed: '$PRINTERS_TO_UNINSTALL'"
+
+		for PRINTER_NAME in $PRINTERS_TO_UNINSTALL ; do
+			show_nls_message "**** Removing printer \${PRINTER_NAME} ..."
+			lpadmin -x ${PRINTER_NAME} 2> /dev/null || true
+			lpoptions -x ${PRINTER_NAME} > /dev/null 2>&1 || true
+		done
+	fi
+}
+
+install_base_files() {
+	## packet specific files
+	## install ppd
+	mkdir_p "$INSTALL_DIR_DATA"
+	mkdir_p "$INSTDIR_PPD"
+	copy_directories "$DIST_PPD_PATH" "$INSTDIR_PPD"
+
+	lns_p "$INSTDIR_PPD" "$INSTDIR_CUPS_PPD"
+	lns_p "$INSTDIR_PPD" "$INSTDIR_LSB_PPD"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+do_install() {
+	log_message "installing '${VENDOR_LC}'/'$(package_name)' package"
+
+	local TEMP_LOG_FILE=`mktemp -t temp.log.XXX`
+	log_variable TEMP_LOG_FILE
+
+	install_base_files 2>&1 | log_redirected_output
+
+	if restart_cups >"${TEMP_LOG_FILE}" 2>&1 ; then
+		show_nls_message "**** CUPS restart OK."
+	else
+		cat "${TEMP_LOG_FILE}" | log_redirected_output
+		show_nls_message "**** CUPS restart FAILED."
+	fi
+
+	rm -f "${TEMP_LOG_FILE}" 1>/dev/null 2>&1
+
+	return 0
+}
+
+do_uninstall() {
+	log_message "uninstalling '${VENDOR_LC}'/'$(package_name)' package"
+	restart_cups 2>&1 | log_redirected_output
+
+	return 0
+}
+
+package_init() {
+	INSTALL_DIR_DATA=$INSTALL_DIR/share
+	INSTDIR_PPD=$INSTALL_DIR_DATA/ppd
+	INSTDIR_CMS=$INSTDIR_PPD/cms
+
+	SUBDIR_VENDOR_PPD=uld-$VENDOR_LC
+	INSTDIR_LSB_PPD=/usr/share/ppd/$SUBDIR_VENDOR_PPD
+
+	INSTDIR_CUPS_DATA=$(instdir_cups_data)
+	INSTDIR_CUPS_PPD=$INSTDIR_CUPS_DATA/model/$SUBDIR_VENDOR_PPD
+
+	# TODO: put here real path
+	# now try to find ppd in uld/noarch
+	DIST_PPD_PATH="${DIST_DIR}/noarch/share/ppd"
+
+	#if [ "$UNINSTALLMODE" ] ; then
+	#	unregister_cups_printers
+	#fi
+}

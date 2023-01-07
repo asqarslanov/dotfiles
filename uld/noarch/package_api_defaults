@@ -1,0 +1,262 @@
+#
+# This file contains 'package' API defaults.
+#
+# NOTE: Tthis file must "sourced" (not executed).
+#
+# WARNING: This file depends on functions from "run_time_utils" file.
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# Old API
+#
+# mandatory
+#
+# Use something like:
+#	echo "package's human readable name"
+#
+human_readable_name() {
+	_abort_execution "'human_readable_name()' is mandatory and must be redefined in each 'package'"
+}
+
+#
+# Old API
+#
+# mandatory
+#
+# Use something like:
+#	echo "package_name"
+#
+package_name() {
+	_abort_execution "'package_name()' is mandatory and must be redefined in each 'package'"
+}
+
+#
+# Old API
+#
+# optional
+#
+# Acts as flag to differentiate "common" ("binaries") and "vendor-specific"
+# ("script") packages. Shall be empty for "common" packages (will be installed
+# into "${INSTALL_BASE_DIR}/smfp-common/" directory). Shall be non-empty for
+# "vendor-specific" packages (will be installed into
+# "${INSTALL_BASE_DIR}/${VENDOR}/" directory).
+#
+# Use something like:
+#	echo "-package_suffix"
+#
+package_suffix(){
+	#echo ""
+	return
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# Existing packages don't fit into new API. For compatibility reasons there are
+# two "init" functions "package_on_load()" and "package_init()".
+#
+# "package_on_load()" - new API. References to environment variables are not
+# permitted. All communication to "external world" must be performed via API
+# functions only.
+#
+# "package_init()" - old API. Various environment variables like "INSTALL_DIR",
+# "VENDOR_LC", "DIST_DIR" are already made available.
+#
+
+#
+# New API
+#
+# It is expected that 'package manager' shall invoke this function prior to any
+# other API function. Thus any package shall redefine this function to perform
+# it's initialization here.
+#
+# optional
+#
+# Default implementation provides new API based on old API.
+#
+# Note: "INSTALL_BASE_DIR" and "VENDOR_LC" are initialized in
+# "environment_init()" at the very beginning.
+#
+package_on_load() {
+	log_message ""
+
+	# define "PACKAGE_NAME" and "PACKAGE_SUFFIX"
+	PACKAGE_NAME=$(package_name)
+	log_variable PACKAGE_NAME
+	PACKAGE_SUFFIX=$(package_suffix)
+	log_variable PACKAGE_SUFFIX
+
+	# define "INSTALL_DIR" for "install_dir()"
+	INSTALL_DIR=$(_install_dir "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")
+	log_variable INSTALL_DIR
+
+	# define "VERSION" for "version()"
+	# _version_file( PACKAGE_NAME, PACKAGE_SUFFIX ) // ${INSTALL_BASE_DIR}, ${VENDOR_LC}
+	VERSION_FILE=$(_version_file "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")
+	log_variable VERSION_FILE
+	VERSION=$(_load_version_from_file "${VERSION_FILE}")
+	log_variable VERSION
+
+	# define "DIST_VERSION" for "dist_version()"
+	# _dist_version_file( PACKAGE_NAME, PACKAGE_SUFFIX ) // ${DIST_DIR}
+	DIST_VERSION_FILE=$(_dist_version_file "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")
+	log_variable DIST_VERSION_FILE
+	DIST_VERSION=$(_load_version_from_file "${DIST_VERSION_FILE}")
+	log_variable DIST_VERSION
+
+	return
+}
+
+#
+# Old API
+#
+package_init() {
+	log_message ""
+	return
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# optional
+#
+# Default implementation provides new API based on old API (see
+# "package_on_load()" default implementation). New packages must provide
+# alternative implementation.
+#
+# Depends on "package_on_load()"
+#
+install_dir() {
+	if [ -z "${INSTALL_DIR}" ] ; then _abort_execution "'INSTALL_DIR' is undefined" ; fi
+	echo "${INSTALL_DIR}"
+}
+
+#
+# optional
+#
+# Depends on "package_on_load()"
+#
+version() {
+	if [ -z "${VERSION}" ] ; then _abort_execution "'VERSION' is undefined" ; fi
+	echo "${VERSION}"
+}
+
+#
+# optional
+#
+# Depends on "package_on_load()"
+#
+dist_version() {
+	if [ -z "${DIST_VERSION}" ] ; then _abort_execution "'DIST_VERSION' is undefined" ; fi
+	echo "${DIST_VERSION}"
+}
+
+#
+# optional
+#
+# @return:
+#	"true" - if new version is greater than the old one or FORCE_INSTALL=1
+#	"false" - if new version is less than or equal to the old one
+#
+isInstallNecessary() {
+	log_message ""
+
+	log_variable FORCE_INSTALL
+	if [ -n "${FORCE_INSTALL}" ] ; then
+		echo "true"
+		return
+	fi
+
+	local VERSION=$(version)
+	log_variable VERSION
+	if [ -z "${VERSION}" ] ; then _abort_execution "'version()' erroneously returns empty version" ; fi
+
+	local DIST_VERSION=$(dist_version)
+	log_variable DIST_VERSION
+	if [ -z "${DIST_VERSION}" ] ; then _abort_execution "'dist_version()' erroneously returns empty version"; fi
+
+	# Put '1' digit at the beginning to avoid implicit
+	# octal interpretation of numbers starting with 0
+	local VERSION_DIGITS=1$(echo "${VERSION}" | tr -d -c "0-9")
+	log_variable VERSION_DIGITS
+	local DIST_VERSION_DIGITS=1$(echo "${DIST_VERSION}" | tr -d -c "0-9")
+	log_variable DIST_VERSION_DIGITS
+
+	# If current version < dist version, do install
+	if [ $VERSION_DIGITS -lt $DIST_VERSION_DIGITS ] ; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+report_no_install_reason() {
+	log_message ""
+	return
+}
+
+#
+# ? optional
+#
+dependencies() {
+	log_message ""
+	return
+}
+
+#
+# ? optional
+#
+get_missing_requirements() {
+	log_message ""
+	return
+}
+
+#
+# ? optional
+#
+report_missing_requirements() {
+	if [ "$UNINSTALLMODE" ] ; then
+		return
+	fi
+
+	local MISSING_COMPONENT="$1"
+	if [ -n "${MISSING_COMPONENT}" ] ; then
+		show_nls_message "**** component '\${MISSING_COMPONENT}' is missing"
+		exit 1
+	fi
+}
+
+#
+# optional
+#
+do_install() {
+	log_message "installing '$(package_name)' package"
+	return
+}
+
+#
+# optional
+#
+do_uninstall() {
+	log_message "uninstalling '$(package_name)' package"
+	return
+}
+
+# report end of install
+after_install() {
+	log_message ""
+	return
+}
+
+# report end of uninstall
+after_uninstall() {
+	log_message ""
+	return
+}
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+log_message "EOF"

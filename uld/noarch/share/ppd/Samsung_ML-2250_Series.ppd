@@ -1,0 +1,203 @@
+*PPD-Adobe: "4.3"
+*FormatVersion:	"4.3"
+*FileVersion:	"1.1"
+*LanguageVersion: English 
+*LanguageEncoding: ISOLatin1
+*PCFileName:	"ML2250.ppd"
+*Manufacturer: "SAMSUNG"
+*Product:	"(ML-2250)"
+*cupsVersion:	1.0
+*cupsManualCopies: False
+*cupsModelNumber:  2
+*cupsFilter:  "application/vnd.cups-raster 0 rastertospl"
+*ModelName:     "Samsung ML-2250 Series"
+*ShortNickName: "ML-2250"
+*linuxLanguage: "SPL II"
+*linuxPriority: "0"
+*linuxURL:    "http://www.samsungprinter.com/"
+*linuxIdentify: "ML-2250"
+*NickName:      "Samsung ML-2250 Series"
+*PSVersion:	"(3010.000) 550"
+*LanguageLevel:	"3"
+*ColorDevice:	False
+*DefaultColorSpace: Gray
+*FileSystem:	False
+*Throughput:	"22"
+*%LandscapeOrientation: Plus90
+*%VariablePaperSize: False
+*%TTRasterizer:	Type42
+
+*% =========================================================
+*%  Color & Gray Option
+*% =========================================================
+*OpenUI *ColorModel/Color Mode: PickOne
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Gray
+*ColorModel Gray/Grayscale: "<</cupsColorSpace 0 /cupsBitsPerColor 8>>setpagedevice"
+*CloseUI: *ColorModel
+
+*OpenUI *Quality/Quality: PickOne
+*DefaultQuality: 600dpi
+*Quality 600dpi/600 DPI: "<</HWResolution[600 600]>>setpagedevice"
+*CloseUI: *Quality
+
+*DefaultResolution: 600dpi
+
+*OpenUI *PageSize/Page Size: PickOne
+*DefaultPageSize: Letter
+*PageSize Letter/US Letter: "<</Policies <</PageSize 7>> /PageSize [612 792] /ImagingBBox null>>setpagedevice"
+*PageSize Legal/US Legal: "<< /Policies <</PageSize 7>> /PageSize [612 1008] /ImagingBBox null>>setpagedevice"
+*PageSize A4/A4: "<< /Policies <</PageSize 7>> /PageSize[595 842] /ImagingBBox null>>setpagedevice"
+*PageSize Executive/Executive: "<</Policies <</PageSize 7>> /PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageSize Folio/Folio: "<</Policies <</PageSize 7>> /PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageSize JB5/JIS B5: "<</Policies <</PageSize 7>> /PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageSize B5/ISO B5 Env.: "<</Policies <</PageSize 7>> /PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageSize A5/A5: "<</Policies <</PageSize 7>> /PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageSize COM10/No.10 Env.: "<</Policies <</PageSize 7>> /PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*PageSize Monarch/Monarch Env.: "<</Policies <</PageSize 7>> /PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*PageSize DL/DL Env.: "<</Policies <</PageSize 7>> /PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*PageSize C5/C5 Env.: "<</Policies <</PageSize 7>> /PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*PageSize C6/C6 Env.: "<</Policies <</PageSize 7>> /PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*PageSize A6/A6 Env.: "<</Policies <</PageSize 7>> /PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*DefaultPageRegion: Letter
+*PageRegion Letter/US Letter: "<</Policies <</PageSize 7>> /PageSize [612 792] /ImagingBBox null>>setpagedevice"
+*PageRegion Legal/US Legal: "<< /Policies <</PageSize 7>> /PageSize [612 1008] /ImagingBBox null>>setpagedevice"
+*PageRegion A4/A4: "<< /Policies <</PageSize 7>> /PageSize[595 842] /ImagingBBox null>>setpagedevice"
+*PageRegion Executive/Executive: "<</Policies <</PageSize 7>> /PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageRegion Folio/Folio: "<</Policies <</PageSize 7>> /PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageRegion JB5/JIS B5: "<</Policies <</PageSize 7>> /PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageRegion B5/ISO B5 Env.: "<</Policies <</PageSize 7>> /PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageRegion A5/A5: "<</Policies <</PageSize 7>> /PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageRegion COM10/No.10 Env.: "<</Policies <</PageSize 7>> /PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*PageRegion Monarch/Monarch Env.: "<</Policies <</PageSize 7>> /PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*PageRegion DL/DL Env.: "<</Policies <</PageSize 7>> /PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*PageRegion C5/C5 Env.: "<</Policies <</PageSize 7>> /PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*PageRegion C6/C6 Env.: "<</Policies <</PageSize 7>> /PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*PageRegion A6/A6 Env.: "<</Policies <</PageSize 7>> /PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageRegion
+
+*% This is where you define the SPL2 tray selection. The value name is send in the SPL2 header.
+*OpenUI *InputSlot/Paper Source: PickOne
+*DefaultInputSlot: AUTO
+*InputSlot AUTO/Auto Select: ""
+*InputSlot MANUAL/Manual Feed: ""
+*InputSlot MULTI/Multii-Purpose Tray: ""
+*InputSlot UPPER/Tray 1: ""
+*InputSlot LOWER/Tray 2: ""
+*CloseUI: *InputSlot
+
+*% Generic boilerplate PPD stuff babbling about paper dimensions and
+*% the usual Postscript fonts offered by Ghostscript.  Contributions
+*% to spice this up are welcome! 
+
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter: "12.5 12.5 599.5 779.5"
+*ImageableArea Legal/Legal: "12.5 12.5 599.5 995.5"
+*ImageableArea A4/A4: "12.5 12.5 582.5 829.5"
+*ImageableArea Executive/Executive: "12.5 12.5 509.5 743.5"
+*ImageableArea Folio/Folio: "12.5 12.5 599.5 923.5"
+*ImageableArea JB5/JIS B5: "12.5 12.5 503.5 716.5"
+*ImageableArea B5/B5 Env.: "12.5 12.5 486.5 696.5"
+*ImageableArea A5/A5: "12.5 12.5 407.5 582.5"
+*ImageableArea COM10/No.10 Env.: "12.5 12.5 284.5 671.5"
+*ImageableArea Monarch/Monarch: "12.5 12.5 266.5 527.5"
+*ImageableArea DL/DL Env.: "12.5 12.5 299.5 611.5"
+*ImageableArea C5/C5 Env.: "12.5 12.5 446.5 636.5"
+*ImageableArea C6/C6 Env.: "12.5 12.5 310.5 446.5"
+*ImageableArea A6/A6 Env.: "12.5 12.5 284.5 407.5"
+
+*DefaultCompression: FBXOR
+*Compression FBXOR/FBXOR: "1"
+*Compression Adaptive/Adaptive: "1"
+
+*DefaultPaperDimension: Letter
+*PaperDimension Letter:	"612 792"
+*PaperDimension Legal:	"612 1008"
+*PaperDimension A4:	"595 842"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension Folio/Folio: "612 936"
+*PaperDimension JB5/JIS B5: "516 729"
+*PaperDimension B5/ISO B5 Env.: "499 709"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension COM10/No.10 Env.: "297 684"
+*PaperDimension Monarch/Monarch Env.: "279 540"
+*PaperDimension DL/DL Env.: "312 624"
+*PaperDimension C5/C5 Env.: "459 649"
+*PaperDimension C6/C6 Env.: "323 459"
+*PaperDimension A6/A6 Env.: "297 420"
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
+*JCLOpenUI *MediaType/Paper Type: PickOne
+*DefaultMediaType: PRINTER
+*MediaType PRINTER/Use Printer Default: "@PJL SET PAPERTYPE = OFF<0A>"
+*MediaType Normal/Plain Paper: "@PJL SET PAPERTYPE = NORMAL<0A>"
+*MediaType Thick/Thick Paper: "@PJL SET PAPERTYPE = THICK<0A>"
+*MediaType Thin/Thin Paper: "@PJL SET PAPERTYPE = THIN<0A>"
+*MediaType Bond/Bond: "@PJL SET PAPERTYPE = BOND<0A>"
+*MediaType OHP/Transparency: "@PJL SET PAPERTYPE = OHP<0A>"
+*MediaType Card/Card Stock: "@PJL SET PAPERTYPE = CARD<0A>"
+*MediaType Label/Label: "@PJL SET PAPERTYPE = LABEL<0A>"
+*MediaType Used/Preprinted: "@PJL SET PAPERTYPE = USED<0A>"
+*MediaType Color/Colored Paper: "@PJL SET PAPERTYPE = COLOR<0A>"
+*MediaType Env/Envelope: "@PJL SET PAPERTYPE = ENV<0A>"
+*JCLCloseUI: *MediaType
+
+*JCLOpenUI *JCLEconomode/Toner Save: PickOne
+*DefaultJCLEconomode: PRINTERDEFAULT
+*JCLEconomode PRINTERDEFAULT/Use Printer Default: ""
+*JCLEconomode SAVE/Save: "@PJL SET ECONOMODE = ON<0A>"
+*JCLEconomode STANDARD/Standard: "@PJL SET ECONOMODE = OFF<0A>"
+*JCLCloseUI: *JCLEconomode
+
+*JCLOpenUI *JCLJamrecovery/Reprint When Jam: PickOne
+*DefaultJCLJamrecovery: RWJOff
+*JCLJamrecovery RWJ/On: "@PJL SET JAMRECOVERY = ON<0A>"
+*JCLJamrecovery RWJOff/Off: "@PJL SET JAMRECOVERY = OFF<0A>"
+*JCLCloseUI: *JCLJamrecovery
+
+*JCLOpenUI *JCLRET/SRT Mode: PickOne
+*DefaultJCLRET: OFF
+*OrderDependency: 10 JCLSetup  *JCLRET
+*JCLRET OFF/Normal: "@PJL SET RET = NORMAL<0A>"
+*JCLRET LIGHT/Text Enhance: "@PJL SET RET = ENHANCE<0A>"
+*JCLRET MEDIUM/Image Enhance: "@PJL SET RET = GRAY<0A>"
+*JCLCloseUI: *JCLRET

@@ -1,0 +1,79 @@
+#
+# legacy_compat (legacy compatibility) package
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+human_readable_name() {
+	echo "legacy-compatibility"
+}
+
+package_name() {
+	echo "legacy_compat"
+}
+
+# Use default "empty" suffix
+#package_suffix() {
+#}
+
+# use default "empty" dependencies
+#dependencies() {
+#}
+
+package_on_load() {
+        log_message ""
+
+	# define "PACKAGE_NAME" and "PACKAGE_SUFFIX"
+	PACKAGE_NAME=$(package_name)
+	log_variable PACKAGE_NAME
+	PACKAGE_SUFFIX=$(package_suffix)
+	log_variable PACKAGE_SUFFIX
+
+	# define "INSTALL_DIR" for "install_dir()"
+	INSTALL_DIR=$(_install_dir "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")
+	log_variable INSTALL_DIR
+
+	# define "VERSION" for "version()"
+	# _version_file( PACKAGE_NAME, PACKAGE_SUFFIX ) // ${INSTALL_BASE_DIR}, ${VENDOR_LC}
+	VERSION_FILE=$(_version_file "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")
+	log_variable VERSION_FILE
+	VERSION=$(_load_version_from_file "${VERSION_FILE}")
+	log_variable VERSION
+
+	# define "DIST_VERSION" for "dist_version()"
+	DIST_VERSION="0.1"
+	log_variable DIST_VERSION
+
+        return
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# need to create ${INSTALL_BASE_DIR}/smfp-common/mfp/uninstall/guiuninstall
+compatibility_with_old_versions() {
+	mkdir_p "${INSTALL_BASE_DIR}/smfp-common"
+	mkdir_p "${INSTALL_BASE_DIR}/smfp-common/mfp"
+	mkdir_p "${INSTALL_BASE_DIR}/smfp-common/mfp/uninstall"
+	touch_p "${INSTALL_BASE_DIR}/smfp-common/mfp/uninstall/guiuninstall"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+do_install() {
+	log_message "installing '$(package_name)' package"
+	compatibility_with_old_versions 2>&1 | log_redirected_output
+
+	# install version file
+	log_variable DIST_VERSION
+        VERSION_FILE="$(_version_file "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")"
+        log_variable VERSION_FILE
+	echo "${DIST_VERSION}" > "${VERSION_FILE}"
+	register_installed_item "${VERSION_FILE}"
+}
+
+# use default "empty" do_uninstall()
+#do_uninstall() {
+#	log_message "uninstalling '$(package_name)' package"
+#}

@@ -1,0 +1,818 @@
+#
+# This file contains 'package' run-time support utility functions.
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+# WARNING: This file depends on functions from "run_time_utils" file.
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# depends on "SCRIPT"
+#
+package_log_init() {
+	local PACKAGE
+	local PID
+	local USER_NAME
+
+	if [ -z "${SCRIPT}" ] ; then _abort_execution "'SCRIPT' is undefined" ; fi
+
+	PACKAGE="$1" ; if [ -z "${PACKAGE}" ] ; then _abort_execution "'PACKAGE' is unspecified" ; fi
+	USER_NAME="$(id -un)"
+	PID="$$"
+
+        PACKAGE_LOG_FILE="/tmp/${USER_NAME}_${PID}_${SCRIPT}_${PACKAGE}.log"
+        log_variable PACKAGE_LOG_FILE
+        rm -f "${PACKAGE_LOG_FILE}"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+_get_arch_subdir() {
+	local ARCH
+	local ARCH_SUBDIR
+
+	if [ -n "${FORCEARCH}" ] ; then
+		ARCH="${FORCEARCH}"
+	elif { which rpm && rpm -q rpm; } >/dev/null 2>&1 ; then
+		log_message "using 'rpm'"
+		ARCH="$(rpm -q rpm --qf "%{ARCH}\n")"
+	elif which dpkg >/dev/null 2>&1 ; then
+		log_message "using 'dpkg'"
+		ARCH="$(dpkg --print-architecture)"
+	else
+		log_message "using 'uname'"
+		ARCH="$(uname -m)"
+        fi
+	log_variable ARCH
+
+	case "${ARCH}" in
+		"i386"|"i486"|"i586"|"i686")
+			ARCH_SUBDIR="i386"
+			;;
+
+		"x86_64"|"amd64")
+			ARCH_SUBDIR="x86_64"
+			;;
+
+		"arm")
+			ARCH_SUBDIR="arm"
+			;;
+
+		*)
+			_abort_execution "Unexpected architecture '${ARCH}'"
+			;;
+	esac
+	log_variable ARCH_SUBDIR
+
+        echo "${ARCH_SUBDIR}"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# depends on "DIST_DIR"
+#
+nls_init() {
+	local GETTEXT_RESULT
+	local NLS_TEST_MSG
+
+	if [ -z "${DIST_DIR}" ] ; then _abort_execution "'DIST_DIR' is undefined" ; fi
+
+
+	# NLS needs "TEXTDOMAIN" and "TEXTDOMAINDIR"
+
+	TEXTDOMAIN="install"
+	export TEXTDOMAIN
+	log_variable TEXTDOMAIN
+
+	TEXTDOMAINDIR="${DIST_DIR}/noarch/share/locale"
+	export TEXTDOMAINDIR
+	log_variable TEXTDOMAINDIR
+
+
+	GETTEXT_BINARY="$(2>/dev/null which gettext)"
+	export GETTEXT_BINARY
+	log_variable GETTEXT_BINARY
+
+	if [ -n "${GETTEXT_BINARY}" ] ; then
+		NLS_TEST_MSG="This is NLS test message"
+		GETTEXT_RESULT="$(LC_ALL="C" "${GETTEXT_BINARY}" "${NLS_TEST_MSG}")"
+		log_variable GETTEXT_RESULT
+		if [ "${NLS_TEST_MSG}" != "${GETTEXT_RESULT}" ] ; then
+			log_message "'gettext' is inoperable"
+			unset GETTEXT_BINARY
+		fi
+	fi
+
+
+	export ENVSUBST_BINARY="$(2>/dev/null which envsubst)"
+	log_variable ENVSUBST_BINARY
+
+	if [ -n "${ENVSUBST_BINARY}" ] ; then
+		ENVSUBST_RESULT="$(echo "${NLS_TEST_MSG}" | LC_ALL="C" "${ENVSUBST_BINARY}")"
+		log_variable ENVSUBST_RESULT
+		if [ "${NLS_TEST_MSG}" != "${ENVSUBST_RESULT}" ] ; then
+			log_message "'envsubst' is inoperable"
+			unset ENVSUBST_BINARY
+		fi
+	fi
+
+
+	if [ -n "${GETTEXT_BINARY}" ] ; then
+		if [ -n "${ENVSUBST_BINARY}" ] ; then
+			log_message "all necessary 'gettext' tools are available"
+			# Note: Implementation of "eval_gettext" was borrowed from "gettext.sh"
+			eval_gettext() {
+				# Note: "PATH" below is necessary for success of "export" if $("${ENVSUBST_BINARY}" --variables "$1") returns nothing
+				"${GETTEXT_BINARY}" "$1" | (export PATH $("${ENVSUBST_BINARY}" --variables "$1") ; "${ENVSUBST_BINARY}" "$1")
+			}
+		else
+			log_message "'gettext' without 'envsubst'"
+			eval_gettext() {
+				GETTEXT_RESULT="$(${GETTEXT_BINARY} "$1")"
+				eval "echo" "\"${GETTEXT_RESULT}\""
+			}
+		fi
+	else
+		log_message "not all necessary 'gettext' tools are available"
+		eval_gettext() {
+			eval "echo" "\"$1\""
+		}
+	fi
+
+	# WARNING: The whole message must be in single argument.
+	show_nls_message() {
+		local MESSAGE
+		local TRANSLATED
+
+		if [ $# -ne 1 ] ; then _abort_execution "Usage: show_nls_message \"message\"" ; fi
+		MESSAGE="$1"
+		log_variable MESSAGE
+		TRANSLATED="$(eval_gettext "${MESSAGE}")"
+		log_variable TRANSLATED
+		echo "${TRANSLATED}"
+	}
+
+	show_nls_message_no_nl() {
+		local MESSAGE
+		local TRANSLATED
+
+		if [ $# -ne 1 ] ; then _abort_execution "Usage: show_nls_message \"message\"" ; fi
+		MESSAGE="$1"
+		log_variable MESSAGE
+		TRANSLATED="$(eval_gettext "${MESSAGE}")"
+		log_variable TRANSLATED
+		echo -n "${TRANSLATED}"
+	}
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# depends on "OEM_FILE"
+#
+# $1 - field name
+#
+get_oem_field() {
+	local FIELD_NAME
+
+	if [ -z "${OEM_FILE}" ] ; then _abort_execution "'OEM_FILE' is undefined" ; fi
+
+	FIELD_NAME="$1"
+	[ -z "${FIELD_NAME}" ] && return 1
+
+	grep "^${FIELD_NAME}=" "${OEM_FILE}" 2>/dev/null | sed 's/\"//g' | sed "s/${FIELD_NAME}=\(.*\)/\1/"
+}
+
+#
+# depends on "OEM_FILE"
+#
+specify_vendor() {
+	if [ -z "${OEM_FILE}" ] ; then _abort_execution "'OEM_FILE' is undefined" ; fi
+	if [ ! -r "${OEM_FILE}" ] ; then _abort_execution "'${OEM_FILE}' is unavailable" ; fi
+
+	VENDOR="$(grep '^VENDOR=' "${OEM_FILE}" 2>/dev/null | sed 's/VENDOR=\(.*\)/\1/')"
+	log_variable VENDOR
+	if [ -z "${VENDOR}" ] ; then _abort_execution "'VENDOR' is unspecified" ; fi
+
+	VENDOR_UC="$(echo "${VENDOR}" | tr a-z A-Z)"
+	VENDOR_LC="$(echo "${VENDOR}" | tr A-Z a-z)"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# depends on "SCRIPTS_DIR"
+#
+environment_init() {
+	if [ -z "${SCRIPTS_DIR}" ] ; then _abort_execution "'SCRIPTS_DIR' is undefined" ; fi
+
+	SCRIPT="$1"
+
+	unset DBUS_SESSION_BUS_ADDRESS
+
+	# - - - -
+	# Reset important environment variables to prevent unnecessary
+	# propagation between independent scripts invoking each other.
+	# - - - -
+	unset DIST_DIR
+	unset DIST_VERSION
+	unset DIST_VERSION_FILE
+	unset INSTALL_DIR
+	unset INSTALL_LOG_FILE
+	unset OEM_FILE
+	unset PACKAGE
+	unset PACKAGE_DIR
+	unset PACKAGE_NAME
+	unset PACKAGE_SUFFIX
+	unset REFERENCES_DIR
+	unset TEXTDOMAIN
+	unset TEXTDOMAINDIR
+	unset VENDOR
+	unset VENDOR_LC
+	unset VERSION
+	unset VERSION_FILE
+	# - - - -
+
+	export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+
+	# Expecting: SCRIPTS_DIR="${DIST_DIR}/noarch"
+	DIST_DIR="$(absolute_dir_path "${SCRIPTS_DIR}/..")"
+	log_variable DIST_DIR
+
+	ARCH_SUBDIR="$(_get_arch_subdir)"
+
+	# "${DIST_DIR}/${ARCH_SUBDIR}" shall contain "gettext" and "envsubst"
+	PATH="$PATH:${DIST_DIR}/${ARCH_SUBDIR}" nls_init
+
+	if [ "${ARCH_SUBDIR}" = "x86_64" ]; then
+		PLSFX=64
+		LIBSFX=64
+		if [ ! -d /usr/lib${LIBSFX} ] ; then
+			LIBSFX=
+		fi
+	else
+		PLSFX=
+		LIBSFX=
+	fi
+
+	PACKAGE_DIR="${DIST_DIR}/noarch"
+	log_variable PACKAGE_DIR
+
+	OEM_FILE="${DIST_DIR}/noarch/oem.conf"
+	log_variable OEM_FILE
+	if [ -r "${OEM_FILE}" ] ; then
+		specify_vendor
+	fi
+
+	INSTALL_BASE_DIR="/opt"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# Old API
+#
+# depends on "VENDOR_LC"
+#
+_install_subdir() {
+	local INSTALL_SUBDIR
+	local PACKAGE_NAME
+	local PACKAGE_SUFFIX
+
+	if [ -z "${VENDOR_LC}" ] ; then _abort_execution "'VENDOR_LC' is undefined" ; fi
+
+	PACKAGE_NAME="$1" ; if [ -z "${PACKAGE_NAME}" ] ;then _abort_execution "'PACKAGE_NAME' is unspecified" ; fi
+	log_variable PACKAGE_NAME
+	PACKAGE_SUFFIX="$2" # 'PACKAGE_SUFFIX' is optional
+	log_variable PACKAGE_SUFFIX
+
+	if [ -z "${PACKAGE_SUFFIX}" ]; then
+		# common package
+		INSTALL_SUBDIR="smfp-common/${PACKAGE_NAME}"
+	else
+		# vendor specific package
+		INSTALL_SUBDIR="${VENDOR_LC}/${PACKAGE_NAME}"
+	fi
+	log_variable INSTALL_SUBDIR
+
+	echo "${INSTALL_SUBDIR}"
+}
+
+#
+# Old API
+#
+# depends on "INSTALL_BASE_DIR"
+# depends on "_install_subdir()", which depends on "VENDOR_LC"
+#
+_install_dir() {
+	local INSTALL_DIR
+	local INSTALL_SUBDIR
+	local PACKAGE_NAME
+	local PACKAGE_SUFFIX
+
+	if [ -z "${INSTALL_BASE_DIR}" ] ; then _abort_execution "'INSTALL_BASE_DIR' is undefined" ; fi
+	if [ -z "${VENDOR_LC}" ] ; then _abort_execution "'VENDOR_LC' is undefined" ; fi
+
+	PACKAGE_NAME="$1" ; if [ -z "${PACKAGE_NAME}" ] ;then _abort_execution "'PACKAGE_NAME' is unspecified" ; fi
+	log_variable PACKAGE_NAME
+	PACKAGE_SUFFIX="$2" # 'PACKAGE_SUFFIX' is optional
+	log_variable PACKAGE_SUFFIX
+
+	INSTALL_SUBDIR="$(_install_subdir "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")"
+	log_variable INSTALL_SUBDIR
+
+	INSTALL_DIR="${INSTALL_BASE_DIR}/${INSTALL_SUBDIR}"
+	log_variable INSTALL_DIR
+
+	echo "${INSTALL_DIR}"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#
+# depends on "_install_dir()", which depends on "INSTALL_BASE_DIR", "VENDOR_LC"
+#
+_version_file() {
+	local INSTALL_DIR
+	local PACKAGE_NAME
+	local PACKAGE_SUFFIX
+	local VERSION_FILE
+
+	PACKAGE_NAME="$1" ; if [ -z "${PACKAGE_NAME}" ] ;then _abort_execution "'PACKAGE_NAME' is unspecified" ; fi
+	log_variable PACKAGE_NAME
+	PACKAGE_SUFFIX="$2" # 'PACKAGE_SUFFIX' is optional
+	log_variable PACKAGE_SUFFIX
+
+	INSTALL_DIR="$(_install_dir "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")"
+
+	VERSION_FILE="${INSTALL_DIR}/.version"
+	log_variable VERSION_FILE
+
+	echo "${VERSION_FILE}"
+}
+
+#
+# depends on "DIST_DIR"
+#
+_dist_version_file() {
+	local DIST_VERSION_FILE
+	local PACKAGE_NAME
+	local PACKAGE_SUFFIX
+
+	if [ -z "${DIST_DIR}" ] ; then _abort_execution "'DIST_DIR' is undefined" ; fi
+
+	PACKAGE_NAME="$1" ; if [ -z "${PACKAGE_NAME}" ] ;then _abort_execution "'PACKAGE_NAME' is unspecified" ; fi
+	PACKAGE_SUFFIX="$2" # 'PACKAGE_SUFFIX' is optional
+
+	DIST_VERSION_FILE="${DIST_DIR}/noarch/.version-${PACKAGE_NAME}${PACKAGE_SUFFIX}"
+	log_variable DIST_VERSION_FILE
+
+	echo "${DIST_VERSION_FILE}"
+}
+
+_load_version_from_file() {
+	local VERSION_FILE
+	local VERSION_STRING
+
+	VERSION_FILE="$1"
+	#log_variable VERSION_FILE
+	VERSION_STRING="0"
+
+	# file exists and has non-zero size
+	if [ -s "${VERSION_FILE}" ] ; then
+	    VERSION_STRING="$(cat "${VERSION_FILE}")"
+	fi
+	log_variable VERSION_STRING
+
+	echo "${VERSION_STRING}"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+load_package() {
+	local PACKAGE
+
+	PACKAGE="$1"
+	log_variable PACKAGE
+
+	# Note: uncomment the following line to create separate log files for each package
+	#package_log_init "${PACKAGE}"
+
+	# load 'package' API defaults
+	. "${SCRIPTS_DIR}/package_api_defaults"
+
+	# load 'package' API re-implementation
+	PACKAGE_FILE="${PACKAGE_DIR}/${PACKAGE}.pkg"
+	log_variable PACKAGE_FILE
+	if [ ! -r "${PACKAGE_FILE}" ] ; then  _abort_execution "package file '${PACKAGE_FILE}' is unavailable" ; fi
+	. "$PACKAGE_FILE"
+
+
+	# initialize package (new API)
+	package_on_load
+
+
+	# WARNING: Old API "package_init" depends on "INSTALL_DIR", "VENDOR_LC", "DIST_DIR"
+
+	PACKAGE_NAME="$(package_name)"
+	log_variable PACKAGE_NAME
+
+	PACKAGE_SUFFIX="$(package_suffix)"
+	log_variable PACKAGE_SUFFIX
+
+	#INSTALL_DIR="$(_install_dir "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")"
+	INSTALL_DIR="$(install_dir)"
+	log_variable INSTALL_DIR
+
+	REFERENCES_DIR="${INSTALL_DIR}/.usedby"
+	log_variable REFERENCES_DIR
+
+	INSTALL_LOG_FILE="${INSTALL_DIR}/.files"
+	log_variable INSTALL_LOG_FILE
+
+	# initialize package (old API)
+	package_init
+}
+
+################################################################################
+
+have_root_permissions() {
+	return "$(id -u)"
+}
+
+################################################################################
+# Copy files procedures
+
+#
+# registers installed item in install log
+#
+# depends on "INSTALL_LOG_FILE"
+#
+register_installed_item() {
+	local INSTALL_LOG_FILE_DIR
+	local ITEM
+
+	if [ -z "${INSTALL_LOG_FILE}" ] ; then _abort_execution "'INSTALL_LOG_FILE' is undefined" ; fi
+
+	ITEM="$1"
+	log_variable ITEM
+
+	if [ ! -f "${INSTALL_LOG_FILE}" ] ; then
+		INSTALL_LOG_FILE_DIR="$(dirname "${INSTALL_LOG_FILE}")"
+		if [ ! -d "${INSTALL_LOG_FILE_DIR}" ] ; then
+			# create necessary parent directories
+			log_message "mkdir -p ${INSTALL_LOG_FILE_DIR}"
+			mkdir -p "${INSTALL_LOG_FILE_DIR}"
+		fi
+	fi
+
+	echo "${ITEM}" >> "${INSTALL_LOG_FILE}"
+}
+
+install_log() {
+	while read src_dst
+	do
+		src="$( echo $src_dst | awk -F\" '{print $2}')"
+		dst="$(  echo $src_dst | awk -F\" '{print $4}')"
+		install "$src" "$dst"
+		chown root:root "$dst"
+		register_installed_item "${dst}"
+	done
+}
+
+install_p() {
+	local dest
+	local filename
+
+	if [ -n "$1" -a -n "$2" ]; then
+		dest="$2"
+		if [ -d "$dest" ] ; then
+			filename="$(basename "$1")"
+			dest="$2/$filename"
+		fi
+		register_installed_item "${dest}"
+		install "$1" "$dest"
+		return "$?"
+	fi
+	return 1
+}
+
+install_data_p() {
+	local dest
+	local filename
+
+	if [ -n "$1" -a -n "$2" ]; then
+		dest="$2"
+		if [ -d "$dest" ] ; then
+			filename="$(basename "$1")"
+			dest="$2/$filename"
+		fi
+		register_installed_item "${dest}"
+		install -m644 "$1" "$dest"
+		return "$?"
+	fi
+	return 1
+}
+
+mkdir_log() {
+	while read newdir
+	do
+		mkdir -p "$newdir"
+		register_installed_item "${newdir}"
+	done
+}
+
+mkdir_p() {
+	if [ -n "$1" ]; then
+		register_installed_item "$1"
+		mkdir -p "$1"
+		return "$?"
+	fi
+	return 1
+}
+
+lns_p() {
+	local dest
+	local filename
+
+	if [ -L "$2" ] ; then
+		rm -f -- "$2"
+	fi
+
+	if [ -n "$1" -a -n "$2" ]; then
+		dest="$2"
+		if [ -d "$dest" ] ; then
+			filename="$(basename "$1")"
+			dest="$2/$filename"
+		fi
+		register_installed_item "${dest}"
+		ln -sf "$1" "$dest"
+		return "$?"
+	fi
+	return 1
+}
+
+install_lns_p() {
+	local dest
+	local dest2
+	local filename1
+	local filename2
+
+	if [ -z "$1" -o -z "$2" -o -z "$3" ] ; then
+		return 1
+	fi
+
+
+	dest="$2"
+	if [ -d "$dest" ] ; then
+		filename1="$(basename "$1")"
+		dest="$2/$filename1"
+	fi
+	register_installed_item "${dest}"
+	if ! install "$1" "$dest" ; then
+		return 1
+	fi
+
+
+	dest2="$3"
+	if [ -d "$dest2" ] ; then
+		filename2="$(basename "$1")"
+		dest2="$dest2/$filename2"
+	fi
+	register_installed_item "${dest2}"
+	ln -sf "$dest" "$dest2"
+	return "$?"
+}
+
+register_obsolete_install_lns_p() {
+	local dest
+	local dest2
+	local filename1
+	local filename2
+
+	if [ -z "$1" -o -z "$2" -o -z "$3" ] ; then
+		return 1
+	fi
+
+
+	dest="$2"
+	if [ -d "$dest" ] ; then
+		filename1="$(basename "$1")"
+		dest="$2/$filename1"
+	fi
+	register_installed_item "${dest}"
+
+
+	dest2="$3"
+	if [ -d "$dest2" ] ; then
+		filename2="$(basename "$1")"
+		dest2="$dest2/$filename2"
+	fi
+	register_installed_item "${dest2}"
+
+	return 0
+}
+
+install_lns_data_p() {
+	local dest
+	local dest2
+	local filename1
+	local filename2
+
+	if [ -z "$1" -o -z "$2" -o -z "$3" ] ; then
+		return 1
+	fi
+
+
+	dest="$2"
+	if [ -d "$dest" ] ; then
+		filename1="$(basename "$1")"
+		dest="$2/$filename1"
+	fi
+	register_installed_item "${dest}"
+	if ! install -m644 "$1" "$dest" ; then
+		return 1
+	fi
+
+
+	dest2="$3"
+	if [ -d "$dest2" ] ; then
+		filename2="$(basename "$1")"
+		dest2="$dest2/$filename2"
+	fi
+	register_installed_item "${dest2}"
+	ln -sf "$dest" "$dest2"
+	return "$?"
+}
+
+touch_p() {
+	if [ -z "$1" ] ; then
+		return 1
+	fi
+	register_installed_item "$1"
+	touch "$1"
+}
+
+# $1 - source directory
+# $2 - destination directory
+copy_directories() {
+	local DEST_DIR
+
+	DEST_DIR="$2"
+	if [ ! -d "${DEST_DIR}" ] ; then
+		show_nls_message "**** ERROR: Destination directory \${DEST_DIR} does not exist. Copy operation aborted."
+		return 1
+	fi
+
+	#destination directory must be ended by "/",
+	#but ended with only one "/",
+	#because "install" doesn't work correctly with SELinux context
+	#if we have double slash at the begining of the folder path
+	echo "${DEST_DIR}" | grep '/$' > /dev/null 2>&1
+	if [ "$?" = "1" ] ; then
+		dst_dir="$(echo "${DEST_DIR}"/)"
+	else
+		dst_dir="${DEST_DIR}"
+	fi
+
+	src_dir="$1"
+	if [ "$src_dir" ] && [ -d "$src_dir" ]; then
+		( cd "$src_dir" && find . -type d ) | grep -v ^\.$ | \
+			sed -e "s:\(^\./\)\(.*\):$dst_dir\2:"  | mkdir_log
+		( cd "$src_dir" && find . -type f -o -type l ) | \
+			sed -e "s:\(^\./\)\(.*\):\"$src_dir/\2\" \"$dst_dir\2\":"  | install_log
+	fi
+}
+
+################################################################################
+
+# Make reference to common (vendor independent) printer driver part
+register_dependency() {
+	local DEPENDENCIES
+	local DEPENDENCY
+	local DEPENDENCY_INSTALL_DIR
+	local DEPENDENCY_PACKAGE_NAME
+	local DEPENDENCY_PACKAGE_SUFFIX
+	local DEPENDENCY_REFERENCES_DIR
+	local REFERENCE_NAME
+	local LINK
+	local LINK_TARGET
+
+	# register references directory for deinstallation.
+	# Note: there is no need to create it here.
+	register_installed_item "${REFERENCES_DIR}"
+
+	DEPENDENCIES="$(dependencies)"
+	log_variable DEPENDENCIES
+	if [ -z "${DEPENDENCIES}" ] ; then return ; fi
+
+	for DEPENDENCY in ${DEPENDENCIES} ; do
+		DEPENDENCY_PACKAGE_NAME="$(echo "${DEPENDENCY}" | sed 's/\([^-]\+\)\(.*\)/\1/')"
+		log_variable DEPENDENCY_PACKAGE_NAME
+		# '
+		DEPENDENCY_PACKAGE_SUFFIX="$(echo "${DEPENDENCY}" | sed 's/\([^-]\+\)\(.*\)/\2/')"
+		log_variable DEPENDENCY_PACKAGE_SUFFIX
+		# '
+		DEPENDENCY_INSTALL_DIR="$(_install_dir "${DEPENDENCY_PACKAGE_NAME}" "${DEPENDENCY_PACKAGE_SUFFIX}")"
+		DEPENDENCY_REFERENCES_DIR="${DEPENDENCY_INSTALL_DIR}/.usedby"
+		log_variable DEPENDENCY_REFERENCES_DIR
+
+
+		if [ -z "${PACKAGE_SUFFIX}" ]; then
+			# common package
+			REFERENCE_NAME="${PACKAGE_NAME}"
+		else
+			# vendor specific package
+			# FIXME: scanner's backend expects '.usedby' link name equal to vendor's name"
+			#REFERENCE_NAME="${VENDOR_LC}-${PACKAGE_NAME}${PACKAGE_SUFFIX}"
+			REFERENCE_NAME="${VENDOR_LC}"
+		fi
+		log_variable REFERENCE_NAME
+
+		LINK="${DEPENDENCY_REFERENCES_DIR}/${REFERENCE_NAME}"
+		LINK_TARGET="${INSTALL_DIR}"
+
+		if [ ! -d "${DEPENDENCY_REFERENCES_DIR}" ] ; then
+			log_message "mkdir -p ${DEPENDENCY_REFERENCES_DIR}"
+			mkdir -p "${DEPENDENCY_REFERENCES_DIR}" | log_redirected_output
+		fi
+		if [ -L "${LINK}" ] ; then
+			log_message "rm -f -- ${LINK}"
+			rm -f -- "${LINK}" | log_redirected_output
+		fi
+		log_message "ln -sfv ${LINK_TARGET} ${LINK}"
+		ln -sfv "${LINK_TARGET}" "${LINK}" | log_redirected_output
+		register_installed_item "${LINK}"
+	done
+}
+
+#
+# Checks if there is no registered dependants
+#
+isUninstallPossible() {
+# return values:
+# 0(success): means uninstall is possible
+# !0(fail): means uninstall is not possible
+	log_variable PACKAGE_SUFFIX
+	log_variable INSTALL_LOG_FILE
+
+	# Temporary workaround to avoid uninstalling of the non-meta package multiple times
+	# INSTALL_LOG_FILE is used as an indicator that the package is installed, if it doesn't exist then do not proceed the package uninstalling
+	if [ "x${PACKAGE_SUFFIX}" != "x-meta" ] && ! [ -f "${INSTALL_LOG_FILE}" ]; then
+		log_message "'${INSTALL_LOG_FILE}' doesn't exist => package is not installed (already uninstalled)"
+		return 1
+	fi
+
+	# Try to remove references dir. It will fail if directory contains any reference link.
+	log_message "rmdir ${REFERENCES_DIR}"
+	rmdir "${REFERENCES_DIR}" 2>/dev/null
+
+	if [ -d "${REFERENCES_DIR}" ] ; then
+		log_message "dependants detected"
+		return 1
+	fi
+
+	log_message "no dependants detected"
+}
+
+remove_package_files() {
+	local ITEM
+	local LINES
+
+	if ! [ -f "${INSTALL_LOG_FILE}" ] ; then
+		return 1
+	fi
+
+	LINES="$( wc -l "${INSTALL_LOG_FILE}" | awk '{print $1}')"
+	for i in $(seq 1 $LINES ) ; do
+		ITEM="$(tail -$i "${INSTALL_LOG_FILE}" | head -1)"
+		log_variable ITEM
+		if [ -f "$ITEM" ] ; then
+			rm -f "$ITEM"
+		elif [ -h "$ITEM" ] ; then
+			rm -f "$ITEM"
+		elif [ -d "$ITEM" ] ; then
+			rmdir "$ITEM" 2>&1 | log_redirected_output
+		fi
+	done
+	rm -f "${INSTALL_LOG_FILE}"
+	return 0
+}
+
+################################################################################
+# Special output
+
+output_blank_line() {
+	echo ""
+}
+
+show_cut_line() {
+	echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+}
+
+################################################################################
+
+log_message "EOF"

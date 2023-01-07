@@ -1,0 +1,128 @@
+#
+# ("firewall" and "selinux") security package
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+human_readable_name() {
+	echo "'firewall' and 'selinux' security"
+}
+
+package_name() {
+	echo "security"
+}
+
+# Use default "empty" suffix
+#package_suffix() {
+#}
+
+dependencies() {
+	echo "legacy_compat"
+}
+
+package_on_load() {
+        log_message ""
+
+	# define "PACKAGE_NAME" and "PACKAGE_SUFFIX"
+	PACKAGE_NAME=$(package_name)
+	log_variable PACKAGE_NAME
+	PACKAGE_SUFFIX=$(package_suffix)
+	log_variable PACKAGE_SUFFIX
+
+	# define "INSTALL_DIR" for "install_dir()"
+	INSTALL_DIR=$(_install_dir "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")
+	log_variable INSTALL_DIR
+
+	# define "VERSION" for "version()"
+	# _version_file( PACKAGE_NAME, PACKAGE_SUFFIX ) // ${INSTALL_BASE_DIR}, ${VENDOR_LC}
+	VERSION_FILE=$(_version_file "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")
+	log_variable VERSION_FILE
+	VERSION=$(_load_version_from_file "${VERSION_FILE}")
+	log_variable VERSION
+
+	# define "DIST_VERSION" for "dist_version()"
+	DIST_VERSION="0.1"
+	log_variable DIST_VERSION
+
+        return
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# allow cups bind 22161 udp port
+# for netprinter discovery
+# $1 - delete or add ( -d or -a )
+selinux_rule() {
+	local SEMANAGE=semanage
+	if ! which "$SEMANAGE" >/dev/null 2>&1; then
+		SEMANAGE=/usr/sbin/semanage
+		if ! [ -f "$SEMANAGE" ]; then
+			echo "Failed to find 'semanage'" >&2
+			return 1
+		fi
+	fi
+
+	"$SEMANAGE" port "$1" -t ipp_port_t -p udp 22161
+}
+
+install_selinux_rule() {
+	selinux_rule "-a"
+}
+
+uninstall_selinux_rule() {
+	selinux_rule "-d"
+}
+
+install_firewall() {
+	# Setup firewall support
+	show_nls_message "**** Are you going to use network devices ? If yes, it is recommended to configure your firewall."
+	show_nls_message_no_nl "**** If you want to configure firewall automatically, enter 'y' or just press 'Enter'. To skip, enter 'n'. : "
+	if [ -z "${CONFIGURE_FIREWALL}" ] ; then
+		read CONFIGURE_FIREWALL
+	fi
+	if [ -z "${CONFIGURE_FIREWALL}" ] || [ "y" = "${CONFIGURE_FIREWALL}" ] || [ "Y" = "${CONFIGURE_FIREWALL}" ]; then
+		. "${DIST_DIR}/noarch/firewall.sh"
+		make_hole_in_firewall "${DIST_DIR}/noarch" 2>&1 | log_redirected_output
+		touch_p "$FIREWALL_FILE"
+	fi
+}
+
+uninstall_firewall() {
+	if [ "$REMOVE_FIREWALL" ]; then
+		. "${DIST_DIR}/noarch/firewall.sh"
+		plug_hole_in_firewall "${DIST_DIR}/noarch"
+	fi
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+do_install() {
+	log_message "installing '$(package_name)' package"
+	install_firewall
+	install_selinux_rule 2>&1 | log_redirected_output
+
+	# install version file
+	log_variable DIST_VERSION
+        VERSION_FILE="$(_version_file "${PACKAGE_NAME}" "${PACKAGE_SUFFIX}")"
+        log_variable VERSION_FILE
+	echo "${DIST_VERSION}" > "${VERSION_FILE}"
+	register_installed_item "${VERSION_FILE}"
+}
+
+do_uninstall() {
+	log_message "uninstalling '$(package_name)' package"
+	uninstall_firewall 2>&1 | log_redirected_output
+	uninstall_selinux_rule 2>&1 | log_redirected_output
+}
+
+# should be called after common_init
+package_init() {
+	FIREWALL_FILE="${INSTALL_DIR}/.firewall"
+	# need to do it here because function do_uninstall is called after deleting all files
+	REMOVE_FIREWALL=
+	if [ -f "${FIREWALL_FILE}" ]; then
+		REMOVE_FIREWALL="1"
+	fi
+}

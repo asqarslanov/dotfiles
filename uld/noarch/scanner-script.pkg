@@ -1,0 +1,284 @@
+#
+# "scanner-script" ("scanner-vendor-script") package
+#
+# NOTE: This file must be "sourced" (not executed).
+#
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+human_readable_name() {
+	echo "scanner script package"
+}
+
+package_name() {
+	echo "scanner"
+}
+
+package_suffix(){
+	echo "-script"
+}
+
+dependencies() {
+	echo "scanner"
+}
+
+get_missing_requirements() {
+	log_variable FORCENOSANE
+	if [ -n "${FORCENOSANE}" ] ; then
+		echo "sane"
+	fi
+	if ! PATH=$PATH:/sbin:/usr/sbin ldconfig -p | grep '\<libsane\.so\>' 1>/dev/null 2>&1 ; then
+		echo "sane"
+	fi
+	log_message ""
+}
+
+report_missing_requirements() {
+	show_nls_message "**** SANE package is currently not installed on your system. Please install it first to install & use scan driver properly."
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# $1 - output file path
+
+generate_smfp_usermap() {
+	local VID="$(get_oem_field 'VID')"
+	local PIDS="$(get_oem_field 'PIDS')"
+	local FILE="$1"
+	> ${FILE}
+	# Add usb device lines according to predefined pattern
+	for PID in $PIDS ; do
+		echo "libusbscanner             0x0003      0x${VID}   0x${PID}    0x0000       0x0000       0x00         0x00            0x00            0x00            0x00               0x00               0x00000000" >> ${FILE}
+	done
+}
+
+trigger_libusbscanner_hotplug() {
+	local VID="$(get_oem_field 'VID')"
+	local PIDS="$(get_oem_field 'PIDS')"
+
+	log_message "Triggering libusbscanner hotplug script for connected scanners..."
+	for PID in $PIDS ; do
+		LINE=$(/sbin/lsusb -d 0x$VID:0x$PID)
+		if [ $? = 0 ] ; then
+			USB_PATH=$(echo $LINE | awk '{print "/proc/bus/usb/"$2"/"$4};')
+			USB_PATH=${USB_PATH%%:}
+			log_message "Running: ACTION=\"add\" DEVICE=\"${USB_PATH}\" /etc/hotplug/usb/libusbscanner"
+			ACTION="add" DEVICE="${USB_PATH}" /etc/hotplug/usb/libusbscanner
+		fi
+	done
+	return 0
+}
+
+restart_udev() {
+	if ( cat /etc/issue 2>/dev/null | grep -q "Fedora release 9" ); then
+		true
+	elif udevadm help >/dev/null 2>&1; then
+		udevadm control --reload_rules || udevadm control --reload-rules
+
+		local VID="$(get_oem_field 'VID')"
+		local PIDS="$(get_oem_field 'PIDS')"
+		# reset /dev/usb/lp*
+		local usbresetter="${DIST_DIR}/${ARCH_SUBDIR}/usbresetter"
+		if [ -f "$usbresetter" ]; then
+			log_message "$usbresetter $VID $PIDS "
+			"$usbresetter" $VID $PIDS 2>&1 | log_redirected_output
+		fi
+		if udevadm trigger --help | grep "\--attr-match" >/dev/null 2>&1 ; then
+			for pid in $PIDS ; do
+				udevadm trigger --action=add --attr-match=idVendor=$VID --attr-match=idProduct=$pid
+				log_message "udevadm trigger --action=add --attr-match=idVendor=$VID --attr-match=idProduct=$pid"
+			done
+		elif udevadm trigger --help | grep "\--subsystem-match" >/dev/null 2>&1 ; then
+			udevadm trigger --action=add --subsystem-match=usb --subsystem-match=usb_device
+			log_message "udevadm trigger --action=add --subsystem-match=usb --subsystem-match=usb_device"
+		else 
+			udevadm trigger --action=add
+			log_message "udevadm trigger --action=add"
+		fi
+	elif udevtrigger --help >/dev/null 2>&1; then
+		udevcontrol reload_rules
+		udevtrigger
+		log_message "udevtrigger"
+	elif test -f /etc/init.d/udev ; then
+		/etc/init.d/udev restart
+		log_message "/etc/init.d/udev restart"
+	elif test -f /sbin/start_udev ; then
+		/sbin/start_udev
+		log_message "/sbin/start_udev"
+	else
+		return 1
+	fi
+	return 0
+}
+
+restart_hal() {
+	local HAL_DEMON_NAME_LIST="hal hald haldaemon"
+	for i in $HAL_DEMON_NAME_LIST ; do
+		local FULL_NAME="/etc/init.d/$i"
+		if [ -f "$FULL_NAME" ]; then
+			"$FULL_NAME" restart 2>&1 | log_redirected_output
+		fi
+	done
+}
+
+# $1 - template path
+# $2 - output file name
+fill_full_template() {
+
+	# teplate files can use tab() function
+	# to insert '\t' symbol
+	tab2() {
+	# $1 - number of tabs inserted
+		local amount=$1
+		if [ -z "$amount" ] ; then
+			amount="1";
+		fi
+		for i in $(seq 1 $amount) ; do
+			echo -n "    "
+		done
+	}
+	tab() {
+	# $1 - number of tabs inserted
+		local amount=$1
+		if [ -z "$amount" ] ; then
+			amount="1";
+		fi
+		for i in $(seq 1 $amount) ; do
+			echo -n "    "
+		done
+	}
+
+	local template="$1"
+	local output="$2"
+
+	[ -z "$template" -o -z "$output" ] && return 1
+
+	local tmp_file=$(mktemp -t tmp_file.XXXX)
+
+	local VID="$(get_oem_field "VID")"
+	local PIDS="$(get_oem_field "PIDS")"
+
+	while read line; do
+		eval echo \"$line\" >> "$tmp_file"
+	done < "$template"
+	install_p "$tmp_file" "$output"
+	rm "$tmp_file"
+}
+
+
+sane_config() {
+	echo "/etc/sane.d/smfp-${VENDOR_LC}.conf"
+}
+
+find_sane_udev_rule_number() {
+	local RULES
+	local NUMBER
+	local NUM
+	local RULE
+	local CUT1
+
+	RULES=$(ls /etc/udev/rules.d/*sane*.rules /lib/udev/rules.d/*sane*.rules 2>/dev/null)
+	NUMBER=100
+	for RULE in ${RULES}
+	do
+		RULE=$(basename ${RULE})
+		CUT1=$(echo ${RULE} | cut -f1 -d'-')
+		if [ ${#RULE} -ne ${#CUT1} ]; then
+			NUM=$CUT1		
+		else
+			CUT1=$(echo ${RULE} | cut -f1 -d'_')
+			if [ ${#RULE} -ne ${#CUT1} ]; then
+				NUM=$CUT1
+			fi
+		fi
+		if [ ${NUMBER} -gt ${NUM} ]; then
+			NUMBER=${NUM}
+		fi
+	done
+	RULE_NUMBER=$((NUMBER-1))
+}
+
+udev_rules() {
+	local RULE_NUMBER
+	find_sane_udev_rule_number
+	log_variable RULE_NUMBER
+	echo "/etc/udev/rules.d/${RULE_NUMBER}-smfp_${VENDOR_LC}.rules"
+}
+
+hal_rules() {
+	echo "/usr/share/hal/fdi/policy/10osvendor/01_smfp_${VENDOR_LC}.fdi"
+}
+
+install_base_files() {
+	## packet specific files
+
+	install_p "$DIST_SANE_CONFIG_FILE" $(sane_config)
+
+	fill_full_template "$DIST_UDEV_RULES_FILE_IN" $(udev_rules)
+	fill_full_template "$DIST_HAL_RULES_FILE_IN" $(hal_rules)
+
+	mkdir_p "${INSTALL_DIR}/share"
+	install_p "${OEM_FILE}" "${INSTALL_DIR}/share/"
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+do_install() {
+	log_message "installing '${VENDOR_LC}'/'$(package_name)' package"
+
+	local TEMP_LOG_FILE=`mktemp -t temp.log.XXX`
+	log_variable TEMP_LOG_FILE
+
+	install_base_files 2>&1 | log_redirected_output
+
+	restart_hal 2>&1 | log_redirected_output
+
+	show_nls_message "**** Restarting udev ..."
+	if ! restart_udev >"${TEMP_LOG_FILE}" 2>&1 ; then
+		cat "${TEMP_LOG_FILE}" | log_redirected_output
+		show_nls_message "**** Failure to restart udev"
+	fi
+
+	if [ -f /etc/hotplug/usb/libusbscanner ] ; then
+		USERMAP="/etc/hotplug/usb/libsane-smfp-${VENDOR_LC}.usermap"
+		log_message "Generating ${USERMAP}..."
+		generate_smfp_usermap "${USERMAP}"
+		trigger_libusbscanner_hotplug
+	fi
+
+	rm -f "${TEMP_LOG_FILE}" 1>/dev/null 2>&1
+
+	return 0
+}
+
+do_uninstall() {
+	log_message "uninstalling '${VENDOR_LC}'/'$(package_name)' package"
+
+	local TEMP_LOG_FILE=`mktemp -t temp.log.XXX`
+	log_variable TEMP_LOG_FILE
+
+	restart_hal 2>&1 | log_redirected_output
+
+	show_nls_message "**** Restarting udev ..."
+	if ! restart_udev >"${TEMP_LOG_FILE}" 2>&1 ; then
+		cat "${TEMP_LOG_FILE}" | log_redirected_output
+		show_nls_message "**** Failure to restart udev"
+	fi
+	if [ -f /etc/hotplug/usb/libusbscanner ] ; then
+		USERMAP="/etc/hotplug/usb/libsane-smfp-${VENDOR_LC}.usermap"
+		log_message "Removing ${USERMAP}"
+		rm -f "${USERMAP}"
+	fi
+
+	rm -f "${TEMP_LOG_FILE}" 1>/dev/null 2>&1
+
+	return 0
+}
+
+package_init() {
+	# TODO: put here real path
+	# now try to find smfp.conf in uld/noarch
+	DIST_SANE_CONFIG_FILE="${DIST_DIR}/noarch/etc/smfp.conf"
+	DIST_UDEV_RULES_FILE_IN="${DIST_DIR}/noarch/etc/smfp.rules.in"
+	DIST_HAL_RULES_FILE_IN="${DIST_DIR}/noarch/etc/smfp.fdi.in"
+}

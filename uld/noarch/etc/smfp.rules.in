@@ -1,0 +1,29 @@
+# This file is a part of Unified Linux Driver
+# Rules to allow low level USB device access for smfpautoconf
+#
+# For new distributions,
+# Permissions and group are set according to common libsane rules
+#
+
+ACTION!=\\"add\\", GOTO=\\"smfp_label_end\\"
+
+# Check device type
+ENV{DEVTYPE}==\\"usb_device\\", GOTO=\\"smfp_create_usb_dev\\"
+
+# Check SUBSYSTEM (should be either \\"usb\\" or \\"usb_device\\")
+SUBSYSTEM==\\"usb\\", GOTO=\\"smfp_create_usb_dev\\"
+SUBSYSTEM==\\"usb_device\\", GOTO=\\"smfp_create_usb_dev\\"
+
+GOTO=\\"smfp_label_end\\"
+
+LABEL=\\"smfp_create_usb_dev\\"
+
+# Check Vendor ID
+ATTR{idVendor}!=\\"$VID\\", GOTO=\\"smfp_label_end\\"
+
+$(for pid in $PIDS ; do echo "ATTRS{idProduct}==\\"$pid\\", ENV{libsane_matched}=\\"yes\\"" ; done)
+
+ENV{libsane_matched}==\\"yes\\", OWNER=\\"root\\", MODE=\\"664\\", GROUP=\\"lp\\"
+
+LABEL=\\"smfp_label_end\\"
+

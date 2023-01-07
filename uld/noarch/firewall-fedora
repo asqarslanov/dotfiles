@@ -1,0 +1,59 @@
+IPTABLES_SERVICE_NAME_4="iptables"
+IPTABLES_SERVICE_NAME_6="ip6tables"
+
+IPTABLES_BIN_PATH="/sbin"
+
+rule_template() {
+	echo "INPUT -p udp --sport 161 --dport $1 -j ACCEPT"
+}
+
+add_rules_iptables() {
+# $1 - iptables(ip6tables)
+# $2 - port
+	"${IPTABLES_BIN_PATH}/$1" "-I" `rule_template $2`
+}
+
+delete_rules_iptables() {
+# $1 - iptables(ip6tables)
+# $2 - port
+	"${IPTABLES_BIN_PATH}/$1" "-D" `rule_template $2`
+}
+
+save_rules_iptables() {
+	service "$1"-save > "$2"
+}
+
+change_rules_fedora() {
+	local ACTION=$1		# delete or add
+	local NAME=$2		# iptables(iptables6) restart service
+	local PORT=$3
+
+	# add or delete new rules to ip(6)tables
+	# first, delete old rules
+	# in order to avoid repeated rules
+	delete_rules_iptables "$NAME" "$PORT"
+	if [ "$ACTION" = "add" ] ; then
+		add_rules_iptables "$NAME" "$PORT"
+	fi
+
+	# save all rules to configfile
+	service "$NAME" save
+}
+
+plug_hifw_fedora() {
+	log_message "delete_rules_throught_Fedora_RH"
+
+	change_rules_fedora "delete" "$IPTABLES_SERVICE_NAME_4" "$1"
+	change_rules_fedora "delete" "$IPTABLES_SERVICE_NAME_6" "$1"
+}
+
+make_hifw_fedora() {
+# mhifw - make hole in firewall for Fedora and RH distr
+# add rules to iptables, then save new rules in /etc/systocfig/ip(6)tables
+	change_rules_fedora "add" "$IPTABLES_SERVICE_NAME_4" "$1"
+	local RESULT="$?"
+	change_rules_fedora "add" "$IPTABLES_SERVICE_NAME_6" "$1"
+
+	return $RESULT
+}
+

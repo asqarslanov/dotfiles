@@ -1,0 +1,123 @@
+FILE_NAME="rules.smfp"
+ABS_FILE_NAME="/etc/shorewall/$FILE_NAME"	
+SHOREWALL_RULES="/etc/shorewall/rules"
+SHOREWALL="/sbin/shorewall"
+INSERT_STRING="INCLUDE $ABS_FILE_NAME"
+
+
+dump_rules() {
+	local DUMP_FILE=`mktemp -t firewall.XXX`
+	cp "$SHOREWALL_RULES" "$DUMP_FILE"
+	echo "$DUMP_FILE"
+}
+
+restore_rules() {
+	cat "$1" > "$SHOREWALL_RULES"				
+	"$SHOREWALL" start
+}
+
+save_status() {
+	$SHOREWALL status
+}
+
+restore_status() {
+	#restore shorewall on/off status
+	if [ "$1" != "0" ] ; then
+		log_message "restore_status stop"
+		$SHOREWALL stop		 
+	fi
+}
+
+find_shorewall() {
+	if ! [ -f "$SHOREWALL" ] ; then 
+		log_message "cannot find file $SHOREWALL"
+		SHOREWALL="/sbin/shorewall-lite"
+	fi
+	
+	if ! [ -f "$SHOREWALL" ] ; then 
+		log_message "cannot find file $SHOREWALL"
+		return 1
+	fi
+	return 0
+}
+
+make_hifw_shorewall() {
+# $1 port
+	if ! find_shorewall ; then
+		return 1
+	fi
+
+	touch "$ABS_FILE_NAME"
+	
+	if ! [ -f "$ABS_FILE_NAME" ] ; then 
+		log_message "cannot fing $ABS_FILE_NAME"
+		return 1
+	fi
+
+	echo "ACCEPT all all udp $PORT 161" > "$ABS_FILE_NAME"
+
+	if ! [ -f "$SHOREWALL_RULES" ] ; then
+		return 1
+	fi
+	
+	$SHOREWALL status
+	local STATUS="$?"
+	log_message "STATUS <$STATUS>"
+	local DUMP_FILE=`dump_rules`
+	
+	local TMP_FILE=`mktemp -t firewall.XXX`
+	if ! [ -f "$TMP_FILE" ] ; then 
+		return 1
+	fi
+
+	if ! grep "$INSERT_STRING" "$SHOREWALL_RULES" ; then
+		if  grep "#LAST LINE" "$SHOREWALL_RULES" ; then 
+			cat "$SHOREWALL_RULES" | sed "/#LAST LINE/ i\\$INSERT_STRING" > "$TMP_FILE"
+			cat "$TMP_FILE" > "$SHOREWALL_RULES"
+		else
+			log_message "Not find #LAST_LINE"
+			echo "\
+$INSERT_STRING" >> "$SHOREWALL_RULES"
+		fi
+	fi
+
+	$SHOREWALL stop
+	if ! $SHOREWALL start ; then
+		log_message "something went wrong, so restore dumped firewall configuration"
+		restore_rules "$DUMP_FILE"
+ 		$SHOREWALL start 
+	fi
+	
+	restore_status $STATUS
+}
+
+plug_hifw_shorewall() {
+	if [ -f "$ABS_FILE_NAME" ] ; then 
+		rm -f "$ABS_FILE_NAME"
+	fi
+	
+	if ! [ -f "$SHOREWALL_RULES" ] ; then
+		return 1
+	fi
+	
+	$SHOREWALL status
+	local STATUS="$?"
+	local DUMP_FILE=`dump_rules`
+	
+	local TMP_FILE=`mktemp -t firewall.XXX`
+	if ! [ -f "$TMP_FILE" ] ; then 
+		return 1
+	fi	
+	cat "$SHOREWALL_RULES" | sed "/INCLUDE \/etc\/shorewall\/$FILE_NAME/d" > $TMP_FILE
+
+	mv "$TMP_FILE" "$SHOREWALL_RULES"	
+	
+	$SHOREWALL stop
+	if ! $SHOREWALL start ; then
+		# something went wrong, so restore dumped firewall configuration
+		restore_rules "$DUMP_FILE"
+		$SHOREWALL start
+	fi
+	
+	restore_status $STATUS
+}
