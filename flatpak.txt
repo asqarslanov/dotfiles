@@ -1,0 +1,31 @@
+Authy Desktop	com.authy.Authy	2.2.2	stable	system
+Discord	com.discordapp.Discord	0.0.22	stable	system
+Flatseal	com.github.tchx84.Flatseal	1.8.1	stable	system
+Google Chrome	com.google.Chrome	108.0.5359.124-1	stable	system
+Minecraft	com.mojang.Minecraft	1.0.1221	stable	system
+OBS Studio	com.obsproject.Studio	28.1.2	stable	system
+Figma for Linux	io.github.Figma_Linux.figma_linux	0.9.6	stable	system
+Freedesktop Platform	org.freedesktop.Platform	20.08.21	20.08	system
+Freedesktop Platform	org.freedesktop.Platform	21.08.17.1	21.08	system
+Freedesktop Platform	org.freedesktop.Platform	22.08.4	22.08	system
+Mesa	org.freedesktop.Platform.GL.default	21.1.8	20.08	system
+Mesa	org.freedesktop.Platform.GL.default	21.3.9	21.08	system
+Mesa	org.freedesktop.Platform.GL.default	22.2.4	22.08	system
+Mesa (Extra)	org.freedesktop.Platform.GL.default	22.2.4	22.08-extra	system
+nvidia-525-60-11	org.freedesktop.Platform.GL.nvidia-525-60-11		1.4	system
+ffmpeg-full	org.freedesktop.Platform.ffmpeg-full		21.08	system
+openh264	org.freedesktop.Platform.openh264	2.1.0	2.0	system
+openh264	org.freedesktop.Platform.openh264	2.1.0	2.2.0	system
+Freedesktop SDK	org.freedesktop.Sdk	22.08.4	22.08	system
+GNOME Application Platform version 43	org.gnome.Platform		43	system
+Adwaita theme	org.kde.KStyle.Adwaita		5.15-21.08	system
+Adwaita theme	org.kde.KStyle.Adwaita		5.15-22.08	system
+Adwaita theme	org.kde.KStyle.Adwaita		6.3	system
+KDE Application Platform	org.kde.Platform		5.15-21.08	system
+KDE Application Platform	org.kde.Platform		5.15-22.08	system
+KDE Application Platform	org.kde.Platform		6.3	system
+Dolphin	org.kde.dolphin	22.12.0	stable	system
+ONLYOFFICE Desktop Editors	org.onlyoffice.desktopeditors	7.2.1	stable	system
+Telegram Desktop	org.telegram.desktop	4.5	stable	system
+Telegram Desktop Webview Add-on	org.telegram.desktop.webview	2.38.3	stable	system
+VLC	org.videolan.VLC	3.0.18	stable	system
