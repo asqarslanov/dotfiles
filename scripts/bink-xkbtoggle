@@ -4,13 +4,6 @@ import os
 import subprocess
 
 
-def set_hyprland_xkb_layout(layout: str) -> None:
-    command = f'hyprctl keyword input:kb_layout {layout}'
-
-    arguments = command.split()
-    subprocess.run(arguments)
-
-
 layout_file_path = f'/home/{os.getlogin()}/.vars/xkb-layout'
 
 with open(layout_file_path) as layout_file:
@@ -20,9 +13,6 @@ if layout == 'us':
     layout = 'ru'
 else:
     layout = 'us'
-
-
-# set_hyprland_xkb_layout(layout)
 
 with open(layout_file_path, 'w') as layout_file:
     layout_file.write(layout)
