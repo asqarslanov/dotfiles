@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+
+
+def set_hyprland_gaps(gaps_in: int, gaps_out: int, rounding: int) -> None:
+    commands = (
+        f'hyprctl keyword general:gaps_in {gaps_in}',
+        f'hyprctl keyword general:gaps_out {gaps_out}',
+        f'hyprctl keyword windowrulev2 rounding {rounding} floating: 0',
+    )
+
+    for command in commands:
+        arguments = command.split()
+        subprocess.run(arguments)
+
+
+flag_file_path = f'/home/{os.getlogin()}/.vars/use-gaps'
+
+with open(flag_file_path) as flag_file:
+    flag = flag_file.read()
+
+if flag == 'true':
+    set_hyprland_gaps(0, 0, 0)
+    flag = 'false'
+else:
+    set_hyprland_gaps(6, 12, 12)
+    flag = 'true'
+
+with open(flag_file_path, 'w') as flag_file:
+    flag_file.write(flag)

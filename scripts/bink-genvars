@@ -4,8 +4,11 @@ import os
 import shutil
 
 DEFAULT_VARIABLES = {
+    # false, true
+    'use-gaps': 'false',
+
     # true, false
-    'opaque-inactive-windows': 'true',
+    'opaque-inactive': 'true',
 
     # us, ru
     'xkb-layout': 'us'
