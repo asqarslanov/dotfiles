@@ -16,7 +16,7 @@ def set_hyprland_gaps(gaps_in: int, gaps_out: int, rounding: int) -> None:
         subprocess.run(arguments)
 
 
-flag_file_path = f'/home/{os.getlogin()}/.vars/use-gaps'
+flag_file_path = f'/home/{os.getlogin()}/.local/vars/use-gaps'
 
 with open(flag_file_path) as flag_file:
     flag = flag_file.read()

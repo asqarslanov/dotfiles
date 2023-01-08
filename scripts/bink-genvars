@@ -15,7 +15,7 @@ DEFAULT_VARIABLES = {
 }
 
 
-base_dir = f'/home/{os.getlogin()}/.vars'
+base_dir = f'/home/{os.getlogin()}/.local/vars'
 
 if os.path.isfile(base_dir):
     os.remove(base_dir)

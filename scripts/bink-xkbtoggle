@@ -2,7 +2,7 @@
 
 import os
 
-layout_file_path = f'/home/{os.getlogin()}/.vars/xkb-layout'
+layout_file_path = f'/home/{os.getlogin()}/.local/vars/xkb-layout'
 
 with open(layout_file_path) as layout_file:
     layout = layout_file.read()
