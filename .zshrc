@@ -13,7 +13,9 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-alias nv=neovide --multigrid
+alias :q=exit
+alias :wq=exit
+alias :x=exit
 
 PROMPT=$'%F{7}\n%~\n%F{14}>%F{15} '
 # antigen bundle zsh-users/zsh-completions
