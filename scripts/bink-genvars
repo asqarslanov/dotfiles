@@ -1,29 +1,22 @@
 #!/usr/bin/env python3
 
-import os
-import shutil
+import sysinteraction
 
 DEFAULT_VARIABLES = {
-    # false, true
-    'use-gaps': 'false',
-
     # true, false
     'opaque-inactive': 'true',
+
+    # true, false
+    'show-bar': 'true',
+
+    # false, true
+    'use-gaps': 'false',
 
     # us, ru
     'xkb-layout': 'us'
 }
 
-
-base_dir = f'/home/{os.getlogin()}/.local/vars'
-
-if os.path.isfile(base_dir):
-    os.remove(base_dir)
-elif os.path.isdir(base_dir):
-    shutil.rmtree(base_dir)
-
-os.mkdir(base_dir)
+sysinteraction.update_directory(sysinteraction.variable_directory)
 
 for key, value in DEFAULT_VARIABLES.items():
-    with open(f'{base_dir}/{key}', 'w') as destination_file:
-        destination_file.write(str(value))
+    sysinteraction.write_variable(key, value)

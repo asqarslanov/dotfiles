@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
 
-import os
+import sysinteraction
 
-layout_file_path = f'/home/{os.getlogin()}/.local/vars/xkb-layout'
+VARIABLE_NAME = 'xkb-layout'
 
-with open(layout_file_path) as layout_file:
-    layout = layout_file.read()
+layout = sysinteraction.read_variable(VARIABLE_NAME)
 
 if layout == 'us':
-    layout = 'ru'
+    sysinteraction.write_variable(VARIABLE_NAME, 'ru')
 else:
-    layout = 'us'
-
-with open(layout_file_path, 'w') as layout_file:
-    layout_file.write(layout)
+    sysinteraction.write_variable(VARIABLE_NAME, 'us')

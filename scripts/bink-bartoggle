@@ -2,16 +2,15 @@
 
 import sysinteraction
 
-VARIABLE_NAME = 'opaque-inactive'
+VARIABLE_NAME = 'show-bar'
 
 flag = sysinteraction.read_variable(VARIABLE_NAME)
 
 if flag:
-    opacity_value = 1
+    command = 'eww close bar'
 else:
-    opacity_value = 0.75
+    command = 'eww open bar'
 
-command = f'hyprctl keyword decoration:inactive_opacity {opacity_value}'
 sysinteraction.execute(command)
 
 sysinteraction.write_variable(VARIABLE_NAME, not flag)

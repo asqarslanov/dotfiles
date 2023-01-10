@@ -65,7 +65,7 @@
 
 (defwindow bar
   :monitor 0
-  :stacking "overlay"
+  :stacking "fg"
   :exclusive true
   :focusable false
   :geometry (geometry :x "0%"
