@@ -13,7 +13,7 @@ if flag:
 else:
     gaps_in = 6
     gaps_out = 24
-    rounding = 12
+    rounding = 16
 
 commands = (
     f'hyprctl keyword general:gaps_in {gaps_in}',
