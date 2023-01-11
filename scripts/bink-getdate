@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+import datetime
+
+
+def get_current_date() -> str:
+    now = datetime.datetime.now()
+
+    weekday = now.strftime('%a')
+    month = now.strftime('%b')
+    day = now.strftime('%d').lstrip('0')
+
+    return f"{weekday} {month} {day}"
+
+
+current_date = get_current_date()
+print(current_date)

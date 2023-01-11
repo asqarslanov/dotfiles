@@ -61,7 +61,7 @@
   "scripts/getvol")
 
 (defpoll time :interval "10s"
-  "echo $(cat /sys/class/power_supply/BAT1/capacity)% $(date '+%I:%M %p')")
+  "echo $(cat /sys/class/power_supply/BAT1/capacity)% $(bink-getdate)  $(bink-gettime)")
 
 (defwindow bar
   :monitor 0
