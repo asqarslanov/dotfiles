@@ -6,15 +6,9 @@
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label "🔊"
+    (metric :label ""
             :value volume
             :onchange "amixer -D pulse sset Master {}%")
-    (metric :label ""
-            :value {EWW_RAM.used_mem_perc}
-            :onchange "")
-    (metric :label "💾"
-            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-            :onchange "")
     time))
 
 (defwidget workspaces []
@@ -38,7 +32,7 @@
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {music != "" ? "🎵${music}" : ""}))
+    {music}))
 
 
 (defwidget metric [label value onchange]
@@ -54,8 +48,8 @@
 
 
 
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+(defpoll music :interval "2s"
+  "bink-getdate")
 
 (defpoll volume :interval "3600s"
   "scripts/getvol")
