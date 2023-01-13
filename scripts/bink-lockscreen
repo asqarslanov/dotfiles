@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+brightness="$(brightnessctl g)"
+brightnessctl s 1%
+swaylock -c 000000 --font "Google Sans"
+brightnessctl s $brightness
+echo $brightness
