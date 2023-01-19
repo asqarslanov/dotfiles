@@ -48,8 +48,8 @@
 
 
 
-(defpoll music :interval "2s"
-  "bink-getdate")
+(defpoll music
+  "bink-getactivewindowtitle")
 
 (defpoll volume :interval "3600s"
   "scripts/getvol")

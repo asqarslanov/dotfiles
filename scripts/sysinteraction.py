@@ -12,6 +12,15 @@ def execute(command: str) -> None:
     subprocess.run(arguments)
 
 
+def get_command_output(command: str) -> str:
+    arguments = command.split()
+    process = subprocess.run(arguments, capture_output=True, text=True)
+
+    result: str = process.stdout
+
+    return result
+
+
 def read_variable(name: str) -> typing.Any:
     with open(f'{variable_directory}/{name}') as variable_file:
         value = variable_file.read()
