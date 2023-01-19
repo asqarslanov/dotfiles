@@ -8,6 +8,10 @@ command = 'hyprctl activewindow -j'
 active_window_info_raw = sysinteraction.get_command_output(command)
 
 active_window_info = json.loads(active_window_info_raw)
+
+if not active_window_info:
+    exit()
+
 active_window_title = active_window_info['title']
 
 if len(active_window_title) > 48:
