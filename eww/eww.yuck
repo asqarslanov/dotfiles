@@ -25,7 +25,8 @@
     (button :onclick "hyprctl dispatch workspace 6" 6)
     (button :onclick "hyprctl dispatch workspace 7" 7)
     (button :onclick "hyprctl dispatch workspace 8" 8)
-    (button :onclick "hyprctl dispatch workspace 9" 9)))
+    (button :onclick "hyprctl dispatch workspace 9" 9)
+    (button :onclick "hyprctl dispatch workspace 10" 0)))
 
 (defwidget music []
   (box :class "music"
@@ -48,14 +49,14 @@
 
 
 
-(defpoll music
+(defpoll music :interval "0s"
   "bink-getactivewindowtitle")
 
 (defpoll volume :interval "3600s"
   "scripts/getvol")
 
-(defpoll time :interval "10s"
-  "echo $(cat /sys/class/power_supply/BAT1/capacity)% $(bink-getdate)  $(bink-gettime)")
+(defpoll time :interval "0s"
+  "echo $(cat ~/.local/vars/xkb-layout) $(cat /sys/class/power_supply/BAT1/capacity)% $(bink-getdate) $(bink-gettime)")
 
 (defwindow bar
   :monitor 0

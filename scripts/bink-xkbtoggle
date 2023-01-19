@@ -6,7 +6,7 @@ VARIABLE_NAME = 'xkb-layout'
 
 layout = sysinteraction.read_variable(VARIABLE_NAME)
 
-if layout == 'us':
-    sysinteraction.write_variable(VARIABLE_NAME, 'ru')
+if layout == 'US':
+    sysinteraction.write_variable(VARIABLE_NAME, 'RU')
 else:
-    sysinteraction.write_variable(VARIABLE_NAME, 'us')
+    sysinteraction.write_variable(VARIABLE_NAME, 'US')

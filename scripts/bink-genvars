@@ -13,7 +13,7 @@ DEFAULT_VARIABLES = {
     'use-gaps': 'false',
 
     # us, ru
-    'xkb-layout': 'us'
+    'xkb-layout': 'US'
 }
 
 sysinteraction.update_directory(sysinteraction.variable_directory)
