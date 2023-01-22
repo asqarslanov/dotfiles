@@ -1,63 +1,3 @@
-(defwidget bar []
-  (centerbox :orientation "h"
-    (workspaces)
-    (music)
-    (sidestuff)))
-
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label ""
-            :value volume
-            :onchange "amixer -D pulse sset Master {}%")
-    time))
-
-(defwidget workspaces []
-  (box :class "workspaces"
-       :orientation "h"
-       :space-evenly true
-       :halign "start"
-       :spacing 10
-    (button :onclick "hyprctl dispatch workspace 1" 1)
-    (button :onclick "hyprctl dispatch workspace 2" 2)
-    (button :onclick "hyprctl dispatch workspace 3" 3)
-    (button :onclick "hyprctl dispatch workspace 4" 4)
-    (button :onclick "hyprctl dispatch workspace 5" 5)
-    (button :onclick "hyprctl dispatch workspace 6" 6)
-    (button :onclick "hyprctl dispatch workspace 7" 7)
-    (button :onclick "hyprctl dispatch workspace 8" 8)
-    (button :onclick "hyprctl dispatch workspace 9" 9)
-    (button :onclick "hyprctl dispatch workspace 10" 0)))
-
-(defwidget music []
-  (box :class "music"
-       :orientation "h"
-       :space-evenly false
-       :halign "center"
-    {music}))
-
-
-(defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
-
-
-
-(defpoll music :interval "0s"
-  "bink-getactivewindowtitle")
-
-(defpoll volume :interval "3600s"
-  "scripts/getvol")
-
-(defpoll time :interval "0s"
-  "echo $(cat ~/.local/vars/xkb-layout) $(cat /sys/class/power_supply/BAT1/capacity)% $(bink-getdate) $(bink-gettime)")
-
 (defwindow bar
   :monitor 0
   :stacking "fg"
@@ -69,3 +9,86 @@
                       :height "32px"
                       :anchor "top center")
   (bar))
+
+(defwidget bar []
+  (box :orientation "h"
+    (left-widgets)
+    (center-widgets)
+    (right-widgets)))
+
+(defwidget left-widgets []
+  (box :class "left-widgets"
+       :halign "start"
+    (workspaces)))
+
+(defwidget center-widgets []
+  (box :class "center-widgets"
+    (active-window-title)))
+
+(defwidget right-widgets []
+  (box :class "right-widgets"
+       :halign "end"
+    (keyboard-layout)
+    (battery)
+    (date)
+    (time)))
+
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :spacing 6
+    (button :onclick "hyprctl dispatch workspace 1" 1)
+    (button :onclick "hyprctl dispatch workspace 2" 2)
+    (button :onclick "hyprctl dispatch workspace 3" 3)
+    (button :onclick "hyprctl dispatch workspace 4" 4)
+    (button :onclick "hyprctl dispatch workspace 5" 5)
+    (button :onclick "hyprctl dispatch workspace 6" 6)
+    (button :onclick "hyprctl dispatch workspace 7" 7)
+    (button :onclick "hyprctl dispatch workspace 8" 8)
+    (button :onclick "hyprctl dispatch workspace 9" 9)
+    (button :onclick "hyprctl dispatch workspace 10" 0)))
+
+
+(defwidget active-window-title []
+  (box :class "active-window-title"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {active-window-title}))
+
+(defpoll active-window-title :interval "0.4s"
+  "bink-getactivewindowtitle")
+
+
+(defwidget keyboard-layout []
+  (box :class "active-window-title"
+    {keyboard-layout}))
+
+(defpoll keyboard-layout :interval "0.4s"
+  "cat ~/.local/vars/xkb-layout")
+
+
+(defwidget battery []
+  (box :class "battery"
+    {battery}))
+
+(defpoll battery :interval "0.4s"
+  "echo $(cat /sys/class/power_supply/BAT1/capacity)%")
+
+
+(defwidget date []
+  (box :class "date"
+    {date}))
+
+(defpoll date :interval "0.4s"
+  "bink-getdate")
+
+
+(defwidget time []
+  (box :class "time"
+    {time}))
+
+(defpoll time :interval "0.4s"
+  "bink-gettime")

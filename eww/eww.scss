@@ -11,11 +11,6 @@
 
 // Styles on classes (see eww.yuck for more information)
 
-.sidestuff slider {
-  all: unset;
-  color: #ffd5cd;
-}
-
 .metric scale trough highlight {
   all: unset;
   background-color: #D35D6E;
@@ -49,6 +44,10 @@
 .label-ram {
   font-size: large;
 }
+.workspaces {
+    padding-left: 10px;
+}
+
 .workspaces button:hover {
   color: #D35D6E;
 }
