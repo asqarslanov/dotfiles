@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+
+import sys
+
+import sysinteraction
+
+variables = {
+    # true, false
+    'change-inactive-opacity': 'true',
+
+    # 0, 1, 2
+    'gaps-level': 0,
+
+    # US, RU
+    'keyboard-layout': 'US',
+
+    # true, false
+    'show-bar': 'true'
+}
+
+if __name__ == '__main__':
+    arguments = sys.argv[1:]
+
+    for i in arguments:
+        key, value = i.split('=')
+        variables[key] = value
+
+    sysinteraction.update_directory(sysinteraction.vars_directory)
+
+    for key, value in variables.items():
+        sysinteraction.write_variable(key, value)
+
+    sysinteraction.print_success_message()

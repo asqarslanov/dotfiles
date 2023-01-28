@@ -1,3 +1,90 @@
-#!/usr/bin/env pypy3
+#!/usr/bin/env python3
 
-import _commands
+import glob
+import os
+import string
+import subprocess
+import sys
+
+ARGUMENTS = {
+    # command: "arguments"
+    'bar': "off | on | toggle",
+    'gen-vars': "'key'='value' 'key'='value' …"
+}
+
+
+def check_command_file(filepath: str) -> bool:
+    if not os.path.isfile(filepath):
+        return False
+
+    EXECUTABLE_MODE = 33261
+
+    if os.stat(filepath).st_mode != EXECUTABLE_MODE:
+        return False
+
+    filename = os.path.basename(filepath)
+    forbidden = string.punctuation + string.whitespace
+
+    for i in forbidden:
+        if i == '-':
+            continue
+
+        if i in filename:
+            return False
+
+    return True
+
+
+def print_help_message(
+        end_with_blank: bool = True,
+        indentation_size: int = 4
+) -> None:
+    indentation = indentation_size * " "
+
+    base_directory = os.path.dirname(__file__)
+    glob_pattern = os.path.join(base_directory, 'commands/*')
+
+    print(
+        "Usage: binkctl [command] (arguments)\n"
+        "\n"
+        "Commands:"
+    )
+
+    for command_path in glob.iglob(glob_pattern):
+        if not check_command_file(command_path):
+            continue
+
+        command_name = os.path.basename(command_path)
+        description = ARGUMENTS.get(command_name, "-")
+
+        print(indentation, end="")
+        print(command_name, description, sep=": ")
+
+    if end_with_blank:
+        print()
+
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print_help_message()
+
+        SUCCESS_CODE = 0
+        sys.exit(SUCCESS_CODE)
+
+    base_directory = os.path.dirname(__file__)
+    commands_directory = os.path.join(base_directory, 'commands')
+
+    command = sys.argv[1]
+    command_path = os.path.join(commands_directory, command)
+
+    if not check_command_file(command_path):
+        print_help_message()
+
+        INVALID_ARGUMENT_CODE = 22
+        sys.exit(INVALID_ARGUMENT_CODE)
+
+    # [command, argument_1, argument_2, ...]
+    command_with_arguments = sys.argv[1:]
+    command_with_arguments[0] = command_path
+
+    subprocess.run(command_with_arguments)
