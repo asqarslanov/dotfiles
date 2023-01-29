@@ -59,7 +59,7 @@
     {active-window-title}))
 
 (defpoll active-window-title :interval "0.4s"
-  "bink-getactivewindowtitle")
+  "binkctl active-window-title 48")
 
 
 (defwidget keyboard-layout []
