@@ -7,7 +7,7 @@ import typing
 import sysinteraction
 
 
-def clip(string: str, length_limit: typing.Union[int, None]) -> str:
+def trim(string: str, length_limit: typing.Union[int, None]) -> str:
     if length_limit is None:
         return string
 
@@ -38,6 +38,6 @@ if __name__ == '__main__':
         exit()
 
     active_window_title = active_window_info['title']
-    active_window_title = clip(active_window_title, length_limit)
+    active_window_title = trim(active_window_title, length_limit)
 
     print(active_window_title)
