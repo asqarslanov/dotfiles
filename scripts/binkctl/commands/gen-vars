@@ -22,12 +22,19 @@ if __name__ == '__main__':
     arguments = sys.argv[1:]
 
     for i in arguments:
-        key, value = i.split('=')
+        try:
+            key, value = i.split('=')
+        except BaseException:
+            sysinteraction.reload_system()
+
         variables[key] = value
 
     sysinteraction.update_directory(sysinteraction.vars_directory)
 
     for key, value in variables.items():
-        sysinteraction.write_variable(key, value)
+        try:
+            sysinteraction.write_variable(key, value)
+        except BaseException:
+            sysinteraction.reload_system()
 
     sysinteraction.print_success_message()

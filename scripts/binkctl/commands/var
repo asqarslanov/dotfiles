@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+import glob
+import os
+import sys
+
+import sysinteraction
+
+
+def get(arguments: list) -> None:
+    if len(arguments) > 1:
+        sysinteraction.exit_with_error()
+
+    if not arguments:
+        glob_pattern = os.path.join(sysinteraction.vars_directory, '*')
+
+        for variable_path in glob.iglob(glob_pattern):
+            key = os.path.basename(variable_path)
+            value = sysinteraction.read_variable(key, False)
+
+            print(key, value, sep="=")
+
+    else:
+        key = arguments[0]
+        value = sysinteraction.read_variable(key, False)
+
+        print(value)
+
+
+def set(arguments: list) -> None:
+    for i in arguments:
+        try:
+            key, value = i.split('=')
+            sysinteraction.write_variable(key, value, False)
+        except BaseException:
+            sysinteraction.reload_system()
+
+    sysinteraction.print_success_message()
+
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        sysinteraction.exit_with_error()
+
+    action = sys.argv[1]
+    arguments = sys.argv[2:]
+
+    match action:
+        case 'get':
+            get(arguments)
+
+        case 'set':
+            set(arguments)
+
+        case _:
+            sysinteraction.exit_with_error()

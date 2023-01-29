@@ -17,10 +17,10 @@ if __name__ == '__main__':
         action = sys.argv[1]
 
         match action:
-            case 'off':
-                flag = True
             case 'on':
                 flag = False
+            case 'off':
+                flag = True
             case _:
                 sysinteraction.exit_with_error()
 

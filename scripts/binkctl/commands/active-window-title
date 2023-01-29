@@ -2,8 +2,20 @@
 
 import json
 import sys
+import typing
 
 import sysinteraction
+
+
+def clip(string: str, length_limit: typing.Union[int, None]) -> str:
+    if length_limit is None:
+        return string
+
+    if len(string) > length_limit:
+        string = string[: length_limit - 1] + "…"
+
+    return string
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 2:
@@ -17,7 +29,7 @@ if __name__ == '__main__':
 
         length_limit = int(sys.argv[1])
 
-    command = 'hyprctl activewindow -j'
+    command = 'hyprctl -j activewindow'
     active_window_info_raw = sysinteraction.get_command_output(command)
 
     active_window_info = json.loads(active_window_info_raw)
@@ -26,8 +38,6 @@ if __name__ == '__main__':
         exit()
 
     active_window_title = active_window_info['title']
-
-    if length_limit is not None and len(active_window_title) > length_limit:
-        active_window_title = active_window_title[: length_limit - 1] + "…"
+    active_window_title = clip(active_window_title, length_limit)
 
     print(active_window_title)

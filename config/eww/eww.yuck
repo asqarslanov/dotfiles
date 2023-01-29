@@ -67,7 +67,7 @@
     {keyboard-layout}))
 
 (defpoll keyboard-layout :interval "0.4s"
-  "cat ~/.local/vars/xkb-layout")
+  "binkctl var get keyboard-layout")
 
 
 (defwidget battery []

@@ -9,16 +9,65 @@ base_directory = os.path.dirname(commands_directory)
 vars_directory = os.path.join(base_directory, 'vars')
 
 
-def execute(command: str) -> None:
+def convert_to_json(object: typing.Any) -> str:
+    match object:
+        case True:
+            return 'true'
+        case False:
+            return 'false'
+        case None:
+            return 'null'
+
+    if isinstance(object, str):
+        return object
+
+    return str(object)
+
+
+def convert_to_python(
+        object: str
+) -> typing.Union[bool, float, int, str, None]:
+    match object:
+        case 'true':
+            return True
+        case 'false':
+            return False
+        case 'null':
+            return None
+
+    try:
+        return int(object)
+    except ValueError:
+        pass
+
+    try:
+        return float(object)
+    except ValueError:
+        pass
+
+    return object
+
+
+def execute(command: str, silent: bool = True) -> None:
     arguments = command.split()
-    subprocess.run(arguments)
+
+    if silent:
+        subprocess.run(arguments, stdout=subprocess.DEVNULL)
+    else:
+        subprocess.run(arguments)
 
 
-def exit_with_error() -> None:
-    print(
-        "Invalid arguments!\n"
-        ""
-    )
+def exit_with_error(reloading: bool = False) -> None:
+    if reloading:
+        print(
+            "Invalid arguments! Reloading…\n"
+            ""
+        )
+    else:
+        print(
+            "Invalid arguments!\n"
+            ""
+        )
 
     INVALID_ARGUMENT_CODE = 22
     sys.exit(INVALID_ARGUMENT_CODE)
@@ -33,44 +82,41 @@ def get_command_output(command: str) -> str:
     return result
 
 
-def read_variable(name: str) -> typing.Any:
-    with open(f'{vars_directory}/{name}') as variable_file:
+def read_variable(name: str, convert: bool = True) -> typing.Any:
+    variable_file_path = os.path.join(vars_directory, name)
+
+    if not os.path.isfile(variable_file_path):
+        if convert:
+            return None
+        else:
+            return convert_to_json(None)
+
+    with open(variable_file_path) as variable_file:
         value = variable_file.read()
 
-    if value[-1] == '\n':
-        value = value[:-1]
+    value = value.removesuffix('\n')
 
-    match value:
-        case 'true':
-            return True
-        case 'false':
-            return False
-        case 'null':
-            return None
-
-    try:
-        return int(value)
-    except ValueError:
-        pass
-
-    try:
-        return float(value)
-    except ValueError:
-        pass
+    if convert:
+        value = convert_to_python(value)
 
     return value
 
 
-def write_variable(name: str, value: typing.Any) -> None:
-    match value:
-        case True:
-            value = 'true'
-        case False:
-            value = 'false'
-        case None:
-            value = 'null'
+def reload_system(exit: bool = True) -> None:
+    command = 'hyprctl reload'
+    execute(command)
 
-    with open(f'{vars_directory}/{name}', 'w') as variable_file:
+    if exit:
+        exit_with_error(True)
+
+
+def write_variable(name: str, value: typing.Any, convert: bool = True) -> None:
+    if convert:
+        value = convert_to_json(value)
+
+    variable_file_path = os.path.join(vars_directory, name)
+
+    with open(variable_file_path, 'w') as variable_file:
         print(value, file=variable_file)
 
 
