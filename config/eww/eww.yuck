@@ -83,7 +83,7 @@
     {date}))
 
 (defpoll date :interval "0.4s"
-  "bink-getdate")
+  "binkctl date")
 
 
 (defwidget time []
@@ -91,4 +91,4 @@
     {time}))
 
 (defpoll time :interval "0.4s"
-  "bink-gettime")
+  "binkctl time")

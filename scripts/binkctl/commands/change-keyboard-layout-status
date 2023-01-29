@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+import sys
+
+import sysinteraction
+
+VARIABLE_NAME = 'keyboard-layout'
+
+if __name__ == '__main__':
+    current_layout = sysinteraction.read_variable(VARIABLE_NAME)
+
+    if len(sys.argv) > 2:
+        sysinteraction.exit_with_error()
+
+    if len(sys.argv) == 1:
+        if current_layout == 'US':
+            new_layout = 'RU'
+        else:
+            new_layout = 'US'
+
+    elif len(sys.argv) == 2:
+        new_layout = sys.argv[1]
+
+    sysinteraction.write_variable(VARIABLE_NAME, new_layout)

@@ -7,23 +7,22 @@ import sysinteraction
 VARIABLE_NAME = 'show-bar'
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
+    if len(sys.argv) > 2:
         sysinteraction.exit_with_error()
 
-    action = sys.argv[1]
+    if len(sys.argv) == 1:
+        flag = sysinteraction.read_variable(VARIABLE_NAME)
 
-    match action:
-        case 'off':
-            flag = True
+    elif len(sys.argv) == 2:
+        action = sys.argv[1]
 
-        case 'on':
-            flag = False
-
-        case 'toggle':
-            flag = sysinteraction.read_variable(VARIABLE_NAME)
-
-        case _:
-            sysinteraction.exit_with_error()
+        match action:
+            case 'off':
+                flag = True
+            case 'on':
+                flag = False
+            case _:
+                sysinteraction.exit_with_error()
 
     if flag:
         command = 'eww close bar'

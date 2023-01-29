@@ -8,8 +8,10 @@ import sys
 
 ARGUMENTS = {
     # command: "arguments"
-    'bar': "off | on | toggle",
-    'gen-vars': "'key'='value' 'key'='value' …"
+    'active-window-title': "- | <length limit: int>",
+    'bar': "- | off | on",
+    'change-keyboard-layout-status': "- | 'new layout'",
+    'gen-vars': "- | 'key'='value' 'key'='value' …",
 }
 
 
