@@ -12,7 +12,7 @@ def clip(string: str, length_limit: typing.Union[int, None]) -> str:
         return string
 
     if len(string) > length_limit:
-        string = string[: length_limit - 1] + "…"
+        string = "…" + string[-1 * (length_limit - 1):]
 
     return string
 
