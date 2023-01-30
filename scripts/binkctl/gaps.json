@@ -1,0 +1,20 @@
+{
+    "0": {
+        "general:gaps_in": 0,
+        "general:gaps_out": 0,
+        "decoration:rounding": 0,
+        "decoration:drop_shadow": "false"
+    },
+    "1": {
+        "general:gaps_in": 8,
+        "general:gaps_out": 16,
+        "decoration:rounding": 12,
+        "decoration:drop_shadow": "true"
+    },
+    "2": {
+        "general:gaps_in": 8,
+        "general:gaps_out": 32,
+        "decoration:rounding": 16,
+        "decoration:drop_shadow": "true"
+    }
+}

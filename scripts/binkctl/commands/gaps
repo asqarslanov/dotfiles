@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import sys
+
+import sysinteraction
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1 or len(sys.argv) > 3:
+        sysinteraction.exit_with_error()
+
+    VARIABLE_NAME = 'gaps-level'
+
+    current_level = sysinteraction.read_variable(VARIABLE_NAME)
+
+    keywords_path = os.path.join(sysinteraction.base_directory, 'gaps.json')
+
+    with open(keywords_path) as keywords_file:
+        keywords = json.load(keywords_file)
+
+    action = sys.argv[1]
+
+    match action:
+        case 'set':
+            if len(sys.argv) != 3:
+                sysinteraction.exit_with_error()
+
+            new_level = sys.argv[2]
+
+            if new_level not in ('0', '1', '2'):
+                sysinteraction.exit_with_error()
+
+        case 'next':
+            new_level = str((current_level + 1) % 3)
+
+        case 'previous':
+            new_level = str((current_level - 1) % 3)
+
+        case _:
+            sysinteraction.exit_with_error()
+
+    for key, value in keywords[new_level].items():
+        sysinteraction.set_keyword(key, value)
+
+    sysinteraction.write_variable(VARIABLE_NAME, new_level)

@@ -1,0 +1,8 @@
+{
+    "active-window-title": "- | <length limit: int>",
+    "bar": "- | on | off",
+    "change-keyboard-layout-status": "- | 'new layout'",
+    "gaps": "next | previous | set 'level'",
+    "gen-vars": "- | 'key'='value' 'key'='value' …",
+    "var": "get ('key') | set 'key'='value' 'key'='value' …"
+}

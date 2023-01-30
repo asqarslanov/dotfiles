@@ -1,19 +1,11 @@
 #!/usr/bin/env python3
 
 import glob
+import json
 import os
 import string
 import subprocess
 import sys
-
-ARGUMENTS = {
-    # command: "arguments"
-    'active-window-title': "- | <length limit: int>",
-    'bar': "- | on | off",
-    'change-keyboard-layout-status': "- | 'new layout'",
-    'gen-vars': "- | 'key'='value' 'key'='value' …",
-    'var': "get ('key') | set 'key'='value' 'key'='value' …"
-}
 
 
 def check_command_file(filepath: str) -> bool:
@@ -39,9 +31,13 @@ def check_command_file(filepath: str) -> bool:
 
 
 def print_help_message(
+        arguments=None,
         end_with_blank: bool = True,
         indentation_size: int = 4
 ) -> None:
+    if arguments is None:
+        description = "?"
+
     indentation = indentation_size * " "
 
     base_directory, filename = os.path.split(__file__)
@@ -58,7 +54,9 @@ def print_help_message(
             continue
 
         command_name = os.path.basename(command_path)
-        description = ARGUMENTS.get(command_name, "-")
+
+        if arguments is not None:
+            description = arguments.get(command_name, "-")
 
         print(indentation, end="")
         print(command_name, description, sep=": ")
@@ -68,20 +66,25 @@ def print_help_message(
 
 
 if __name__ == '__main__':
+    base_directory = os.path.dirname(__file__)
+
+    arguments_path = os.path.join(base_directory, 'arguments.json')
+    with open(arguments_path) as arguments_file:
+        arguments = json.load(arguments_file)
+
     if len(sys.argv) == 1:
-        print_help_message()
+        print_help_message(arguments)
 
         SUCCESS_CODE = 0
         sys.exit(SUCCESS_CODE)
 
-    base_directory = os.path.dirname(__file__)
     commands_directory = os.path.join(base_directory, 'commands')
 
     command = sys.argv[1]
     command_path = os.path.join(commands_directory, command)
 
     if not check_command_file(command_path):
-        print_help_message()
+        print_help_message(arguments)
 
         INVALID_ARGUMENT_CODE = 22
         sys.exit(INVALID_ARGUMENT_CODE)
@@ -91,4 +94,3 @@ if __name__ == '__main__':
     command_with_arguments[0] = command_path
 
     subprocess.run(command_with_arguments)
-

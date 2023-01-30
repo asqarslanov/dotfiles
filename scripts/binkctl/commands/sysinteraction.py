@@ -4,6 +4,9 @@ import subprocess
 import sys
 import typing
 
+username = os.getlogin()
+hypr_directory = f'/home/{username}/.config/hypr'
+
 commands_directory = os.path.dirname(__file__)
 base_directory = os.path.dirname(commands_directory)
 vars_directory = os.path.join(base_directory, 'vars')
@@ -110,14 +113,13 @@ def reload_system(exit: bool = True) -> None:
         exit_with_error(True)
 
 
-def write_variable(name: str, value: typing.Any, convert: bool = True) -> None:
-    if convert:
-        value = convert_to_json(value)
+def set_keyword(key: str, value) -> None:
+    command = f'hyprctl keyword {key} {value}'
+    execute(command)
 
-    variable_file_path = os.path.join(vars_directory, name)
 
-    with open(variable_file_path, 'w') as variable_file:
-        print(value, file=variable_file)
+def source_config(path: str) -> None:
+    set_keyword('source', path)
 
 
 def print_success_message() -> None:
@@ -135,3 +137,13 @@ def update_directory(path: str) -> None:
         shutil.rmtree(path)
 
     os.mkdir(path)
+
+
+def write_variable(name: str, value: typing.Any, convert: bool = True) -> None:
+    if convert:
+        value = convert_to_json(value)
+
+    variable_file_path = os.path.join(vars_directory, name)
+
+    with open(variable_file_path, 'w') as variable_file:
+        print(value, file=variable_file)
