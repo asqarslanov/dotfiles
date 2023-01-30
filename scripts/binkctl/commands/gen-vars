@@ -6,7 +6,7 @@ import sysinteraction
 
 variables = {
     # true, false
-    'change-inactive-opacity': 'true',
+    'change-opacity': 'true',
 
     # 0, 1, 2
     'gaps-level': 0,

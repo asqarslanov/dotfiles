@@ -6,11 +6,11 @@ import sys
 
 import sysinteraction
 
+VARIABLE_NAME = 'gaps-level'
+
 if __name__ == '__main__':
     if len(sys.argv) == 1 or len(sys.argv) > 3:
         sysinteraction.exit_with_error()
-
-    VARIABLE_NAME = 'gaps-level'
 
     current_level = sysinteraction.read_variable(VARIABLE_NAME)
 
