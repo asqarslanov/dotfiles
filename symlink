@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# ln -sf ~/.local/dotfiles/config/zsh/.zshrc ~/.zshrc
+ln -sf ~/.local/dotfiles/binkctl ~/.local/binkctl
 ln -sf ~/.local/dotfiles/config/chrome/chrome-flags.conf ~/.var/app/com.google.Chrome/config/chrome-flags.conf
 ln -sf ~/.local/dotfiles/config/code/code-flags.conf ~/.config/code-flags.conf
 ln -sf ~/.local/dotfiles/config/eww ~/.config/eww
@@ -8,4 +10,3 @@ ln -sf ~/.local/dotfiles/config/kitty ~/.config/kitty
 ln -sf ~/.local/dotfiles/config/nvim ~/.config/nvim
 ln -sf ~/.local/dotfiles/config/paru ~/.config/paru
 ln -sf ~/.local/dotfiles/config/wezterm ~/.config/wezterm
-# ln -sf ~/.local/dotfiles/config/zsh/.zshrc ~/.zshrc
