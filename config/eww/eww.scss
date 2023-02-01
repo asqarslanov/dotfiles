@@ -51,3 +51,11 @@
 .workspaces button:hover {
   color: #D35D6E;
 }
+
+.workspace-entry.occupied {
+    color: white;
+}
+
+.workspace-entry.current {
+    color: aqua;
+}

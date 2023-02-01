@@ -44,7 +44,7 @@ def print_help_message(
     glob_pattern = os.path.join(base_directory, 'commands/*')
 
     print(
-        f"Usage: {filename} [command] (arguments)\n"
+        f"Usage: {filename} 'command' ('arguments')\n"
         "\n"
         "Commands:"
     )

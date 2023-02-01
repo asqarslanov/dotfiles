@@ -44,3 +44,4 @@ if __name__ == '__main__':
         sysinteraction.set_keyword(key, value)
 
     sysinteraction.write_variable(VARIABLE_NAME, new_level)
+    sysinteraction.print_success_message()

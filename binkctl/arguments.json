@@ -1,6 +1,7 @@
 {
     "active-window": "- | <length limit: int>",
     "bar": "- | on | off",
+    "brightness": "get | set <percent value: int> | increase | decrease",
     "gaps": "next | previous | set 'level'",
     "gen-vars": "- | 'key'='value' 'key'='value' …",
     "keyboard-layout-status": "- | 'new layout'",
