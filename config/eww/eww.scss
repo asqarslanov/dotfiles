@@ -48,14 +48,26 @@
     padding-left: 10px;
 }
 
-.workspaces button:hover {
-  color: #D35D6E;
-}
-
 .workspace-entry.occupied {
     color: white;
 }
 
+.workspace-entry {
+    margin: 6px 0px;
+    padding: 0px 2px;
+}
+
+.workspace-entry:hover {
+    border-radius: 4px;
+    background-color: #35363A;
+}
+
 .workspace-entry.current {
-    color: aqua;
+    border-radius: 4px;
+    background-color: #35363A;
+}
+
+.workspace-entry.current:hover {
+    border-radius: 4px;
+    background-color: red;
 }
