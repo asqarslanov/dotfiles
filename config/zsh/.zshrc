@@ -13,6 +13,10 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+(cat ~/.cache/wal/sequences &)
+source ~/.cache/wal/colors-tty.sh
+~/.cache/wal/colors.sh
+
 alias :q=exit
 alias :wq=exit
 alias :x=exit

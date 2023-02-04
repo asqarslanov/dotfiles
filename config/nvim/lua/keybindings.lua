@@ -7,6 +7,12 @@ vim.opt.whichwrap:append('>')
 vim.opt.whichwrap:append('h')
 vim.opt.whichwrap:append('l')
 
+vim.keymap.set('n', '<C-w>', ':q<CR>')
+vim.keymap.set('v', '<C-w>', ':<C-w>q<CR>')
+
+vim.keymap.set('i', '<C-e>', '<Esc>A')
+vim.keymap.set('i', '<C-a>', '<Esc>I')
+
 vim.keymap.set('i', '<C-h>', '<Left>')
 vim.keymap.set('i', '<C-j>', '<Down>')
 vim.keymap.set('i', '<C-k>', '<Up>')
