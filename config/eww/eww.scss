@@ -1,70 +1,36 @@
+@import '/home/askarbink/.cache/wal/colors.scss';
+
 * {
-  all: unset; //Unsets everything so you can style everything from scratch
+    all: unset;
 }
 
 //Global Styles
 .bar {
-  background-color: #202124;
-  color: #b0b4bc;
+  background-color: $background;
+  color: $foreground;
   // border-radius: 0 0 16px 16px;
 }
 
 // Styles on classes (see eww.yuck for more information)
 
-.metric scale trough highlight {
-  all: unset;
-  background-color: #D35D6E;
-  color: #000000;
-  border-radius: 10px;
-}
-.metric scale trough {
-  all: unset;
-  background-color: #4e4e4e;
-  border-radius: 50px;
-  min-height: 3px;
-  min-width: 50px;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-.metric scale trough highlight {
-  all: unset;
-  background-color: #D35D6E;
-  color: #000000;
-  border-radius: 10px;
-}
-.metric scale trough {
-  all: unset;
-  background-color: #4e4e4e;
-  border-radius: 50px;
-  min-height: 3px;
-  min-width: 50px;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-.label-ram {
-  font-size: large;
-}
 .workspaces {
     padding-left: 10px;
 }
 
 .workspace-entry.occupied {
-    color: white;
+    color: $foreground;
 }
 
 .workspace-entry {
     margin: 6px 0px;
     padding: 0px 2px;
-}
-
-.workspace-entry:hover {
-    border-radius: 4px;
-    background-color: #35363A;
+    color: $color8;
 }
 
 .workspace-entry.current {
     border-radius: 4px;
-    background-color: #35363A;
+    background-color: $color8;
+    color: $foreground;
 }
 
 .workspace-entry.current:hover {

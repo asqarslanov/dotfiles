@@ -39,7 +39,13 @@ return {
             wal.colors.color14,
             wal.colors.color15,
         },
+        cursor_bg = wal.special.cursor,
+        cursor_border = wal.special.cursor,
+        cursor_fg = wal.special.background,
         foreground = wal.special.foreground,
+        scrollbar_thumb = wal.colors.color8,
+        selection_bg = wal.special.foreground,
+        selection_fg = wal.special.background
     },
     default_cursor_style = 'SteadyBar',
     font = wezterm.font {
