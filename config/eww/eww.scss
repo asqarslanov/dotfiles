@@ -1,39 +1,47 @@
-@import '/home/askarbink/.cache/wal/colors.scss';
+@import '../../../../.cache/wal/colors.scss';
+
 
 * {
     all: unset;
 }
 
-//Global Styles
+
 .bar {
-  background-color: $background;
-  color: $foreground;
-  // border-radius: 0 0 16px 16px;
+    font-family: "Google Sans";
+
+    color: $foreground;
+    background-color: $background;
 }
 
-// Styles on classes (see eww.yuck for more information)
 
 .workspaces {
     padding-left: 10px;
 }
 
+
 .workspace-entry.occupied {
     color: $foreground;
 }
 
+
 .workspace-entry {
     margin: 6px 0px;
     padding: 0px 2px;
+
     color: $color8;
 }
 
+
 .workspace-entry.current {
     border-radius: 4px;
-    background-color: $color8;
+
     color: $foreground;
+    background-color: $color8;
 }
+
 
 .workspace-entry.current:hover {
     border-radius: 4px;
+
     background-color: red;
 }
