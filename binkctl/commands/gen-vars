@@ -5,17 +5,20 @@ import sys
 import sysinteraction
 
 variables = {
-    # true, false
-    'change-opacity': 'true',
+    # True, False
+    'change-opacity': True,
 
     # 0, 1, 2
     'gaps-level': 0,
 
-    # US, RU
+    # 'US', 'RU'
     'keyboard-layout': 'US',
 
-    # true, false
-    'show-bar': 'true'
+    # None, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    'previous-workspace': None,
+
+    # True, False
+    'show-bar': True
 }
 
 if __name__ == '__main__':

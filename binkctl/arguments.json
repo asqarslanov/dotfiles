@@ -6,5 +6,6 @@
     "gen-vars": "- | 'key'='value' 'key'='value' …",
     "keyboard-layout-status": "- | 'new layout'",
     "opacity": "- | on | off",
-    "var": "get ('key') | set 'key'='value' 'key'='value' …"
+    "var": "get ('key') | set 'key'='value' 'key'='value' …",
+    "workspaces": "get | set 'id: int' | left | down | right | up"
 }
