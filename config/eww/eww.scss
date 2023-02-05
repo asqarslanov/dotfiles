@@ -14,16 +14,6 @@
 }
 
 
-.workspaces {
-    padding-left: 10px;
-}
-
-
-.workspace-entry.occupied {
-    color: $foreground;
-}
-
-
 .workspace-entry {
     margin: 6px 0px;
     padding: 0px 2px;
@@ -35,13 +25,11 @@
 .workspace-entry.current {
     border-radius: 4px;
 
-    color: $foreground;
+    color: $background;
     background-color: $color8;
 }
 
 
-.workspace-entry.current:hover {
-    border-radius: 4px;
-
-    background-color: red;
+.workspace-entry.occupied {
+    color: $foreground;
 }

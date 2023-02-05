@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+
+import json
+import sys
+
+import sysinteraction
+
+
+def get() -> None:
+    workspaces = []
+
+    for i in range(1, 11):
+        workspace = {
+            'id': i,
+            'name': str(i),
+            'occupied': False,
+            'hasfullscreen': False
+        }
+        workspaces.append(workspace)
+
+    workspaces[9]['name'] = "0"
+
+    command = 'hyprctl -j workspaces'
+    workspaces_raw_str = sysinteraction.get_command_output(command)
+    workspaces_raw = json.loads(workspaces_raw_str)
+
+    for workspace in workspaces_raw:
+        workspace_id = workspace['id'] - 1
+
+        workspaces[workspace_id]['occupied'] = workspace['windows'] > 0
+        workspaces[workspace_id]['hasfullscreen'] = workspace['hasfullscreen']
+
+    json.dump(workspaces, sys.stdout)
+    sys.stdout.write("\n")
+
+
+AVAILABLE_DISPATCHERS = (
+    'workspace',
+    'movetoworkspace',
+    'movetoworkspacesilent'
+)
+
+SUCCESS_CODE = 0
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2 or len(sys.argv) > 4:
+        sysinteraction.exit_with_error()
+
+    action = sys.argv[1]
+
+    command = 'hyprctl -j monitors'
+    monitors_raw = sysinteraction.get_command_output(command)
+    monitors = json.loads(monitors_raw)
+
+    active_workspace = monitors[0]['activeWorkspace']['id']
+
+    match action:
+        case 'active':
+            print(active_workspace)
+            sys.exit(SUCCESS_CODE)
+
+        case 'get':
+            if len(sys.argv) != 2:
+                sysinteraction.exit_with_error()
+
+            get()
+            sys.exit(SUCCESS_CODE)
+
+        case 'set':
+            try:
+                new_workspace = int(sys.argv[2])
+            except BaseException:
+                sysinteraction.exit_with_error()
+
+            if new_workspace < 1 or new_workspace > 10:
+                sysinteraction.exit_with_error()
+
+        case 'up':
+            if active_workspace == 1:
+                sysinteraction.exit_with_error()
+
+            new_workspace = active_workspace - 1
+
+        case 'down':
+            if active_workspace == 10:
+                sysinteraction.exit_with_error()
+
+            new_workspace = active_workspace + 1
+
+        case _:
+            sysinteraction.exit_with_error()
+
+    dispatcher = sys.argv[-1]
+
+    if dispatcher not in AVAILABLE_DISPATCHERS:
+        sysinteraction.exit_with_error()
+
+    command = f'hyprctl dispatch {dispatcher} {new_workspace}'
+    sysinteraction.execute(command)
+
+    sysinteraction.write_variable('previous-workspace', active_workspace)
+    sysinteraction.print_success_message()

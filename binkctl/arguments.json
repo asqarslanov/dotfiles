@@ -7,5 +7,5 @@
     "keyboard-layout-status": "- | 'new layout'",
     "opacity": "- | on | off",
     "var": "get ('key') | set 'key'='value' 'key'='value' …",
-    "workspaces": "get | set 'id: int' | left | down | right | up"
+    "workspace": "active | get | [set 'id: int' | up | down] [workspace | movetoworkspace | movetoworkspacesilent]"
 }
