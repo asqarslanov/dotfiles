@@ -4,6 +4,7 @@
 ln -sf ~/.local/dotfiles/binkctl ~/.local/binkctl
 ln -sf ~/.local/dotfiles/config/chrome/chrome-flags.conf ~/.var/app/com.google.Chrome/config/chrome-flags.conf
 ln -sf ~/.local/dotfiles/config/code/code-flags.conf ~/.config/code-flags.conf
+ln -sf ~/.local/dotfiles/config/electron/electron-flags.conf ~/.config/electron-flags.conf
 ln -sf ~/.local/dotfiles/config/eww ~/.config/eww
 ln -sf ~/.local/dotfiles/config/hypr ~/.config/hypr
 ln -sf ~/.local/dotfiles/config/kitty ~/.config/kitty

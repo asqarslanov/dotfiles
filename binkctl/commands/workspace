@@ -72,7 +72,11 @@ if __name__ == '__main__':
             except BaseException:
                 sysinteraction.exit_with_error()
 
-            if new_workspace < 1 or new_workspace > 10:
+            if (
+                    new_workspace == active_workspace
+                    or new_workspace < 1
+                    or new_workspace > 10
+            ):
                 sysinteraction.exit_with_error()
 
         case 'up':

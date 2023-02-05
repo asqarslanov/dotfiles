@@ -1,27 +1,105 @@
-require('keybindings')
-require('plugins')
-require('settings')
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
--- if exists("g:neovide")
-	-- set guifont=FiraCode_Nerd_Font_Mono:h12
-	-- let g:neovide_cursor_vfx_mode = "ripple"
--- endif
--- 
--- vnoremap <leader>y "+y
--- nnoremap <leader>Y "+yg_
--- nnoremap <leader>y "+y
--- nnoremap <leader>yy "+yy
--- 
--- nnoremap <leader>p "+p
--- nnoremap <leader>P "+P
--- vnoremap <leader>p "+p
--- vnoremap <leader>P "+P
--- 
--- set cursorcolumn
--- set list
--- " set listchars=tab:>-
--- " set tabstop=4
--- " set softtabstop=4
--- " set shiftwidth=4
--- " set smarttab
--- " set expandtab
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable',
+        lazypath,
+    })
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+vim.g.mapleader = ' '
+
+require('lazy').setup({
+    {
+        'declancm/cinnamon.nvim',
+        config = function()
+            require('cinnamon').setup {
+                extended_keymaps = true,
+                extra_keymaps = true
+            }
+        end
+    },
+    {
+        'williamboman/mason.nvim',
+        config = true
+    },
+    {
+        'petertriho/nvim-scrollbar',
+        config = true
+    },
+    --[[
+    {
+        'folke/which-key.nvim',
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+            require('which-key').setup { }
+        end
+    },
+    {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate'
+    },
+    --]]
+})
+
+
+vim.opt.confirm = true
+vim.opt.expandtab = true
+vim.opt.lazyredraw = true
+vim.opt.list = true
+vim.opt.listchars = {tab = "→  ", trail = "·"}
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.shiftwidth = 4
+vim.opt.smartcase = true
+vim.opt.tabstop = 4
+
+vim.opt.whichwrap:append('<')
+vim.opt.whichwrap:append('>')
+vim.opt.whichwrap:append('h')
+vim.opt.whichwrap:append('l')
+
+vim.keymap.set('n', '<C-w>', ':q<CR>')
+vim.keymap.set('v', '<C-w>', ':<C-w>q<CR>')
+
+vim.keymap.set('i', '<C-e>', '<Esc>A')
+vim.keymap.set('i', '<C-a>', '<Esc>I')
+
+vim.keymap.set('i', '<C-h>', '<Left>')
+vim.keymap.set('i', '<C-j>', '<Down>')
+vim.keymap.set('i', '<C-k>', '<Up>')
+vim.keymap.set('i', '<C-l>', '<Right>')
+
+vim.keymap.set('n', '<C-h>', '<C-W>h')
+vim.keymap.set('n', '<C-j>', '<C-W>j')
+vim.keymap.set('n', '<C-k>', '<C-W>k')
+vim.keymap.set('n', '<C-l>', '<C-W>l')
+
+vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi')
+vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi')
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==:lua print("Line Moved Down")<CR>')
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==:lua print("Line Moved Up")<CR>')
+vim.keymap.set('v', '<A-j>', ':m \'>+1<CR>gv=gv')
+vim.keymap.set('v', '<A-k>', ':m \'<-2<CR>gv=gv')
+
+vim.keymap.set('n', '<leader>V', 'ggVG')
+vim.keymap.set('n', '<leader>v', 'gg0vG$')
+vim.keymap.set('v', '<leader>V', '<Esc>ggVG')
+vim.keymap.set('v', '<leader>v', '<Esc>gg0vG$')
+
+vim.keymap.set('n', '<leader>Y', '"+Y')
+vim.keymap.set('n', '<leader>y', '"+y')
+vim.keymap.set('v', '<leader>Y', '"+Y')
+vim.keymap.set('v', '<leader>y', '"+y')
+
+vim.keymap.set('n', '<leader>P', '"+P')
+vim.keymap.set('n', '<leader>p', '"+p')
+vim.keymap.set('v', '<leader>P', '"+P')
+vim.keymap.set('v', '<leader>p', '"+p')
