@@ -33,6 +33,29 @@ require('lazy').setup({
         'petertriho/nvim-scrollbar',
         config = true
     },
+    {
+        'kylechui/nvim-surround',
+        config = true
+    },
+    {
+        'AlphaTechnolog/pywal.nvim',
+        config = true
+    },
+    {
+        'nvim-telescope/telescope.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function()
+            local builtin = require('telescope.builtin')
+            vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+            vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+            vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+            vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        end
+    },
+
+
     --[[
     {
         'folke/which-key.nvim',
@@ -66,8 +89,9 @@ vim.opt.whichwrap:append('>')
 vim.opt.whichwrap:append('h')
 vim.opt.whichwrap:append('l')
 
-vim.keymap.set('n', '<C-w>', ':q<CR>')
-vim.keymap.set('v', '<C-w>', ':<C-w>q<CR>')
+-- vim.keymap.set('n', '<C-w>', ':q<CR>')
+-- vim.keymap.set('v', '<C-w>', ':<C-w>q<CR>')
+vim.keymap.set('n', '<Leader>w', ':w<CR>')
 
 vim.keymap.set('i', '<C-e>', '<Esc>A')
 vim.keymap.set('i', '<C-a>', '<Esc>I')
@@ -89,17 +113,17 @@ vim.keymap.set('n', '<A-k>', ':m .-2<CR>==:lua print("Line Moved Up")<CR>')
 vim.keymap.set('v', '<A-j>', ':m \'>+1<CR>gv=gv')
 vim.keymap.set('v', '<A-k>', ':m \'<-2<CR>gv=gv')
 
-vim.keymap.set('n', '<leader>V', 'ggVG')
-vim.keymap.set('n', '<leader>v', 'gg0vG$')
-vim.keymap.set('v', '<leader>V', '<Esc>ggVG')
-vim.keymap.set('v', '<leader>v', '<Esc>gg0vG$')
+vim.keymap.set('n', '<Leader>V', 'ggVG')
+vim.keymap.set('n', '<Leader>v', 'gg0vG$')
+vim.keymap.set('v', '<Leader>V', '<Esc>ggVG')
+vim.keymap.set('v', '<Leader>v', '<Esc>gg0vG$')
 
-vim.keymap.set('n', '<leader>Y', '"+Y')
-vim.keymap.set('n', '<leader>y', '"+y')
-vim.keymap.set('v', '<leader>Y', '"+Y')
-vim.keymap.set('v', '<leader>y', '"+y')
+vim.keymap.set('n', '<Leader>Y', '"+Y')
+vim.keymap.set('n', '<Leader>y', '"+y')
+vim.keymap.set('v', '<Leader>Y', '"+Y')
+vim.keymap.set('v', '<Leader>y', '"+y')
 
-vim.keymap.set('n', '<leader>P', '"+P')
-vim.keymap.set('n', '<leader>p', '"+p')
-vim.keymap.set('v', '<leader>P', '"+P')
-vim.keymap.set('v', '<leader>p', '"+p')
+vim.keymap.set('n', '<Leader>P', '"+P')
+vim.keymap.set('n', '<Leader>p', '"+p')
+vim.keymap.set('v', '<Leader>P', '"+P')
+vim.keymap.set('v', '<Leader>p', '"+p')
