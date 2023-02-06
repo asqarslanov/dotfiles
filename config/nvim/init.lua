@@ -26,8 +26,21 @@ require('lazy').setup({
         end
     },
     {
-        'williamboman/mason.nvim',
-        config = true
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim'
+        },
+        config = function()
+            require('mason').setup()
+            require('mason-lspconfig').setup {
+                ensure_installed = {
+                    'html',
+                    'rust_analyzer',
+                    'sumneko_lua',
+                }
+            }
+        end
     },
     {
         'petertriho/nvim-scrollbar',
@@ -57,6 +70,13 @@ require('lazy').setup({
 
 
     --[[
+    {
+        'glacambre/firenvim',
+        build = function()
+            vim.fn['firenvim#install'](0)
+        end,
+        cond = not not vim.g.started_by_firenvim
+    },
     {
         'folke/which-key.nvim',
         config = function()
@@ -127,3 +147,8 @@ vim.keymap.set('n', '<Leader>P', '"+P')
 vim.keymap.set('n', '<Leader>p', '"+p')
 vim.keymap.set('v', '<Leader>P', '"+P')
 vim.keymap.set('v', '<Leader>p', '"+p')
+
+vim.keymap.set('n', '<Leader>D', '"+D')
+vim.keymap.set('n', '<Leader>d', '"+d')
+vim.keymap.set('v', '<Leader>D', '"+D')
+vim.keymap.set('v', '<Leader>d', '"+d')
