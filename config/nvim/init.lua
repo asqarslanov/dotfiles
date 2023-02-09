@@ -26,6 +26,13 @@ require('lazy').setup({
         end
     },
     {
+        'glacambre/firenvim',
+        build = function()
+            vim.fn['firenvim#install'](0)
+        end,
+        cond = not not vim.g.started_by_firenvim
+    },
+    {
         'neovim/nvim-lspconfig',
         dependencies = {
             'williamboman/mason.nvim',
@@ -70,13 +77,6 @@ require('lazy').setup({
 
 
     --[[
-    {
-        'glacambre/firenvim',
-        build = function()
-            vim.fn['firenvim#install'](0)
-        end,
-        cond = not not vim.g.started_by_firenvim
-    },
     {
         'folke/which-key.nvim',
         config = function()
