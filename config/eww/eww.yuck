@@ -19,6 +19,9 @@
 (defwidget left-widgets []
   (box :class "left-widgets"
        :halign "start"
+       :space-evenly false
+       :spacing 6
+    (spacer)
     (hypr-workspaces)))
 
 (defwidget center-widgets []
@@ -28,11 +31,16 @@
 (defwidget right-widgets []
   (box :class "right-widgets"
        :halign "end"
+       :orientation "h"
+       :space-evenly false
+       :spacing 12
     (keyboard-layout)
     (battery)
     (date)
-    (time)))
+    (time)
+    (spacer)))
 
+(defwidget spacer [] (box))
 
 (defwidget workspaces-old []
   (box :class "workspaces-old"
@@ -63,10 +71,11 @@
   (eventbox :onscroll
     "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
     (box :space-evenly true
+         :spacing 2
       (for workspace in workspaces
-        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-          (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
-            (label :text "${workspace.id}")))))))
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}" :width 20
+          (box :class "workspace-entry ${workspace.id == current_workspace ? 'current' : ''} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id % 10}")))))))
 
 (defwidget active-window-title []
   (box :class "active-window-title"
