@@ -7,7 +7,7 @@ hostname = socket.gethostname()
 username = os.getlogin()
 
 
-base_dir = f'/home/{username}/.config/hypr/'
+base_dir = f'/home/{username}/.config/hypr'
 
 host_specific_dir = f'{base_dir}/host-specific'
 user_specific_dir = f'{base_dir}/user-specific'

@@ -1,25 +1,25 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
+    vim.fn.system {
         'git',
         'clone',
         '--filter=blob:none',
         'https://github.com/folke/lazy.nvim.git',
         '--branch=stable',
         lazypath,
-    })
+    }
 end
 
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = ' '
 
-require('lazy').setup({
+require 'lazy' .setup {
     {
         'declancm/cinnamon.nvim',
         config = function()
-            require('cinnamon').setup {
+            require 'cinnamon' .setup {
                 extended_keymaps = true,
                 extra_keymaps = true
             }
@@ -33,14 +33,28 @@ require('lazy').setup({
         cond = not not vim.g.started_by_firenvim
     },
     {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require 'indent_blankline' .setup {
+                char_highlight_list = {
+                    'IndentBlanklineIndent1',
+                    'IndentBlanklineIndent4',
+                },
+                show_current_context = true,
+                show_current_context_start = true,
+                use_treesitter = true
+            }
+        end
+    },
+    {
         'neovim/nvim-lspconfig',
         dependencies = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim'
         },
         config = function()
-            require('mason').setup()
-            require('mason-lspconfig').setup {
+            require 'mason' .setup()
+            require 'mason-lspconfig' .setup {
                 ensure_installed = {
                     'html',
                     'rust_analyzer',
@@ -58,8 +72,42 @@ require('lazy').setup({
         config = true
     },
     {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        config = function()
+            require 'nvim-treesitter.configs' .setup {
+                ensure_installed = {
+                    'bash',
+                    'cpp',
+                    'css',
+                    'gitignore',
+                    'html',
+                    'javascript',
+                    'lua',
+                    'markdown',
+                    'python',
+                    'rust'
+                }
+            }
+        end
+    },
+    {
         'AlphaTechnolog/pywal.nvim',
-        config = true
+        config = function()
+            require 'pywal' .setup()
+            local color_scheme = require 'pywal.core' .get_colors()
+
+            for i = 1, 6 do
+                vim.api.nvim_set_hl(
+                    0,
+                    'IndentBlankLineIndent' .. i,
+                    {
+                        fg=color_scheme['color' .. i],
+                        nocombine=true
+                    }
+                )
+            end
+        end
     },
     {
         'nvim-telescope/telescope.nvim',
@@ -67,42 +115,39 @@ require('lazy').setup({
             'nvim-lua/plenary.nvim'
         },
         config = function()
-            local builtin = require('telescope.builtin')
+            local builtin = require 'telescope.builtin'
             vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         end
     },
-
-
     --[[
     {
         'folke/which-key.nvim',
         config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
-            require('which-key').setup { }
+            require 'which-key' .setup { }
         end
     },
-    {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate'
-    },
     --]]
-})
-
+}
 
 vim.opt.confirm = true
 vim.opt.expandtab = true
 vim.opt.lazyredraw = true
 vim.opt.list = true
-vim.opt.listchars = {tab = "→  ", trail = "·"}
+vim.opt.listchars = {
+    tab = "→  ",
+    trail = "·"
+}
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 4
 vim.opt.smartcase = true
 vim.opt.tabstop = 4
+vim.opt.termguicolors = true
 
 vim.opt.whichwrap:append('<')
 vim.opt.whichwrap:append('>')

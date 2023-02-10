@@ -85,6 +85,7 @@
     {active-window-title}))
 
 (defpoll active-window-title :interval "0.4s"
+                             :class active-window
   "binkctl active-window 48")
 
 
