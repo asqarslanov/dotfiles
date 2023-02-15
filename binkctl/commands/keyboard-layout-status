@@ -13,10 +13,10 @@ if __name__ == '__main__':
         sysinteraction.exit_with_error()
 
     if len(sys.argv) == 1:
-        if current_layout == 'US':
-            new_layout = 'RU'
+        if current_layout == 'En':
+            new_layout = 'Ru'
         else:
-            new_layout = 'US'
+            new_layout = 'En'
 
     elif len(sys.argv) == 2:
         new_layout = sys.argv[1]
