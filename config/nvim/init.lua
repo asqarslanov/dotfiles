@@ -17,6 +17,9 @@ vim.g.mapleader = ' '
 
 require 'lazy' .setup {
     {
+        'RRethy/vim-illuminate'
+    },
+    {
         'declancm/cinnamon.nvim',
         config = function()
             require 'cinnamon' .setup {
@@ -24,6 +27,10 @@ require 'lazy' .setup {
                 extra_keymaps = true
             }
         end
+    },
+    {
+        'numToStr/Comment.nvim',
+        config = true
     },
     {
         'glacambre/firenvim',
@@ -47,6 +54,11 @@ require 'lazy' .setup {
         end
     },
     {
+        'barrett-ruth/live-server.nvim',
+        build = 'yarn global add live-server',
+        config = true
+    },
+    {
         'neovim/nvim-lspconfig',
         dependencies = {
             'williamboman/mason.nvim',
@@ -58,7 +70,7 @@ require 'lazy' .setup {
                 ensure_installed = {
                     'html',
                     'rust_analyzer',
-                    'sumneko_lua',
+                    -- 'sumneko_lua',
                 }
             }
         end
