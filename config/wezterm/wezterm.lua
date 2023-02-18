@@ -48,18 +48,45 @@ return {
         selection_fg = wal.special.background
     },
     default_cursor_style = 'SteadyBar',
+    disable_default_key_bindings = true,
     font = wezterm.font {
         family = 'FiraCodeNerdFontCompleteM-Retina',
         harfbuzz_features = {
             'cv02',
             'ss01',
             'ss03',
-            'ss04',
-            'ss07'
+            'ss04'
         },
     },
     font_size = 12,
     hide_tab_bar_if_only_one_tab = true,
+    keys = {
+        {
+            action = wezterm.action.CopyTo 'Clipboard',
+            key = 'c',
+            mods = 'CTRL|SHIFT'
+        },
+        {
+            action = wezterm.action.DecreaseFontSize,
+            key = '-',
+            mods = 'CTRL'
+        },
+        {
+            action = wezterm.action.IncreaseFontSize,
+            key = '=',
+            mods = 'CTRL'
+        },
+        {
+            action = wezterm.action.PasteFrom 'Clipboard',
+            key = 'v',
+            mods = 'CTRL|SHIFT'
+        },
+        {
+            action = wezterm.action.ResetFontSize,
+            key = '0',
+            mods = 'CTRL'
+        }
+    },
     window_padding = {
         left = 16,
         right = 16,

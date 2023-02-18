@@ -104,6 +104,10 @@ require 'lazy' .setup {
         end
     },
     {
+        'eraserhd/parinfer-rust',
+        build = 'cargo build --release'
+    },
+    {
         'AlphaTechnolog/pywal.nvim',
         config = function()
             require 'pywal' .setup()
@@ -134,6 +138,9 @@ require 'lazy' .setup {
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         end
     },
+    {
+        'elkowar/yuck.vim'
+    },
     --[[
     {
         'folke/which-key.nvim',
@@ -154,6 +161,7 @@ vim.opt.listchars = {
     tab = "→  ",
     trail = "·"
 }
+vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 4
@@ -169,6 +177,9 @@ vim.opt.whichwrap:append('l')
 -- vim.keymap.set('n', '<C-w>', ':q<CR>')
 -- vim.keymap.set('v', '<C-w>', ':<C-w>q<CR>')
 vim.keymap.set('n', '<Leader>w', ':w<CR>')
+
+vim.keymap.set('i', '<A-CR>', '<C-o>:set wrap!<CR>')
+vim.keymap.set('n', '<A-CR>', ':set wrap!<CR>')
 
 vim.keymap.set('i', '<C-e>', '<Esc>A')
 vim.keymap.set('i', '<C-a>', '<Esc>I')

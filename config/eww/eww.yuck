@@ -1,23 +1,27 @@
+(defvar previous-workspace '')
+(defvar keyboard-layout-value 'En')
+
+
 (defwindow bar
   :monitor 0
-  :stacking "fg"
+  :stacking 'fg'
   :exclusive true
   :focusable false
-  :geometry (geometry :x "0%"
-                      :y "0%"
-                      :width "100%"
-                      :height "32px"
-                      :anchor "top center")
+  :geometry (geometry :x '0%'
+                      :y '0%'
+                      :width '100%'
+                      :height '32px'
+                      :anchor 'top center')
   (bar))
 
 (defwidget bar []
-  (box :orientation "h"
+  (box :orientation 'h'
     (left-widgets)
     (center-widgets)
     (right-widgets)))
 
 (defwidget left-widgets []
-  (box :class "left-widgets"
+  (box :class 'left-widgets'
        :halign "start"
        :space-evenly false
        :spacing 6
@@ -25,13 +29,13 @@
     (hypr-workspaces)))
 
 (defwidget center-widgets []
-  (box :class "center-widgets"
+  (box :class 'center-widgets'
     (active-window-title)))
 
 (defwidget right-widgets []
-  (box :class "right-widgets"
-       :halign "end"
-       :orientation "h"
+  (box :class 'right-widgets'
+       :halign 'end'
+       :orientation 'h'
        :space-evenly false
        :spacing 12
     (keyboard-layout)
@@ -42,40 +46,25 @@
 
 (defwidget spacer [] (box))
 
-(defwidget workspaces-old []
-  (box :class "workspaces-old"
-       :orientation "h"
-       :space-evenly true
-       :spacing 6
-    (button :onclick "hyprctl dispatch workspace 1" 1)
-    (button :onclick "hyprctl dispatch workspace 2" 2)
-    (button :onclick "hyprctl dispatch workspace 3" 3)
-    (button :onclick "hyprctl dispatch workspace 4" 4)
-    (button :onclick "hyprctl dispatch workspace 5" 5)
-    (button :onclick "hyprctl dispatch workspace 6" 6)
-    (button :onclick "hyprctl dispatch workspace 7" 7)
-    (button :onclick "hyprctl dispatch workspace 8" 8)
-    (button :onclick "hyprctl dispatch workspace 9" 9)
-    (button :onclick "hyprctl dispatch workspace 10" 0)))
+
+(deflisten workspaces :initial '[]'
+  'bash ~/.config/eww/scripts/get-workspaces')
 
 
-(deflisten workspaces :initial "[]"
-  "bash ~/.config/eww/scripts/get-workspaces")
-
-
-(deflisten current_workspace :initial "1"
-  "bash ~/.config/eww/scripts/get-active-workspace")
+(deflisten current_workspace :initial '1'
+  'bash ~/.config/eww/scripts/get-active-workspace')
 
 
 (defwidget hypr-workspaces []
   (eventbox :onscroll
-    "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    'bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}' :class 'workspaces-widget'
     (box :space-evenly true
          :spacing 2
       (for workspace in workspaces
-        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}" :width 20
-          (box :class "workspace-entry ${workspace.id == current_workspace ? 'current' : ''} ${workspace.windows > 0 ? "occupied" : "empty"}"
-            (label :text "${workspace.id % 10}")))))))
+        (eventbox :onclick 'hyprctl dispatch workspace ${workspace.id}'
+                  :width 20
+          (box :class
+            'workspace-entry ${workspace.id == current_workspace ? 'current' : ''} ${workspace.windows > 0 ? 'occupied' : 'empty'} ${workspace.id == previous-workspace ? 'previous' : ''}' (label :text "${workspace.id % 10}")))))))
 
 (defwidget active-window-title []
   (box :class "active-window-title"
@@ -90,19 +79,13 @@
 
 
 (defwidget keyboard-layout []
-  (box :class "keyboard-layout"
-    {keyboard-layout}))
-
-(defpoll keyboard-layout :interval "0.4s"
-  "binkctl var get keyboard-layout")
+  (box :class 'keyboard-layout'
+    keyboard-layout-value))
 
 
 (defwidget battery []
-  (box :class "battery"
-    {battery}))
-
-(defpoll battery :interval "0.4s"
-  "echo $(cat /sys/class/power_supply/BAT1/capacity)%")
+  (box :class 'battery'
+    '${EWW_BATTERY.BAT1.capacity}%'))
 
 
 (defwidget date []

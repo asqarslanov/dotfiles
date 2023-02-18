@@ -1,25 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env bash
 
-import sys
-
-import sysinteraction
-
-VARIABLE_NAME = 'keyboard-layout'
-
-if __name__ == '__main__':
-    current_layout = sysinteraction.read_variable(VARIABLE_NAME)
-
-    if len(sys.argv) > 2:
-        sysinteraction.exit_with_error()
-
-    if len(sys.argv) == 1:
-        if current_layout == 'En':
-            new_layout = 'Ru'
-        else:
-            new_layout = 'En'
-
-    elif len(sys.argv) == 2:
-        new_layout = sys.argv[1]
-
-    sysinteraction.write_variable(VARIABLE_NAME, new_layout)
-    sysinteraction.print_success_message()
+if [ $(eww get keyboard-layout-value) = 'En' ]; then
+    eww update keyboard-layout-value=Ru
+else
+    eww update keyboard-layout-value=En
+fi
