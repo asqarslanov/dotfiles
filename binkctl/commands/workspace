@@ -9,6 +9,8 @@ if [ $current_workspace != 1 ] && [ $2 = up ] ; then
     hyprctl dispatch $1 -1
 elif [ $current_workspace != 10 ] && [ $2 = down ]; then
     hyprctl dispatch $1 +1
+elif [ $2 = previous ]; then
+    hyprctl dispatch $1 $(eww get previous-workspace)
 elif [ $2 != $current_workspace ]; then
     hyprctl dispatch $1 $2
 else
