@@ -7,7 +7,7 @@
 
 
 .bar {
-    font-family: "Google Sans";
+    font-family: 'Google Sans';
 
     color: $foreground;
     background-color: $background;
@@ -41,5 +41,5 @@
 
 
 .workspace-entry.previous {
-    color: $color5;
+    font-weight: bold;
 }
