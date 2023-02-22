@@ -20,7 +20,12 @@ source ~/.cache/wal/colors-tty.sh
 alias :q=exit
 alias :wq=exit
 alias :x=exit
+alias info='info --vi-keys'
 
 PROMPT=$'%F{7}\n%~\n%F{14}>%F{15} '
 # antigen bundle zsh-users/zsh-completions
 
+if [ -z $TMUX ]; then
+    tmux a -t tmux ||
+    tmux new -s tmux
+fi
