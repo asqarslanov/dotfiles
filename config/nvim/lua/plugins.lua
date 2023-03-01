@@ -29,7 +29,7 @@ return {
     },
     {
         'barrett-ruth/live-server.nvim',
-        build = 'yarn global add live-server',
+        build = 'npm install -g live-server',
         config = true
     },
     {
