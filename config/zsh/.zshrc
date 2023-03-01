@@ -1,4 +1,5 @@
-# Lines configured by zsh-newuser-install
+eval "$(starship init zsh)"
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -11,8 +12,11 @@ zstyle :compinstall filename '/home/askarbink/.zshrc'
 
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
 
+if [ ! -d ~/.cache/wal ]; then
+    wal -f base16-dracula
+    chmod +x ~/.cache/wal/colors.sh
+fi
 (cat ~/.cache/wal/sequences &)
 source ~/.cache/wal/colors-tty.sh
 ~/.cache/wal/colors.sh
@@ -21,9 +25,6 @@ alias :q=exit
 alias :wq=exit
 alias :x=exit
 alias info='info --vi-keys'
-
-PROMPT=$'%F{7}\n%~\n%F{14}>%F{15} '
-# antigen bundle zsh-users/zsh-completions
 
 if [ -z $TMUX ]; then
     tmux a -t tmux ||
