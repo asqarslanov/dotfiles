@@ -17,16 +17,17 @@ if [ ! -d ~/.cache/wal ]; then
     wal -f base16-dracula
     chmod +x ~/.cache/wal/colors.sh
 fi
-(cat ~/.cache/wal/sequences &)
-source ~/.cache/wal/colors-tty.sh
-~/.cache/wal/colors.sh
+
+if [ -z $TMUX ] && [[ $TERM == *$TERMINAL* ]]; then
+    (cat ~/.cache/wal/sequences &)
+    source ~/.cache/wal/colors-tty.sh
+    ~/.cache/wal/colors.sh
+
+    tmux a -t tmux ||
+    tmux new -s tmux
+fi
 
 alias :q=exit
 alias :wq=exit
 alias :x=exit
 alias info='info --vi-keys'
-
-if [ -z $TMUX ]; then
-    tmux a -t tmux ||
-    tmux new -s tmux
-fi
