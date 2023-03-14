@@ -1,3 +1,15 @@
+if [ -z $TMUX ] && [[ $TERM == *$TERMINAL* ]]; then
+    (cat ~/.cache/wal/sequences &)
+    source ~/.cache/wal/colors-tty.sh
+    ~/.cache/wal/colors.sh
+
+    tmux a -t tmux || tmux new -s tmux
+fi
+
+if [ $TMUX ]; then
+    echo && neofetch
+fi
+
 eval "$(starship init zsh)"
 
 HISTFILE=~/.histfile
@@ -18,15 +30,6 @@ if [ ! -d ~/.cache/wal ]; then
     chmod +x ~/.cache/wal/colors.sh
 fi
 
-if [ -z $TMUX ] && [[ $TERM == *$TERMINAL* ]]; then
-    (cat ~/.cache/wal/sequences &)
-    source ~/.cache/wal/colors-tty.sh
-    ~/.cache/wal/colors.sh
-
-    tmux a -t tmux ||
-    tmux new -s tmux
-fi
-
 lg() {
     export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
@@ -42,4 +45,3 @@ alias :q=exit
 alias :wq=exit
 alias :x=exit
 alias info='info --vi-keys'
-echo && neofetch
