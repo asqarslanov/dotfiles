@@ -42,3 +42,4 @@ alias :q=exit
 alias :wq=exit
 alias :x=exit
 alias info='info --vi-keys'
+echo && neofetch
