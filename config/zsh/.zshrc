@@ -7,6 +7,9 @@ if [ -z $TMUX ] && [[ $TERM == *$TERMINAL* ]]; then
 fi
 
 if [ $TMUX ]; then
+    if [[ $XDG_CURRENT_DESKTOP = Hyprland ]]; then
+        echo "\n~ $(hyprctl splash). ~\n"
+    fi
     echo && neofetch
 fi
 
