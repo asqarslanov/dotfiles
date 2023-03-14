@@ -10,5 +10,5 @@ ln -sf ~/.local/dotfiles/config/hypr ~/.config/hypr
 ln -sf ~/.local/dotfiles/config/kitty ~/.config/kitty
 ln -sf ~/.local/dotfiles/config/nvim ~/.config/nvim
 ln -sf ~/.local/dotfiles/config/paru ~/.config/paru
+ln -sf ~/.local/dotfiles/config/starship/starship.toml ~/.config/starship.toml
 ln -sf ~/.local/dotfiles/config/tmux ~/.config/tmux
-ln -sf ~/.local/dotfiles/config/wezterm ~/.config/wezterm
