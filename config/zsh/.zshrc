@@ -27,6 +27,17 @@ if [ -z $TMUX ] && [[ $TERM == *$TERMINAL* ]]; then
     tmux new -s tmux
 fi
 
+lg() {
+    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+
+    lazygit $@
+
+    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+            cd $(cat $LAZYGIT_NEW_DIR_FILE)
+            rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+    fi
+}
+
 alias :q=exit
 alias :wq=exit
 alias :x=exit
