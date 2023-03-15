@@ -38,7 +38,7 @@ return {
     },
     {
         'barrett-ruth/live-server.nvim',
-        build = 'npm install -g live-server',
+        build = 'sudo npm install -g live-server',
         config = true
     },
     {
