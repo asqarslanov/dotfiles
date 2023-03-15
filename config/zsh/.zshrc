@@ -10,7 +10,7 @@ if [ $TMUX ]; then
     if [[ $XDG_CURRENT_DESKTOP = Hyprland ]]; then
         echo "\n~ $(hyprctl splash). ~\n"
     fi
-    echo && neofetch
+    echo && fastfetch
 fi
 
 eval "$(starship init zsh)"
@@ -48,3 +48,4 @@ alias :q=exit
 alias :wq=exit
 alias :x=exit
 alias info='info --vi-keys'
+alias neofetch='echo "\n~ It’s Fastfetch, not Neofetch. ~\n" && fastfetch'
