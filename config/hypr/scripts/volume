@@ -10,12 +10,13 @@ elif [[ $1 = microphone ]]; then
     wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 fi
 
-wpctl get-volume @DEFAULT_AUDIO_SINK@ |
-while read OUTPUT; do
-    notify-send -t 400 "$OUTPUT"
-done
-
 wpctl get-volume @DEFAULT_AUDIO_SOURCE@ |
-while read OUTPUT; do
-    notify-send -t 400 "$OUTPUT"
-done
+    while read OUTPUT; do
+        notify-send -t 400 "$OUTPUT"
+    done
+
+wpctl get-volume @DEFAULT_AUDIO_SINK@ |
+    while read OUTPUT; do
+        notify-send -t 400 "$OUTPUT"
+    done
+
