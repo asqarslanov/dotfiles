@@ -5,6 +5,7 @@ ln -sf ~/.local/dotfiles/config/chrome/chrome-flags.conf ~/.config/chrome-flags.
 ln -sf ~/.local/dotfiles/config/code/code-flags.conf ~/.config/code-flags.conf
 ln -sf ~/.local/dotfiles/config/electron/electron-flags.conf ~/.config/electron-flags.conf
 ln -sf ~/.local/dotfiles/config/eww ~/.config/eww
+ln -sf ~/.local/dotfiles/config/fastfetch ~/.config/fastfetch
 ln -sf ~/.local/dotfiles/config/hypr ~/.config/hypr
 ln -sf ~/.local/dotfiles/config/kitty ~/.config/kitty
 ln -sf ~/.local/dotfiles/config/nvim ~/.config/nvim
