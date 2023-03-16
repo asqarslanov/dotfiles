@@ -1,10 +1,4 @@
 return {
-    -- {
-    --     'RRethy/vim-illuminate'
-    -- },
-    {
-        'lukas-reineke/cmp-under-comparator'
-    },
     {
         'numToStr/Comment.nvim',
         config = true
@@ -21,6 +15,25 @@ return {
             vim.fn['firenvim#install'](0)
         end,
         cond = not not vim.g.started_by_firenvim
+    },
+    {
+        'phaazon/hop.nvim',
+        config = function()
+            local hop = require 'hop'
+            local directions = require 'hop.hint' .HintDirection
+
+            vim.keymap.set('', 'f', function() hop.hint_char1 { current_line_only = true } end, { remap = true })
+            vim.keymap.set('', 'gf', hop.hint_char1)
+            vim.keymap.set('', 'F', function() hop.hint_words { current_line_only = true } end, { remap = true })
+            vim.keymap.set('', 'gF', hop.hint_words)
+            vim.keymap.set('', 't', function() hop.hint_char1 { current_line_only = true, hint_offset = -1 } end, { remap = true })
+            vim.keymap.set('', 'gt', function() hop.hint_char1 { hint_offset = -1 } end)
+            vim.keymap.set('', 'T', function() hop.hint_char1 { current_line_only = true, hint_offset = 1 } end, { remap = true })
+            vim.keymap.set('', 'gT', function() hop.hint_char1 { hint_offset = 1 } end)
+            vim.keymap.set('', 'g/', hop.hint_patterns)
+
+            hop.setup()
+        end
     },
     {
         'lukas-reineke/indent-blankline.nvim',
@@ -55,9 +68,9 @@ return {
             'kdheepak/cmp-latex-symbols',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-nvim-lsp-signature-help',
-            'hrsh7th/cmp-nvim-lua',
             'hrsh7th/cmp-path',
             'andersevenrud/cmp-tmux',
+            'lukas-reineke/cmp-under-comparator',
             'onsails/lspkind.nvim',
             'neovim/nvim-lspconfig'
         },
@@ -100,7 +113,6 @@ return {
                     { name = 'nerdfont' },
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lsp_signature_help' },
-                    { name = 'nvim_lua' },
                     { name = 'path' },
                     { name = 'tmux' }
                     -- { name = 'vsnip' }, -- For vsnip users.
@@ -215,10 +227,10 @@ return {
             }
         end
     },
-    {
-        'eraserhd/parinfer-rust',
-        build = 'cargo build --release'
-    },
+    -- {
+    --     'eraserhd/parinfer-rust',
+    --     build = 'cargo build --release'
+    -- },
     -- {
     --     'AlphaTechnolog/pywal.nvim',
     --     config = function()
@@ -249,6 +261,11 @@ return {
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         end
+    },
+    {
+        'Wansmer/treesj',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = true
     },
     {
         'elkowar/yuck.vim'
