@@ -49,9 +49,7 @@ return {
         'hrsh7th/nvim-cmp',
         dependencies = {
             'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-calc',
             'hrsh7th/cmp-cmdline',
-            'dmitmel/cmp-digraphs',
             'hrsh7th/cmp-emoji',
             'chrisgrieser/cmp-nerdfont',
             'kdheepak/cmp-latex-symbols',
@@ -61,7 +59,6 @@ return {
             'hrsh7th/cmp-path',
             'andersevenrud/cmp-tmux',
             'onsails/lspkind.nvim',
-            'amarakon/nvim-cmp-fonts',
             'neovim/nvim-lspconfig'
         },
         config = function()
@@ -98,10 +95,7 @@ return {
                     ['<CR>'] = cmp.mapping.confirm()
                 },
                 sources = cmp.config.sources({
-                    { name = 'calc' },
-                    { name = 'digraphs' },
                     { name = 'emoji' },
-                    { name = 'fonts' },
                     { name = 'latex_symbols' },
                     { name = 'nerdfont' },
                     { name = 'nvim_lsp' },
