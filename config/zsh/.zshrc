@@ -1,19 +1,19 @@
-if [ -z $TMUX ] && [[ $TERM == *$TERMINAL* ]]; then
+if [[ $TERM = linux ]]; then
+    tmux
+
+else if [[ $TERM = xterm-kitty ]]
     (cat ~/.cache/wal/sequences &)
     source ~/.cache/wal/colors-tty.sh
     ~/.cache/wal/colors.sh
 
-    tmux a -t tmux || tmux new -s tmux
-fi
-
-if [ $TMUX ]; then
     if [[ $XDG_CURRENT_DESKTOP = Hyprland ]]; then
         echo "\n~ $(hyprctl splash) ~\n"
     fi
     echo && fastfetch
+
 fi
 
-eval "$(starship init zsh)"
+eval $(starship init zsh)
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
