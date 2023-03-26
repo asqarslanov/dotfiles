@@ -22,13 +22,13 @@ return {
             local hop = require 'hop'
             local directions = require 'hop.hint' .HintDirection
 
-            vim.keymap.set('', 'f', function() hop.hint_char1 { current_line_only = true } end, { remap = true })
+            -- vim.keymap.set('', 'f', function() hop.hint_char1 { current_line_only = true } end, { remap = true })
             vim.keymap.set('', 'gf', hop.hint_char1)
-            vim.keymap.set('', 'F', function() hop.hint_words { current_line_only = true } end, { remap = true })
+            -- vim.keymap.set('', 'F', function() hop.hint_words { current_line_only = true } end, { remap = true })
             vim.keymap.set('', 'gF', hop.hint_words)
-            vim.keymap.set('', 't', function() hop.hint_char1 { current_line_only = true, hint_offset = -1 } end, { remap = true })
+            -- vim.keymap.set('', 't', function() hop.hint_char1 { current_line_only = true, hint_offset = -1 } end, { remap = true })
             vim.keymap.set('', 'gt', function() hop.hint_char1 { hint_offset = -1 } end)
-            vim.keymap.set('', 'T', function() hop.hint_char1 { current_line_only = true, hint_offset = 1 } end, { remap = true })
+            -- vim.keymap.set('', 'T', function() hop.hint_char1 { current_line_only = true, hint_offset = 1 } end, { remap = true })
             vim.keymap.set('', 'gT', function() hop.hint_char1 { hint_offset = 1 } end)
             vim.keymap.set('', 'g/', hop.hint_patterns)
 
