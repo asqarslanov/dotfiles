@@ -9,7 +9,13 @@ zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh"
 zinit light starship/starship
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
 
+bindkey '^h' backward-char
+bindkey '^j' down-line-or-history
+bindkey '^k' up-line-or-history
+bindkey '^l' forward-char
 if [[ $TERM = linux ]]; then
     tmux
 
