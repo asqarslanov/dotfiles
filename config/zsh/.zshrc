@@ -1,3 +1,15 @@
+ZINIT_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git
+[ ! -d $ZINIT_HOME ] && mkdir -p $(dirname $ZINIT_HOME)
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git $ZINIT_HOME
+source ${ZINIT_HOME}/zinit.zsh
+
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+
 if [[ $TERM = linux ]]; then
     tmux
 
@@ -12,8 +24,6 @@ else if [[ $TERM = xterm-kitty ]]
     echo && fastfetch
 
 fi
-
-eval $(starship init zsh)
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -45,7 +55,5 @@ lg() {
 }
 
 alias :q=exit
-alias :wq=exit
-alias :x=exit
 alias info='info --vi-keys'
 alias neofetch='echo "\n~ It’s Fastfetch, not Neofetch ~\n" && fastfetch'
