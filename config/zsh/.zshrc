@@ -45,7 +45,7 @@ autoload -Uz compinit
 compinit
 
 if [ ! -d ~/.cache/wal ]; then
-    wal -f base16-dracula
+    wal -f dracula
     chmod +x ~/.cache/wal/colors.sh
 fi
 
