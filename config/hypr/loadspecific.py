@@ -22,7 +22,7 @@ if hostname + '.conf' in os.listdir(host_specific_dir):
 
 if username + '.conf' in os.listdir(user_specific_dir):
     output += "\n"
-    output += f"source = {host_specific_dir}/{hostname}.conf"
+    output += f"source = {user_specific_dir}/{username}.conf"
     output += "\n"
 
 
