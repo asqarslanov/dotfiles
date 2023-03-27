@@ -1,8 +1,9 @@
 {
-    "layer": "top",
+    "height": 32,
     "modules-left": ["wlr/workspaces"],
-    "modules-center": ["wlr/window"],
-    "modules-right": ["battery", "clock"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["hyprland/language", "clock"],
+    "spacing": 0,
     "wlr/workspaces": {
         "on-click": "activate",
         "format": "{icon}",
@@ -11,14 +12,13 @@
         },
         "sort-by-number": true
     },
-    "sway/window": {
-        "max-length": 50
-    },
-    "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
+    "hyprland/language": {
+        "format-en": "En",
+        "format-ru": "Ru",
+        "on-click": "notify-send -t 5000 'Error' 'You can only switch the keyboard layout by using the keyboard.'"
     },
     "clock": {
-        "format-alt": "{:%a, %d. %b  %H:%M}"
+        "format": "{:%a %b %d  %I:%M %p}",
+        "format-alt": "{:%a %b %d  %H:%M}"
     }
 }

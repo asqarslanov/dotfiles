@@ -1,2 +1,33 @@
-window#waybar {
+@import url('../../.cache/wal/colors-waybar.css');
+
+* {
+    min-height: 0;
+}
+
+#workspaces button {
+    padding: 0 3px;
+    border-bottom: 3px solid transparent;
+    margin: 10px 2px 5px 2px;
+    border-radius: 4px;
+    /* background-color: @color1; */
+}
+
+#workspaces button:hover {
+    background-color: @color2;
+}
+
+#workspaces button:active {
+    background-color: @cursor;
+}
+
+#workspaces button.active {
+    background-color: @color8;
+}
+
+#workspaces button.active:hover {
+    background-color: @color3;
+}
+
+#window {
+    font-weight: 500;
 }
