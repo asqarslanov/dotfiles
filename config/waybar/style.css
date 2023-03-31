@@ -10,6 +10,7 @@ window#waybar {
     color: @foreground;
 }
 
+
 #workspaces {
     margin: 0 0 0 4.5px;
 }
@@ -33,10 +34,12 @@ window#waybar {
     background-color: @color4;
 }
 
+
 #window {
     font-weight: 500;
 }
 
+
 #clock {
-    margin: 0 12px 0 0;
+    margin: 0 8px 0 0;
 }
