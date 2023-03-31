@@ -11,6 +11,7 @@ ln -sf ~/.local/dotfiles/config/kitty ~/.config/kitty
 ln -sf ~/.local/dotfiles/config/nvim ~/.config/nvim
 ln -sf ~/.local/dotfiles/config/paru ~/.config/paru
 ln -sf ~/.local/dotfiles/config/starship/starship.toml ~/.config/starship.toml
+ln -sf ~/.local/dotfiles/config/swaync ~/.config/swaync
 ln -sf ~/.local/dotfiles/config/tmux ~/.config/tmux
 ln -sf ~/.local/dotfiles/config/wal ~/.config/wal
 ln -sf ~/.local/dotfiles/config/waybar ~/.config/waybar
