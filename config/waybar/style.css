@@ -1,7 +1,8 @@
 @import url('../../.cache/wal/colors-waybar.css');
 
 * {
-    min-height: 0;
+    all: unset;
+    /* min-height: 0; */
 }
 
 window#waybar {
@@ -9,20 +10,19 @@ window#waybar {
     color: @foreground;
 }
 
+#workspaces {
+    margin: 0 0 0 4.5px;
+}
+
 #workspaces button {
-    padding: 0 3px;
-    border-bottom: 3px solid transparent;
-    margin: 10px 2px 5px 2px;
+    min-width: 20px;
+    min-height: 20px;
+    margin: 6px 1.5px 6px 1.5px;
     border-radius: 4px;
-    /* background-color: @color1; */
 }
 
 #workspaces button:hover {
-    background-color: @color2;
-}
-
-#workspaces button:active {
-    background-color: @cursor;
+    background-color: @color4;
 }
 
 #workspaces button.active {
@@ -30,9 +30,13 @@ window#waybar {
 }
 
 #workspaces button.active:hover {
-    background-color: @color3;
+    background-color: @color4;
 }
 
 #window {
     font-weight: 500;
+}
+
+#clock {
+    margin: 0 12px 0 0;
 }

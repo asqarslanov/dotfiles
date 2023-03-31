@@ -2,8 +2,8 @@
     "height": 32,
     "modules-left": ["wlr/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["hyprland/language", "clock"],
-    "spacing": 0,
+    "modules-right": ["hyprland/language", "battery", "clock"],
+    "spacing": 12,
     "wlr/workspaces": {
         "on-click": "activate",
         "format": "{icon}",
@@ -18,7 +18,8 @@
         "on-click": "notify-send -t 5000 'Error' 'You can only switch the keyboard layout by using the keyboard.'"
     },
     "clock": {
+        "interval": 1,
         "format": "{:%a %b %d  %I:%M %p}",
-        "format-alt": "{:%a %b %d  %H:%M}"
+        "format-alt": "{:%Y-%m-%d %H:%M:%S}"
     }
 }
