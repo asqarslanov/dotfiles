@@ -7,12 +7,14 @@
     "spacing": 12,
 
     "wlr/workspaces": {
-        "on-click": "activate",
         "format": "{icon}",
         "format-icons": {
             "10": "0"
         },
-        "sort-by-number": true
+        "on-click": "activate",
+        "sort-by-number": true,
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1"
     },
 
     "hyprland/language": {
