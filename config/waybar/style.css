@@ -2,7 +2,6 @@
 
 * {
     all: unset;
-    /* min-height: 0; */
 }
 
 window#waybar {
