@@ -1,14 +1,5 @@
-// vim: syntax=xkb
-
-// Keyboard layouts for Russia.
-// AEN <aen@logic.ru>
-// 2001/12/23 by Leon Kanter <leon@blackcatlinux.com>
-// 2005/12/09 Valery Inozemtsev <shrek@altlinux.ru>
-// 2018/07/15 @a13 (a.k.a. @dbvvmpg) and Stepanenko Andrey <ftvkyo2011@yandex.ru>
-
-// Windows layout
 default partial alphanumeric_keys
-xkb_symbols "winkeys" {
+xkb_symbols "basic" {
 
     name[Group1]= "Jcuken";
 
@@ -67,6 +58,4 @@ xkb_symbols "winkeys" {
     key <AB08> { [ Cyrillic_softsign, Cyrillic_SOFTSIGN  ] };
     key <AB09> { [       Cyrillic_be,       Cyrillic_BE  ] };
     key <AB10> { [       Cyrillic_yu,       Cyrillic_YU  ] };
-
-    include "kpdl(comma)"
 };
