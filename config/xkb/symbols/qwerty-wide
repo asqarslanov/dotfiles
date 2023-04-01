@@ -1,6 +1,120 @@
 // vim: syntax=xkb
 
-default partial alphanumeric_keys
+default partial alphanumeric_keys modifier_keys
 xkb_symbols "basic" {
-    include "us"
+
+    name[Group1]= "Qwerty";
+
+    key <TLDE>	{[   grave,	 asciitilde	]};
+    key <AE01>	{[	 1,	 exclam		]};
+    key <AE02>	{[	 2,	 at		]};
+    key <AE03>	{[	 3,	 numbersign	]};
+    key <AE04>	{[	 4,	 dollar		]};
+    key <AE05>	{[	 5,	 percent	]};
+    key <AE06>	{[	 6,	 asciicircum	]};
+    key <AE07>	{[   equal,	 plus		]};
+    key <AE08>	{[	 7,	 ampersand	]};
+    key <AE09>	{[	 8,	 asterisk	]};
+    key <AE10>	{[	 9,	 parenleft	]};
+    key <AE11>	{[	 0,	 parenright	]};
+    key <AE12>	{[   minus,	 underscore	]};
+
+    key <AD01>	{[	 q,	 Q		]};
+    key <AD02>	{[	 w,	 W		]};
+    key <AD03>	{[	 e,	 E		]};
+    key <AD04>	{[	 r,	 R		]};
+    key <AD05>	{[	 t,	 T		]};
+    key <AD06>	{[ bracketleft,	 braceleft	]};
+    key <AD07>	{[	 y,	 Y		]};
+    key <AD08>	{[	 u,	 U		]};
+    key <AD09>	{[	 i,	 I		]};
+    key <AD10>	{[	 o,	 O		]};
+    key <AD11>	{[	 p,	 P		]};
+    key <AD12>	{[ apostrophe,	 quotedbl	]};
+
+    key <AC01>	{[	 a,	 A		]};
+    key <AC02>	{[	 s,	 S		]};
+    key <AC03>	{[	 d,	 D		]};
+    key <AC04>	{[	 f,	 F		]};
+    key <AC05>	{[	 g,	 G		]};
+    key <AC06>	{[ bracketright, braceright	]};
+    key <AC07>	{[	 h,	 H		]};
+    key <AC08>	{[	 j,	 J		]};
+    key <AC09>	{[	 k,	 K		]};
+    key <AC10>	{[	 l,	 L		]};
+    key <AC11>	{[ semicolon,	 colon		]};
+    key <BKSL>	{[ backslash,	 bar		]};
+
+    key <AB01>	{[	 z,	 Z		]};
+    key <AB02>	{[	 x,	 X		]};
+    key <AB03>	{[	 c,	 C		]};
+    key <AB04>	{[	 v,	 V		]};
+    key <AB05>	{[	 b,	 B		]};
+    key <AB06>	{[   slash,	 question	]};
+    key <AB07>	{[	 n,	 N		]};
+    key <AB08>	{[	 m,	 M		]};
+    key <AB09>	{[   comma,	 less		]};
+    key <AB10>	{[  period,	 greater	]};
+};
+
+
+xkb_symbols "colemak_dh" {
+
+    name[Group1]= "English (Colemak-DH)";
+
+    key <TLDE> { [        grave,   asciitilde,      dead_tilde,       asciitilde ] };
+    key <AE01> { [            1,       exclam,      exclamdown,      onesuperior ] };
+    key <AE02> { [            2,           at,       masculine,      twosuperior ] };
+    key <AE03> { [            3,   numbersign,     ordfeminine,    threesuperior ] };
+    key <AE04> { [            4,       dollar,            cent,         sterling ] };
+    key <AE05> { [            5,      percent,        EuroSign,              yen ] };
+    key <AE06> { [            6,  asciicircum,         hstroke,          Hstroke ] };
+    key <AE07> { [            7,    ampersand,             eth,              ETH ] };
+    key <AE08> { [            8,     asterisk,           thorn,            THORN ] };
+    key <AE09> { [            9,    parenleft,  leftsinglequotemark,  leftdoublequotemark ] };
+    key <AE10> { [            0,   parenright, rightsinglequotemark,  rightdoublequotemark ] };
+    key <AE11> { [        minus,   underscore,          endash,           emdash ] };
+    key <AE12> { [        equal,         plus,        multiply,         division ] };
+
+    key <AD01> { [            q,            Q,      adiaeresis,       Adiaeresis ] };
+    key <AD02> { [            w,            W,           aring,            Aring ] };
+    key <AD03> { [            f,            F,          atilde,           Atilde ] };
+    key <AD04> { [            p,            P,          oslash,           Oslash ] };
+    key <AD05> { [            b,            B,      dead_breve,       asciitilde ] };
+    key <AD06> { [            j,            J,         dstroke,          Dstroke ] };
+    key <AD07> { [            l,            L,         lstroke,          Lstroke ] };
+    key <AD08> { [            u,            U,          uacute,           Uacute ] };
+    key <AD09> { [            y,            Y,      udiaeresis,       Udiaeresis ] };
+    key <AD10> { [    semicolon,        colon,      odiaeresis,       Odiaeresis ] };
+    key <AD11> { [  bracketleft,    braceleft,   guillemotleft,        0x1002039 ] };
+    key <AD12> { [ bracketright,   braceright,  guillemotright,        0x100203a ] };
+    key <BKSL> { [    backslash,          bar,      asciitilde,       asciitilde ] };
+
+    key <AC01> { [            a,            A,          aacute,           Aacute ] };
+    key <AC02> { [            r,            R,      dead_grave,       asciitilde ] };
+    key <AC03> { [            s,            S,          ssharp,        0x1001e9e ] };
+    key <AC04> { [            t,            T,      dead_acute, dead_doubleacute ] };
+    key <AC05> { [            g,            G,     dead_ogonek,       asciitilde ] };
+    key <AC06> { [            m,            M,     dead_macron,       asciitilde ] };
+    key <AC07> { [            n,            N,          ntilde,           Ntilde ] };
+    key <AC08> { [            e,            E,          eacute,           Eacute ] };
+    key <AC09> { [            i,            I,          iacute,           Iacute ] };
+    key <AC10> { [            o,            O,          oacute,           Oacute ] };
+    key <AC11> { [   apostrophe,     quotedbl,          otilde,           Otilde ] };
+
+    key <LSGT> { [            z,            Z,              ae,               AE ] };
+    key <AB01> { [            x,            X, dead_circumflex,       asciitilde ] };
+    key <AB02> { [            c,            C,        ccedilla,         Ccedilla ] };
+    key <AB03> { [            d,            D,  dead_diaeresis,       asciitilde ] };
+    key <AB04> { [            v,            V,              oe,               OE ] };
+    key <AB05> { [            z,            Z,              ae,               AE ] }; //Z appears here too because <LSGT> key is not present on ANSI keyboards
+    key <AB06> { [            k,            K,  dead_abovering,       asciitilde ] };
+    key <AB07> { [            h,            H,      dead_caron,       asciitilde ] };
+    key <AB08> { [        comma,         less,    dead_cedilla,       asciitilde ] };
+    key <AB09> { [       period,      greater,   dead_abovedot,       asciitilde ] };
+    key <AB10> { [        slash,     question,    questiondown,       asciitilde ] };
+
+    key <SPCE> { [        space,        space,           space,     nobreakspace ] };
+
+    include "level3(ralt_switch)"
 };

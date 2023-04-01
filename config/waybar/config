@@ -16,8 +16,8 @@
     },
 
     "hyprland/language": {
-        "format-en": "En",
-        "format-ru": "Ru",
+        /* "format-en": "En", */
+        /* "format-ru": "Ru", */
         "on-click": "notify-send -t 5000 'Error' 'You can only switch the keyboard layout by using the keyboard.'"
     },
     "clock": {
