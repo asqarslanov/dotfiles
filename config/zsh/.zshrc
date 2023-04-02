@@ -1,3 +1,16 @@
+if [[ $TERM = linux ]]; then
+    tmux
+
+else if [[ $TERM = xterm-kitty ]]
+    (cat ~/.cache/wal/sequences &)
+
+    if [[ $XDG_CURRENT_DESKTOP = Hyprland ]]; then
+        echo "\n~ $(hyprctl splash) ~\n"
+    fi
+    echo && fastfetch
+
+fi
+
 ZINIT_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git
 [ ! -d $ZINIT_HOME ] && mkdir -p $(dirname $ZINIT_HOME)
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git $ZINIT_HOME
@@ -16,20 +29,6 @@ bindkey '^h' backward-char
 bindkey '^j' down-line-or-history
 bindkey '^k' up-line-or-history
 bindkey '^l' forward-char
-if [[ $TERM = linux ]]; then
-    tmux
-
-else if [[ $TERM = xterm-kitty ]]
-    (cat ~/.cache/wal/sequences &)
-    source ~/.cache/wal/colors-tty.sh
-    ~/.cache/wal/colors.sh
-
-    if [[ $XDG_CURRENT_DESKTOP = Hyprland ]]; then
-        echo "\n~ $(hyprctl splash) ~\n"
-    fi
-    echo && fastfetch
-
-fi
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
