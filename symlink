@@ -17,3 +17,4 @@ ln -sf ~/.local/dotfiles/config/wal ~/.config/wal
 ln -sf ~/.local/dotfiles/config/waybar ~/.config/waybar
 ln -sf ~/.local/dotfiles/config/xkb ~/.config/xkb
 ln -sf ~/.local/dotfiles/config/zsh/.zshrc ~/.zshrc
+sudo ln -sf ~/.local/dotfiles/config/greetd /etc/greetd
