@@ -12,7 +12,7 @@ xkb_symbols "basic" {
     key <AE06>	{[	 6,	 asciicircum	]};
     key <AE07>	{[	 7,	 ampersand	]};
     key <AE08>	{[	 8,	 asterisk	]};
-    key <AE19>	{[	 9,	 parenleft	]};
+    key <AE09>	{[	 9,	 parenleft	]};
     key <AE10>	{[	 0,	 parenright	]};
     key <AE11>	{[   minus,	 underscore	]};
     key <AE12>	{[   equal,	 plus		]};
