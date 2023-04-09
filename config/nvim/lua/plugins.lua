@@ -20,15 +20,10 @@ return {
         'phaazon/hop.nvim',
         config = function()
             local hop = require 'hop'
-            local directions = require 'hop.hint' .HintDirection
 
-            -- vim.keymap.set('', 'f', function() hop.hint_char1 { current_line_only = true } end, { remap = true })
             vim.keymap.set('', 'gf', hop.hint_char1)
-            -- vim.keymap.set('', 'F', function() hop.hint_words { current_line_only = true } end, { remap = true })
             vim.keymap.set('', 'gF', hop.hint_words)
-            -- vim.keymap.set('', 't', function() hop.hint_char1 { current_line_only = true, hint_offset = -1 } end, { remap = true })
             vim.keymap.set('', 'gt', function() hop.hint_char1 { hint_offset = -1 } end)
-            -- vim.keymap.set('', 'T', function() hop.hint_char1 { current_line_only = true, hint_offset = 1 } end, { remap = true })
             vim.keymap.set('', 'gT', function() hop.hint_char1 { hint_offset = 1 } end)
             vim.keymap.set('', 'g/', hop.hint_patterns)
 
@@ -156,19 +151,11 @@ return {
             -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
             cmp.setup.cmdline(':', {
                 mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = 'path' }
-                }, {
-                    { name = 'cmdline' }
-                })
+                sources = cmp.config.sources(
+                    { { name = 'path' } },
+                    { { name = 'cmdline' } }
+                )
             })
-
-            -- Set up lspconfig.
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-            -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-            --     capabilities = capabilities
-            -- }
         end
     },
     {
@@ -181,17 +168,44 @@ return {
             require 'mason' .setup()
             require 'mason-lspconfig' .setup {
                 ensure_installed = {
+                    'bashls',
+                    'clangd',
                     'html',
-                    'rust_analyzer',
-                    -- 'sumneko_lua',
+                    'jsonls',
+                    'lua_ls',
+                    'pyright',
+                    'rust_analyzer'
                 }
+            }
+
+            local lspconfig = require('lspconfig')
+            lspconfig.bashls.setup {}
+            lspconfig.clangd.setup {}
+            lspconfig.html.setup {}
+            lspconfig.jsonls.setup {}
+            lspconfig.lua_ls.setup {
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { 'vim' }
+                        }
+                    }
+                }
+            }
+            lspconfig.pyright.setup {}
+            lspconfig.rust_analyzer.setup {}
+
+            -- lspconfig.lua_ls.setup()
+            -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+            -- The following example advertise capabilities to `clangd`.
+            require 'lspconfig' .clangd.setup {
+                capabilities = capabilities
             }
         end
     },
-    {
-        'petertriho/nvim-scrollbar',
-        config = true
-    },
+    { 'petertriho/nvim-scrollbar', config = true },
     {
         'kylechui/nvim-surround',
         config = true
@@ -212,6 +226,7 @@ return {
                     'gitignore',
                     'html',
                     'javascript',
+                    'json',
                     'lua',
                     'markdown',
                     'python',
