@@ -4,6 +4,8 @@ vim.keymap.set('n', '<C-s>', ':q<CR>')
 vim.keymap.set('v', '<C-s>', ':<C-w>q<CR>')
 vim.keymap.set('n', '<Leader>w', ':w<CR>')
 
+vim.keymap.set('i', '<C-Backspace>', '<C-W>')
+
 vim.keymap.set('i', '<A-CR>', '<C-o>:set wrap!<CR>')
 vim.keymap.set('n', '<A-CR>', ':set wrap!<CR>')
 
