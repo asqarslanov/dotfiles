@@ -60,6 +60,9 @@ return {
         config = true
     },
     {
+        'sbdchd/neoformat'
+    },
+    {
         'windwp/nvim-autopairs',
         config = true
     },
