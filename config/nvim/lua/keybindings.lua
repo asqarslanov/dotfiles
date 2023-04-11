@@ -7,6 +7,7 @@ vim.keymap.set('n', '<Leader>w', ':w<CR>')
 vim.keymap.set('i', '<C-Backspace>', '<C-w>')
 
 vim.keymap.set('n', '<Leader>w', ':Neoformat<CR>:w<CR>')
+vim.keymap.set('n', '<Leader>q', ':q<CR>')
 
 vim.keymap.set('i', '<A-CR>', '<C-o>:set wrap!<CR>')
 vim.keymap.set('n', '<A-CR>', ':set wrap!<CR>')

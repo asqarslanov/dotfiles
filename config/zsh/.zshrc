@@ -60,6 +60,7 @@ lg() {
 }
 
 alias :q=exit
+alias ':q!'=exit
 alias info='info --vi-keys'
 alias neofetch='echo "\n~ It’s Fastfetch, not Neofetch ~\n" && fastfetch'
 alias please=sudo
