@@ -1,0 +1,39 @@
+@import '.cache/wal/colors-waybar.css';
+
+* {
+    all: unset;
+}
+
+#window {
+    background-color: @background;
+    color: @foreground;
+    font-size: 16px;
+}
+
+#input {
+    margin: 16px 8px 0 16px;
+}
+
+#scroll {
+    margin: 12px;
+}
+
+#inner-box {
+    border-radius: 30px;
+}
+
+#img {
+}
+
+#text {
+    margin: 8px;
+}
+
+#entry {
+}
+
+#entry:selected {
+    background-color: @color8;
+    border-radius: 8px;
+    font-weight: 600;
+}
