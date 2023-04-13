@@ -30,10 +30,12 @@
 }
 
 #entry {
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    border-radius: 8px;
 }
 
 #entry:selected {
     background-color: @color8;
-    border-radius: 8px;
     font-weight: 600;
 }

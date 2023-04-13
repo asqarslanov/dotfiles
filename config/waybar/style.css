@@ -15,10 +15,11 @@ window#waybar {
 }
 
 #workspaces button {
+    transition-duration: 0.15s;
     min-width: 20px;
     min-height: 20px;
-    margin: 6px 1.5px 6px 1.5px;
     border-radius: 4px;
+    margin: 6px 1.5px 6px 1.5px;
 }
 
 #workspaces button:hover {
