@@ -54,3 +54,5 @@ xkb_symbols "basic" {
     key <AB09>	{[   comma,	 less		]};
     key <AB10>	{[  period,	 greater	]};
 };
+
+// vim: syntax=xkb
