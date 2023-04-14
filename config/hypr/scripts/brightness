@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 if [[ $1 == up ]]; then
-    brillo -u 100000 -A 10
+    pkexec $(which brillo) -q -u 100000 -A 10
 
 elif [[ $1 == down ]]; then
-    brillo -u 100000 -U 10
+    pkexec $(which brillo) -q -u 100000 -U 10
 
 fi
 
-notify-send -t 400 $(brillo -G)%
+notify-send -t 400 $(pkexec $(which brillo) -G)%
