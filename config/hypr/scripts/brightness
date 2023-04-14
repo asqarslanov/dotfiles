@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
 if [[ $1 == up ]]; then
-    brightnessctl s 10%+
+    brillo -u 100000 -A 10
 
 elif [[ $1 == down ]]; then
-    brightnessctl s 10%-
+    brillo -u 100000 -U 10
 
 fi
 
-current_brightness=$(brightnessctl g)
-max_brightness=$(brightnessctl m)
-percentage=$((100 * current_brightness / max_brightness))
-
-notify-send -t 400 $percentage%
+notify-send -t 400 $(brillo -G)%
