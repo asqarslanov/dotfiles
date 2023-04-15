@@ -2,6 +2,8 @@
  * vim: ft=less
  */
 
+@import '../../.cache/wal/colors-waybar.css';
+
 @define-color cc-bg rgba(0, 0, 0, 0.7);
 
 @define-color noti-border-color rgba(255, 255, 255, 0.15);
@@ -82,7 +84,7 @@
   padding: 4px;
   margin: 0;
   box-shadow: none;
-  background: @noti-bg;
+  background: @background;
   border: 1px solid @noti-border-color;
   color: white;
 }
@@ -90,7 +92,7 @@
 .notification-default-action:hover,
 .notification-action:hover {
   -gtk-icon-effect: none;
-  background: @noti-bg-hover;
+  background: @color8;
 }
 
 .notification-default-action {
