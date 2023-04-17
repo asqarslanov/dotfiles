@@ -44,3 +44,5 @@
         }
     }
 }
+
+// vim: syntax=jsonc
