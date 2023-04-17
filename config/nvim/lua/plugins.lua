@@ -59,9 +59,7 @@ return {
         build = 'sudo npm install -g live-server',
         config = true
     },
-    {
-        'sbdchd/neoformat'
-    },
+    'sbdchd/neoformat',
     {
         'windwp/nvim-autopairs',
         config = true
@@ -333,16 +331,30 @@ return {
         config = true
     },
     {
-        'elkowar/yuck.vim'
-    },
-    --[[
-    {
         'folke/which-key.nvim',
         config = function()
             vim.o.timeout = true
-            vim.o.timeoutlen = 300
-            require 'which-key' .setup { }
-        end
+            vim.o.timeoutlen = 500
+            local wk = require 'which-key'
+            wk.register {
+                ['<leader>'] = {
+                    D = 'Cut Rest to Clipboard',
+                    P = 'Paste Before from Clipboard',
+                    V = 'Select All Lines',
+                    Y = 'Copy Line to Clipboard',
+                    d = 'Cut to Clipboard...',
+                    p = 'Paste After from Clipboard',
+                    q = 'Quit',
+                    v = 'Select All',
+                    w = 'Format and Save',
+                    y = 'Copy to Clipboard...',
+                }
+            }
+            require 'which-key' .setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end,
     },
-    --]]
 }
