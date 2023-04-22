@@ -5,8 +5,9 @@ else if [[ $TERM = xterm-kitty ]]
     (cat ~/.cache/wal/sequences &)
 
     if [[ $XDG_CURRENT_DESKTOP = Hyprland ]]; then
-        echo "\n~ $(hyprctl splash) ~\n"
+        echo "\n~ $(hyprctl splash) ~"
     fi
+    echo "\n~ $(fortune -s) ~\n"
     echo && fastfetch
 
 fi
