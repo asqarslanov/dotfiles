@@ -40,20 +40,20 @@ return {
             hop.setup()
         end
     },
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        config = function()
-            require 'indent_blankline' .setup {
-                char_highlight_list = {
-                    'IndentBlanklineIndent1',
-                    'IndentBlanklineIndent4',
-                },
-                show_current_context = true,
-                show_current_context_start = true,
-                use_treesitter = true
-            }
-        end
-    },
+    -- {
+    --     'lukas-reineke/indent-blankline.nvim',
+    --     config = function()
+    --         require 'indent_blankline' .setup {
+    --             char_highlight_list = {
+    --                 'IndentBlanklineIndent1',
+    --                 'IndentBlanklineIndent4',
+    --             },
+    --             show_current_context = true,
+    --             show_current_context_start = true,
+    --             use_treesitter = true
+    --         }
+    --     end
+    -- },
     {
         'barrett-ruth/live-server.nvim',
         build = 'sudo npm install -g live-server',
@@ -235,7 +235,10 @@ return {
                 settings = {
                     Lua = {
                         diagnostics = {
-                            globals = { 'vim' }
+                            globals = {
+                                'vim',
+                                'xplr'
+                            }
                         }
                     }
                 }
