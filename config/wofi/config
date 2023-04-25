@@ -1,3 +1,5 @@
+width = 560
+height = 360
 prompt = Type to search
 normal_window = true
 key_up = Control_L-k
