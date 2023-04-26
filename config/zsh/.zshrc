@@ -1,15 +1,19 @@
-if [[ $TERM = linux ]]; then
-    tmux
-
-else if [[ $TERM = xterm-kitty ]]
-    (cat ~/.cache/wal/sequences &)
-
-    if [[ $XDG_CURRENT_DESKTOP = Hyprland ]]; then
-        echo "\n~ $(hyprctl splash) ~"
+if [[ $TERM != xterm-256color ]]; then
+    if [[ -z $TMUX ]]; then
+        (cat ~/.cache/wal/sequences &)
+        ~/.cache/wal/colors-tty.sh
+        ~/.config/tmux/scripts/initialization
+        clear
+    else
+        echo "\n~ $(fortune -s) ~\n"
+        echo && fastfetch
     fi
-    echo "\n~ $(fortune -s) ~\n"
-    echo && fastfetch
+fi
 
+if [ ! -d ~/.cache/wal ]; then
+    wal -f dracula
+    chmod +x ~/.cache/wal/colors.sh
+    chmod +x ~/.cache/wal/colors-tty.sh
 fi
 
 ZINIT_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git
@@ -23,13 +27,13 @@ zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh"
 zinit light starship/starship
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
+# zinit ice depth=1
+# zinit light jeffreytse/zsh-vi-mode
 
-bindkey '^h' backward-char
-bindkey '^j' down-line-or-history
-bindkey '^k' up-line-or-history
-bindkey '^l' forward-char
+# bindkey '^h' backward-char
+# bindkey '^j' down-line-or-history
+# bindkey '^k' up-line-or-history
+# bindkey '^l' forward-char
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -44,10 +48,6 @@ zstyle :compinstall filename '/home/askarbink/.zshrc'
 autoload -Uz compinit
 compinit
 
-if [ ! -d ~/.cache/wal ]; then
-    wal -f dracula
-    chmod +x ~/.cache/wal/colors.sh
-fi
 
 lg() {
     export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
