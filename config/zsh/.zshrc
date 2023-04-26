@@ -1,10 +1,10 @@
-if [[ $TERM != xterm-256color ]]; then
-    if [[ -z $TMUX ]]; then
-        (cat ~/.cache/wal/sequences &)
-        ~/.cache/wal/colors-tty.sh
-        ~/.config/tmux/scripts/initialization
-        clear
-    else
+if [[ -z $TMUX ]]; then
+    (cat ~/.cache/wal/sequences &)
+    ~/.cache/wal/colors-tty.sh
+    ~/.config/tmux/scripts/initialization
+    clear
+else
+    if [[ $TERM != xterm-256color ]]; then
         echo "\n~ $(fortune -s) ~\n"
         echo && fastfetch
     fi
