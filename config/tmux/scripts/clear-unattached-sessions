@@ -30,5 +30,5 @@ if __name__ == '__main__':
 
         name = get_session_name(session)
 
-        if not name.startswith('_'):
+        if not name.startswith('!'):
             subprocess.run(('tmux', 'kill-session', '-t', name))

@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     new_name = get_current_time()
 
-    if sessions[0].startswith('_'):
+    if sessions[0].startswith('!'):
         name = get_session_name(sessions[0])
         subprocess.run(('tmux', 'rename-session', '-t', name, new_name))
         subprocess.run(('tmux', 'attach', '-t', new_name))
