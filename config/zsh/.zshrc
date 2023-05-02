@@ -10,6 +10,8 @@ else
     fi
 fi
 
+~/.config/tmux/scripts/clear-unattached-sessions
+
 if [ ! -d ~/.cache/wal ]; then
     wal -f dracula
     chmod +x ~/.cache/wal/colors.sh
