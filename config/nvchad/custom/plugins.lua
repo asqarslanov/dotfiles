@@ -14,6 +14,20 @@ local plugins = {
         }
     },
     {
+        'echasnovski/mini.move',
+        lazy = false,
+        config = function()
+            require 'mini.move' .setup()
+        end
+    },
+    {
+        'echasnovski/mini.surround',
+        lazy = false,
+        config = function()
+            require 'mini.surround' .setup()
+        end
+    },
+    {
         'neovim/nvim-lspconfig',
         config = function()
             require 'plugins.configs.lspconfig'
