@@ -1,3 +1,4 @@
+vim.opt.clipboard = ''
 vim.opt.confirm = true
 vim.opt.lazyredraw = true
 vim.opt.list = true
