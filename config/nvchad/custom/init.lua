@@ -1,10 +1,10 @@
-vim.opt.clipboard = ''
+vim.opt.clipboard = ""
 vim.opt.confirm = true
 vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = {
-    tab = '→  ',
-    trail = '·',
+	tab = "→  ",
+	trail = "·",
 }
 vim.opt.wrap = false
 vim.opt.relativenumber = true
