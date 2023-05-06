@@ -1,22 +1,7 @@
 local plugins = {
 	{
 		"williamboman/mason.nvim",
-		opts = {
-			ensure_installed = {
-				"bash-language-server",
-				"black",
-				"html-lsp",
-				"isort",
-				"json-lsp",
-				"lua-language-server",
-				"pyright",
-				"rustfmt",
-				"shfmt",
-				"stylua",
-				-- 'clangd',
-				-- 'rust-analyzer',
-			},
-		},
+		opts = require("custom.configs.mason"),
 	},
 	{
 		"echasnovski/mini.move",
@@ -36,7 +21,7 @@ local plugins = {
 		"sbdchd/neoformat",
 		lazy = false,
 		config = function()
-			vim.g.neoformat_enabled_python = { "black", "isort" }
+			require("custom.configs.neoformat")
 		end,
 	},
 	{
@@ -51,44 +36,7 @@ local plugins = {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		opts = {
-			ensure_installed = {
-				"bash",
-				"comment",
-				"cpp",
-				"css",
-				"diff",
-				"git_config",
-				"git_rebase",
-				"gitattributes",
-				"gitcommit",
-				"gitignore",
-				"html",
-				"ini",
-				"json",
-				"json5",
-				"jsonc",
-				"lua",
-				"luap",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"regex",
-				"toml",
-				"yaml",
-				-- 'c',
-				-- 'c_sharp',
-				-- 'cmake',
-				-- 'dockerfile',
-				-- 'http',
-				-- 'javascript',
-				-- 'jq',
-				-- 'latex',
-				-- 'make',
-				-- 'rust',
-				-- 'typescript',
-			},
-		},
+		opts = require("custom.configs.nvim-treesitter"),
 	},
 	{
 		"folke/which-key.nvim",

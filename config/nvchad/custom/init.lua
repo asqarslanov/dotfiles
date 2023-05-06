@@ -3,7 +3,7 @@ vim.opt.confirm = true
 vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = {
-	tab = "→  ",
+	tab = "  →",
 	trail = "·",
 }
 vim.opt.wrap = false
