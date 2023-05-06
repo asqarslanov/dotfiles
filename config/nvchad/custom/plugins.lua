@@ -4,6 +4,19 @@ local plugins = {
 		opts = require("custom.configs.mason"),
 	},
 	{
+		"echasnovski/mini.indentscope",
+		lazy = false,
+		config = function()
+			require("mini.indentscope").setup({
+				options = {
+					indent_at_cursor = false,
+					try_as_border = true,
+				},
+				symbol = "│",
+			})
+		end,
+	},
+	{
 		"echasnovski/mini.move",
 		lazy = false,
 		config = function()
