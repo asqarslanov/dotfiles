@@ -8,13 +8,12 @@ paru
 
 rustup update
 
-pip3 list --outdated \
-    | cut --delimiter=' ' --fields=1 \
-    | tr ' ' '\n' \
-    | awk '{if (NR >= 3) print}' \
-    | cut --delimiter=' ' --fields=1 \
-    | xargs --max-args=1 pip3 install --upgrade
-
+pip3 list --outdated |
+    cut --delimiter=' ' --fields=1 |
+    tr ' ' '\n' |
+    awk '{if (NR >= 3) print}' |
+    cut --delimiter=' ' --fields=1 |
+    xargs --max-args=1 pip3 install --upgrade
 
 nvim -c NvChadUpdate
 

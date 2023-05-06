@@ -19,4 +19,3 @@ wpctl get-volume @DEFAULT_AUDIO_SINK@ |
     while read OUTPUT; do
         notify-send -t 400 "$OUTPUT"
     done
-

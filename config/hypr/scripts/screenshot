@@ -43,4 +43,3 @@ elif [[ $1 == p ]]; then
     wl-copy $color
     notify-send 'Copied to Clipboard' $color
 fi
-
