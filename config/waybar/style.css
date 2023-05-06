@@ -10,6 +10,12 @@ window#waybar {
 }
 
 
+#window {
+    margin: 0 0 0 12px;
+    font-weight: 500;
+}
+
+
 #workspaces {
     /* margin: 0 0 0 4.5px; */
 }
@@ -35,9 +41,8 @@ window#waybar {
 }
 
 
-#window {
-    margin: 0 0 0 12px;
-    font-weight: 500;
+#keyboard-state label.locked {
+    color: @color4;
 }
 
 #clock {

@@ -3,7 +3,7 @@
     "height": 32,
     "modules-left": ["hyprland/window"],
     "modules-center": ["wlr/workspaces"],
-    "modules-right": ["hyprland/language", "battery", "clock", "custom/notification"],
+    "modules-right": ["keyboard-state", "hyprland/language", "battery", "clock", "custom/notification"],
     "spacing": 12,
 
     "wlr/workspaces": {
@@ -29,6 +29,14 @@
         "on-scroll-down": "hyprctl dispatch workspace e+1"
     },
 
+    "keyboard-state": {
+        "capslock": true,
+        "format": "{icon}",
+        "format-icons": {
+            "locked": "󰌎",
+            "unlocked": ""
+        }
+    },
     "hyprland/language": {
         "on-click": "notify-send -t 5000 Error 'You can only switch the keyboard layout by using the keyboard.'"
     },
@@ -74,7 +82,7 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "escape": true
-    },
+    }
 }
 
 // vim: syntax=jsonc
