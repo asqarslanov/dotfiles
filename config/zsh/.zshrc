@@ -26,8 +26,8 @@ source ${ZINIT_HOME}/zinit.zsh
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice as"command" from"gh-r" \
-          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-          atpull"%atclone" src"init.zsh"
+    atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+    atpull"%atclone" src"init.zsh"
 zinit light starship/starship
 # zinit ice depth=1
 # zinit light jeffreytse/zsh-vi-mode
@@ -50,27 +50,27 @@ zstyle :compinstall filename '/home/askarbink/.zshrc'
 autoload -Uz compinit
 compinit
 
-
 lg() {
     export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
     lazygit $@
 
     if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
-            cd $(cat $LAZYGIT_NEW_DIR_FILE)
-            rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+        cd $(cat $LAZYGIT_NEW_DIR_FILE)
+        rm -f $LAZYGIT_NEW_DIR_FILE >/dev/null
     fi
 }
 
-alias ':q!'=exit
 alias 'command rm'='command rm --interactive=once --preserve-root --verbose'
-alias :q=exit
-alias cp='cp --interactive --verbose'
-alias info='info --vi-keys'
-alias ln='ln --interactive --verbose'
-alias ls='exa --classify --icons --all --header'
-alias mv='mv --interactive --verbose'
-alias neofetch='echo "neofetch: aliased to fastfetch\n"; fastfetch'
-alias plz=sudo
-alias rm='echo Use either \`trash\` or \`command rm\` instead.; false'
-alias trash='trash --interactive --verbose'
+alias 'cp'='cp --interactive --verbose'
+alias 'ln'='ln --interactive --verbose'
+alias 'mv'='mv --interactive --verbose'
+alias 'rm'='echo Use either \`trash\` or \`command rm\` instead.; false'
+alias 'trash'='trash --interactive --verbose'
+
+alias ':q!'='exit'
+alias ':q'='exit'
+alias 'info'='info --vi-keys'
+alias 'ls'='exa --classify --icons --all --header'
+alias 'neofetch'='echo "neofetch: aliased to fastfetch\n"; fastfetch'
+alias 'plz'='sudo'
