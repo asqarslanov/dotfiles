@@ -62,8 +62,15 @@ lg() {
     fi
 }
 
-alias :q=exit
 alias ':q!'=exit
+alias 'command rm'='command rm --interactive=once --preserve-root --verbose'
+alias :q=exit
+alias cp='cp --interactive --verbose'
 alias info='info --vi-keys'
-alias neofetch='echo "\n~ It’s Fastfetch, not Neofetch ~\n" && fastfetch'
-alias please=sudo
+alias ln='ln --interactive --verbose'
+alias ls='exa --classify --icons --all --header'
+alias mv='mv --interactive --verbose'
+alias neofetch='echo "neofetch: aliased to fastfetch\n"; fastfetch'
+alias plz=sudo
+alias rm='echo Use either \`trash\` or \`command rm\` instead.; false'
+alias trash='trash --interactive --verbose'
