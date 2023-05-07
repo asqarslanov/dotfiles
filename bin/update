@@ -15,7 +15,6 @@ pip3 list --outdated |
     cut --delimiter=' ' --fields=1 |
     xargs --max-args=1 pip3 install --upgrade
 
-nvim -c NvChadUpdate
-
 echo
+echo 'nvim :Lazy'
 echo 'zinit self-update; zinit update --all'
