@@ -2,8 +2,12 @@ local M = {}
 
 M.General = {
 	i = {
-		["<C-Backspace>"] = { "<C-w>", "Erase Word Before" },
 		["<C-a>"] = { "<Esc>I", "Beginning of Line" },
+		["<C-e>"] = { "<Esc>A", "End of Line" },
+		["<C-h>"] = { "<Left>", "Move Left" },
+		["<C-j>"] = { "<Down>", "Move Down" },
+		["<C-k>"] = { "<Up>", "Move Up" },
+		["<C-l>"] = { "<Right>", "Move Right" },
 	},
 	n = {
 		["<Esc>"] = { "<Cmd>noh<CR>", "Clear Highlights" },
@@ -18,6 +22,18 @@ M.General = {
 	v = {
 		["<Leader>V"] = { "<Esc>ggVG", "Select All Lines" },
 		["<Leader>v"] = { "<ESC>gg0vG$", "Select All" },
+	},
+}
+
+M.GUI = {
+	n = {
+		["<C-s>"] = { "<Cmd>Neoformat|w<CR>", "Save and Format" },
+		["<C-w>"] = {
+			function()
+				require("nvchad_ui.tabufline").close_buffer()
+			end,
+			"Close Tab",
+		},
 	},
 }
 
@@ -66,6 +82,9 @@ M.disabled = {
 		["<leader>wl"] = "",
 		["<leader>wr"] = "",
 		["<leader>x"] = "",
+	},
+	i = {
+		["<C-b>"] = "",
 	},
 }
 
