@@ -1,5 +1,7 @@
+vim.g.colorscheme_plugin_name = "Mofiqul/dracula.nvim"
+
 return {
-	"Mofiqul/dracula.nvim",
+	vim.g.colorscheme_plugin_name,
 
 	opts = function()
 		local dracula = require("dracula")

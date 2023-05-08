@@ -2,7 +2,10 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 
 	dependencies = {
-		"HiPhish/nvim-ts-rainbow2",
+		{
+			"HiPhish/nvim-ts-rainbow2",
+			dependencies = { vim.g.colorscheme_plugin_name },
+		},
 	},
 
 	opts = function()
