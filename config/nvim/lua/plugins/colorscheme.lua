@@ -7,6 +7,7 @@ return {
 		local dracula = require("dracula")
 		return {
 			indent_color = dracula.colors().purple,
+			indent_color_zen = dracula.colors().comment,
 			ts_rainbow_colors = {
 				dracula.colors().pink,
 				dracula.colors().cyan,
@@ -20,18 +21,15 @@ return {
 	config = function(_, opts)
 		vim.cmd("colorscheme dracula")
 
-		local function make_highlight(name, color)
-			local command = "highlight " .. name .. " guifg=" .. color .. " gui=nocombine"
-			vim.cmd(command)
-		end
-
 		-- plugins/mini-indentscope.lua
-		make_highlight("MiniIndentscopeSymbol", opts.indent_color)
+		vim.cmd("highlight MiniIndentscopeSymbol guifg=" .. opts.indent_color .. " gui=nocombine")
+		vim.g.indent_color = opts.indent_color
+		vim.g.indent_color_zen = opts.indent_color_zen
 
 		-- plugins/treesitter.lua
-		vim.g.ts_rainbow_colors_count = #opts.ts_rainbow_colors
 		for i, color in ipairs(opts.ts_rainbow_colors) do
-			make_highlight("TSRainbow" .. i, color)
+			vim.cmd("highlight TSRainbow" .. i .. " guifg=" .. color .. " gui=nocombine")
 		end
+		vim.g.ts_rainbow_colors_count = #opts.ts_rainbow_colors
 	end,
 }
