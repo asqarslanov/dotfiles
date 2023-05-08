@@ -1,7 +1,5 @@
-vim.g.colorscheme_plugin_name = "Mofiqul/dracula.nvim"
-
 return {
-	vim.g.colorscheme_plugin_name,
+	"Mofiqul/dracula.nvim",
 
 	opts = function()
 		local dracula = require("dracula")
@@ -18,8 +16,10 @@ return {
 		}
 	end,
 
-	config = function(_, opts)
+	config = function(plugin, opts)
 		vim.cmd("colorscheme dracula")
+
+		vim.g.colorscheme_plugin_name = plugin.url
 
 		-- plugins/mini-indentscope.lua
 		vim.cmd("highlight MiniIndentscopeSymbol guifg=" .. opts.indent_color .. " gui=nocombine")

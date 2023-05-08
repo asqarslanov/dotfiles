@@ -1,0 +1,135 @@
+return {
+    {
+        'phaazon/hop.nvim',
+        config = function()
+            local hop = require 'hop'
+
+            vim.keymap.set('', 'gf', hop.hint_char1)
+            vim.keymap.set('', 'gF', hop.hint_words)
+            vim.keymap.set('', 'gt', function() hop.hint_char1 { hint_offset = -1 } end)
+            vim.keymap.set('', 'gT', function() hop.hint_char1 { hint_offset = 1 } end)
+            vim.keymap.set('', 'g/', hop.hint_patterns)
+
+            hop.setup()
+        end
+    },
+    {
+        'mfussenegger/nvim-dap',
+        config = function()
+            local dap = require 'dap'
+
+            dap.adapters.python = {
+                type = 'executable',
+                command = 'python3',
+                args = { '-m', 'debugpy.adapter' }
+            }
+            dap.configurations.python = {
+                {
+                    -- The first three options are required by nvim-dap
+                    type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
+                    request = 'launch',
+                    name = "Launch file",
+
+                    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+                    program = "${file}",  -- This configuration will launch the current file if used.
+                    pythonPath = function()
+                        -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+                        -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+                        -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+                        local cwd = vim.fn.getcwd()
+                        if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+                            return cwd .. '/venv/bin/python'
+                        elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+                            return cwd .. '/.venv/bin/python'
+                        else
+                            return '/usr/bin/python'
+                        end
+                    end
+                }
+            }
+        end
+    },
+    { 'petertriho/nvim-scrollbar', config = true },
+    {
+        'kylechui/nvim-surround',
+        config = true
+    },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        dependencies = {
+            'windwp/nvim-ts-autotag',
+            'HiPhish/nvim-ts-rainbow2'
+        },
+        config = function()
+            require 'nvim-treesitter.configs' .setup {
+                ensure_installed = {
+                    'bash',
+                    'cpp',
+                    'css',
+                    'gitignore',
+                    'html',
+                    'javascript',
+                    'json',
+                    'lua',
+                    'markdown',
+                    'python',
+                    'rust'
+                },
+                autotag = {
+                    enable = true
+                },
+                rainbow = {
+                    enable = true,
+                    extended_mode = true
+                }
+            }
+        end
+    },
+    {
+        'nvim-telescope/telescope.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function()
+            local builtin = require 'telescope.builtin'
+            vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+            vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+            vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+            vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        end
+    },
+    {
+        'Wansmer/treesj',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = true
+    },
+    {
+        'folke/which-key.nvim',
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 500
+            local wk = require 'which-key'
+            wk.register {
+                ['<leader>'] = {
+                    D = 'Cut Rest to Clipboard',
+                    P = 'Paste Before from Clipboard',
+                    V = 'Select All Lines',
+                    Y = 'Copy Line to Clipboard',
+                    d = 'Cut to Clipboard...',
+                    p = 'Paste After from Clipboard',
+                    q = 'Quit',
+                    v = 'Select All',
+                    w = 'Format and Save',
+                    y = 'Copy to Clipboard...',
+                }
+            }
+            require 'which-key' .setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end,
+    },
+}
