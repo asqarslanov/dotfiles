@@ -2,6 +2,10 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
+-- indentscope
+-- surround
+-- comment
+
 keymap.set("n", "j", "gj")
 keymap.set("n", "k", "gk")
 
