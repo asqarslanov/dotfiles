@@ -5,6 +5,7 @@ local keymap = vim.keymap
 -- indentscope
 -- surround
 -- comment
+-- color-picker
 
 keymap.set("n", "j", "gj")
 keymap.set("n", "k", "gk")

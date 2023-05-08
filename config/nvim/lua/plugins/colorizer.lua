@@ -4,6 +4,7 @@ return {
 	opts = {
 		user_default_options = {
 			names = false,
+			css = true,
 			mode = "virtualtext",
 			virtualtext = "󰌁",
 		},
@@ -13,13 +14,11 @@ return {
 
 			css = {
 				names = true,
-				css = true,
 				tailwind = true,
 			},
 
 			scss = {
 				names = true,
-				css = true,
 				tailwind = true,
 				sass = { enable = true },
 			},
