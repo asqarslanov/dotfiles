@@ -5,7 +5,11 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 
-	opts = {},
+	opts = {
+		options = {
+			theme = "dracula-nvim",
+		},
+	},
 
 	config = function(_, opts)
 		require("lualine").setup(opts)

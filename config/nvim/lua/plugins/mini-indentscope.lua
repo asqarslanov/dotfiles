@@ -23,11 +23,8 @@ return {
 	end,
 
 	opts = {
-		options = {
-			indent_at_cursor = false,
-		},
-
-		symbol = "▏",
+		options = { try_as_border = true },
+		symbol = "╵",
 	},
 
 	config = function(_, opts)
