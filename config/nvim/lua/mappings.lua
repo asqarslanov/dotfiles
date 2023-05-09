@@ -5,6 +5,7 @@ local keymap = vim.keymap
 -- indentscope
 -- surround
 -- comment
+-- terminal
 -- color-picker
 
 keymap.set("n", "j", "gj")
@@ -17,7 +18,7 @@ keymap.set("i", "<C-j>", "<C-o>gj")
 keymap.set("i", "<C-k>", "<C-o>gk")
 keymap.set("i", "<C-l>", "<Right>")
 
-keymap.set("n", "<Esc>", "<Cmd>noh<CR>")
+keymap.set("n", "<Esc>", "<Cmd>nohlsearch<CR>")
 -- keymap.set("n", "<Leader>?", "<Cmd>NvCheatsheet<CR>")
 keymap.set("n", "<Leader>Q", "<Cmd>qall<CR>")
 keymap.set("n", "<Leader>V", "ggVG")
