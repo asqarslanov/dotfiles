@@ -11,6 +11,8 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 return {
 	"nvim-tree/nvim-tree.lua",
 
+	enabled = false,
+
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
@@ -18,6 +20,24 @@ return {
 	opts = {
 		on_attach = function(bufnr)
 			local api = require("nvim-tree.api")
+
+			local git_add = function()
+				local node = api.tree.get_node_under_cursor()
+				local gs = node.git_status.file
+
+				if gs == nil then
+					gs = (node.git_status.dir.direct ~= nil and node.git_status.dir.direct[1])
+						or (node.git_status.dir.indirect ~= nil and node.git_status.dir.indirect[1])
+				end
+
+				if gs == "??" or gs == "MM" or gs == "AM" or gs == " M" then
+					vim.cmd("silent !git add " .. node.absolute_path)
+				elseif gs == "M " or gs == "A " then
+					vim.cmd("silent !git restore --staged " .. node.absolute_path)
+				end
+
+				api.tree.reload()
+			end
 
 			local function opts(desc)
 				return { desc = "Nvim-Tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
@@ -52,6 +72,7 @@ return {
 			vim.keymap.set("n", "w", "0", opts("Bug Fix"))
 			vim.keymap.set("n", "E", "0", opts("Bug Fix"))
 			vim.keymap.set("c", "<CR>", "<CR>0", opts("Bug Fix"))
+			vim.keymap.set("v", "v", "v0", opts("Bug Fix"))
 			vim.keymap.set("n", "[c", function()
 				api.node.navigate.git.prev()
 				return "0"
@@ -139,6 +160,13 @@ return {
 			end, opts("Print Node Path"))
 
 			vim.keymap.set("n", "Z", api.node.run.system, opts("Run System"))
+
+			return {
+				live_filter = {
+					prefix = "[FILTER]: ",
+					always_show_folders = false,
+				},
+			}
 		end,
 	},
 

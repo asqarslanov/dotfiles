@@ -10,10 +10,11 @@ return {
 				"lspinfo",
 				"man",
 				"mason",
+				"neo-tree",
+				-- "NvimTree",
 				-- "Trouble",
 				-- "alpha",
 				-- "dashboard",
-				-- "neo-tree",
 			},
 
 			callback = function()
