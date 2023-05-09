@@ -4,6 +4,7 @@ return {
 	init = function()
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = {
+				"alpha",
 				"checkhealth",
 				"help",
 				"lazy",
@@ -11,10 +12,7 @@ return {
 				"man",
 				"mason",
 				"neo-tree",
-				-- "NvimTree",
 				-- "Trouble",
-				-- "alpha",
-				-- "dashboard",
 			},
 
 			callback = function()
