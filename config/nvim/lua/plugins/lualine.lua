@@ -8,10 +8,15 @@ return {
 	opts = {
 		options = {
 			theme = "dracula-nvim",
+			disabled_filetypes = { statusline = { "alpha" } },
+		},
+
+		extensions = {
+			"lazy",
+			"man",
+			"neo-tree",
+			"nvim-dap-ui",
+			"toggleterm",
 		},
 	},
-
-	config = function(_, opts)
-		require("lualine").setup(opts)
-	end,
 }
