@@ -1,5 +1,7 @@
-width = 560
-height = 360
+width = 640
+insensitive = true
+allow_images = true
+height = 480
 prompt = Type to search
 normal_window = true
 key_up = Control_L-k
