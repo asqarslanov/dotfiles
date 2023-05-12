@@ -12,6 +12,7 @@ return {
 				"man",
 				"mason",
 				"neo-tree",
+				"toggleterm",
 				-- "Trouble",
 			},
 
