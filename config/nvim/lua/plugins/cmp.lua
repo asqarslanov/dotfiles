@@ -13,10 +13,10 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 	},
 
-	config = function()
+	opts = function()
 		local cmp = require("cmp")
 
-		require("cmp").setup({
+		return {
 			formatting = {
 				format = require("lspkind").cmp_format({ ellipsis_char = "…" }),
 			},
@@ -53,7 +53,11 @@ return {
 			}),
 
 			experimental = { ghost_text = { hl_group = "LspCodeLens" } },
-		})
+		}
+	end,
+
+	config = function(_, opts)
+		local cmp = require("cmp")
 
 		cmp.setup.cmdline("/", {
 			mapping = cmp.mapping.preset.cmdline(),
@@ -70,6 +74,8 @@ return {
 				{ name = "cmdline", option = { ignore_cmds = { "Man", "!" } } },
 			}),
 		})
+
+		cmp.setup(opts)
 	end,
 
 	event = "VeryLazy",
