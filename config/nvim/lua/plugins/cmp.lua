@@ -1,6 +1,8 @@
 return {
 	"hrsh7th/nvim-cmp",
 
+	cond = not vim.g.vscode,
+
 	dependencies = {
 		"FelipeLema/cmp-async-path",
 		"andersevenrud/cmp-tmux",

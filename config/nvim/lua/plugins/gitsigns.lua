@@ -1,6 +1,8 @@
 return {
 	"lewis6991/gitsigns.nvim",
 
+	cond = not vim.g.vscode,
+
 	opts = {
 		signs = { untracked = { text = "╵" } },
 
@@ -58,10 +60,6 @@ return {
 		-- 	map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 		-- end,
 	},
-
-	config = function(_, opts)
-		require("gitsigns").setup(opts)
-	end,
 
 	event = "VeryLazy",
 }

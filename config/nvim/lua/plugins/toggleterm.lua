@@ -1,6 +1,8 @@
 return {
 	"akinsho/toggleterm.nvim",
 
+	cond = not vim.g.vscode,
+
 	opts = {
 		size = function(term)
 			local golden_ratio = (1.5 - math.sqrt(1.25))
