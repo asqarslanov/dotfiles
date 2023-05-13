@@ -1,40 +1,40 @@
-local opt = vim.opt
+vim.api.nvim_create_autocmd("TextYankPost", { command = "lua vim.highlight.on_yank()" })
 
-opt.confirm = true
+vim.opt.confirm = true
 
-opt.expandtab = true
-opt.shiftwidth = 4
-opt.smartindent = true
-opt.softtabstop = 4
-opt.tabstop = 4
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
+vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
 
-opt.ignorecase = true
-opt.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
-opt.list = true
-opt.listchars = { tab = "→  ", trail = "·" }
+vim.opt.list = true
+vim.opt.listchars = { tab = "→  ", trail = "·" }
 
-opt.mouse = "a"
-opt.scrolloff = 4
-opt.sidescrolloff = 8
-opt.whichwrap:append("<>[]hl")
+vim.opt.mouse = "a"
+vim.opt.scrolloff = 4
+vim.opt.sidescrolloff = 8
+vim.opt.whichwrap:append("<>[]hl")
 
-opt.number = true
-opt.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
-opt.shortmess:append("sI")
+vim.opt.shortmess:append("sI")
 
-opt.splitbelow = true
-opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
-opt.termguicolors = true
+vim.opt.termguicolors = true
 
-opt.undofile = true
+vim.opt.undofile = true
 
-opt.wrap = false
-opt.linebreak = true
+vim.opt.wrap = false
+vim.opt.linebreak = true
 
-opt.showmode = false
-opt.laststatus = 3
+vim.opt.showmode = false
+vim.opt.laststatus = 3
 
 vim.g.markdown_recommended_style = 0
