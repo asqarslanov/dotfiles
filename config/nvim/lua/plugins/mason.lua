@@ -13,6 +13,7 @@ return {
 			"isort",
 			"json-lsp",
 			"lua-language-server",
+			"prettierd",
 			"pyright",
 			"rust-analyzer",
 			"rustfmt",

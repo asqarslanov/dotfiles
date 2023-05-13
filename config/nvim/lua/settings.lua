@@ -1,4 +1,20 @@
-vim.api.nvim_create_autocmd("TextYankPost", { command = "lua vim.highlight.on_yank()" })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = "*.json",
+	callback = function()
+		vim.opt.filetype = "jsonc"
+	end,
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = "*.conf",
+	callback = function()
+		vim.opt.filetype = "config"
+	end,
+})
 
 vim.opt.confirm = true
 
