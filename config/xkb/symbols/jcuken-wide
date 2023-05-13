@@ -60,4 +60,4 @@ xkb_symbols "basic" {
     key <AB10> { [       Cyrillic_yu,       Cyrillic_YU  ] };
 };
 
-// vim: syntax=xkb
+// vim: filetype=xkb

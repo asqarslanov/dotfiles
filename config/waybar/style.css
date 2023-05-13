@@ -1,55 +1,52 @@
-@import '../../.cache/wal/colors-waybar.css';
+@import "../../.cache/wal/colors-waybar.css";
 
 * {
-    all: unset;
+  all: unset;
 }
 
 window#waybar {
-    background-color: @background;
-    color: @foreground;
+  background-color: @background;
+  color: @foreground;
 }
-
 
 #window {
-    margin: 0 0 0 12px;
-    font-weight: 500;
+  margin: 0 0 0 12px;
+  font-weight: 500;
 }
 
-
 #workspaces {
-    /* margin: 0 0 0 4.5px; */
+  /* margin: 0 0 0 4.5px; */
 }
 
 #workspaces button {
-    transition-duration: 0.15s;
-    min-width: 20px;
-    min-height: 20px;
-    border-radius: 4px;
-    margin: 6px 1.5px 6px 1.5px;
+  transition-duration: 0.15s;
+  min-width: 20px;
+  min-height: 20px;
+  border-radius: 4px;
+  margin: 6px 1.5px 6px 1.5px;
 }
 
 #workspaces button:hover {
-    background-color: @color4;
+  background-color: @color4;
 }
 
 #workspaces button.active {
-    background-color: @color8;
+  background-color: @color8;
 }
 
 #workspaces button.active:hover {
-    background-color: @color4;
+  background-color: @color4;
 }
 
-
 #keyboard-state label.locked {
-    color: @color4;
+  color: @color4;
 }
 
 #clock {
-    margin: 0 12px 0 0;
+  margin: 0 12px 0 0;
 }
 
 #custom-notification {
-    color: @color4;
-    margin: 0 12px 0 -12px;
+  color: @color4;
+  margin: 0 12px 0 -12px;
 }

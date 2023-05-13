@@ -13,22 +13,22 @@ def get_command_output(command: str) -> str:
 
 
 def get_session_name(session: str) -> str:
-    colon_index = session.find(':')
-    name = session[: colon_index]
+    colon_index = session.find(":")
+    name = session[:colon_index]
 
     return name
 
 
-if __name__ == '__main__':
-    sessions = get_command_output('tmux list-sessions')
-    sessions = sessions.split('\n')
+if __name__ == "__main__":
+    sessions = get_command_output("tmux list-sessions")
+    sessions = sessions.split("\n")
     sessions.pop()
 
     for session in sessions:
-        if session.endswith('(attached)'):
+        if session.endswith("(attached)"):
             continue
 
         name = get_session_name(session)
 
-        if not name.startswith('!'):
-            subprocess.run(('tmux', 'kill-session', '-t', name))
+        if not name.startswith("!"):
+            subprocess.run(("tmux", "kill-session", "-t", name))

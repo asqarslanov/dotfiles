@@ -18,7 +18,7 @@ def trim(string: str, length_limit: typing.Union[int, None]) -> str:
     return string
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) > 2:
         sysinteraction.exit_with_error()
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
         length_limit = int(sys.argv[1])
 
-    command = 'hyprctl -j activewindow'
+    command = "hyprctl -j activewindow"
     active_window_info_raw = sysinteraction.get_command_output(command)
 
     active_window_info = json.loads(active_window_info_raw)
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     if not active_window_info:
         exit()
 
-    active_window_title = active_window_info['title']
+    active_window_title = active_window_info["title"]
     active_window_title = trim(active_window_title, length_limit)
 
     print(active_window_title)

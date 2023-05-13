@@ -5,15 +5,15 @@ import sys
 
 import sysinteraction
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) != 1:
         sysinteraction.exit_with_error()
 
     now = datetime.datetime.now()
 
-    weekday = now.strftime('%a')
-    month = now.strftime('%b')
-    day = now.strftime('%d').lstrip('0')
+    weekday = now.strftime("%a")
+    month = now.strftime("%b")
+    day = now.strftime("%d").lstrip("0")
 
     current_date = f"{weekday} {month} {day}"
 

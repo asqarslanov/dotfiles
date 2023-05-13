@@ -1,88 +1,94 @@
 {
-    "layer": "top",
-    "height": 32,
-    "modules-left": ["hyprland/window"],
-    "modules-center": ["wlr/workspaces"],
-    "modules-right": ["keyboard-state", "hyprland/language", "battery", "clock", "custom/notification"],
-    "spacing": 12,
+  "layer": "top",
+  "height": 32,
+  "modules-left": ["hyprland/window"],
+  "modules-center": ["wlr/workspaces"],
+  "modules-right": [
+    "keyboard-state",
+    "hyprland/language",
+    "battery",
+    "clock",
+    "custom/notification"
+  ],
+  "spacing": 12,
 
-    "wlr/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "10": "0"
-        },
-        "sort-by-number": true,
-        // "persistent_workspaces": {
-            // "1": [],
-            // "2": [],
-            // "3": [],
-            // "4": [],
-            // "5": [],
-            // "6": [],
-            // "7": [],
-            // "8": [],
-            // "9": [],
-            // "10": []
-        // },
-        "on-click": "activate",
-        "on-scroll-up": "hyprctl dispatch workspace e-1",
-        "on-scroll-down": "hyprctl dispatch workspace e+1"
+  "wlr/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "10": "0"
     },
+    "sort-by-number": true,
+    // "persistent_workspaces": {
+    // "1": [],
+    // "2": [],
+    // "3": [],
+    // "4": [],
+    // "5": [],
+    // "6": [],
+    // "7": [],
+    // "8": [],
+    // "9": [],
+    // "10": []
+    // },
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1"
+  },
 
-    "keyboard-state": {
-        "capslock": true,
-        "format": "{icon}",
-        "format-icons": {
-            "locked": "󰌎",
-            "unlocked": ""
-        }
-    },
-    "hyprland/language": {
-        "on-click": "notify-send -t 5000 Error 'You can only switch the keyboard layout by using the keyboard.'"
-    },
-    "clock": {
-        "interval": 1,
-        "format": "{:%a %b %d   %I:%M %p}",
-        "format-alt": "{:%Y-%m-%d %H:%M:%S}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "mode-mon-col": 3,
-            "on-scroll": 1,
-            "format": {
-                    "months": "<span color='#ff79c6'><b>{}</b></span>",
-                    "days": "<span color='#f8f8f2'>{}</span>",
-                    "weekdays": "<span color='#bd93f9'><b>{}</b></span>",
-                    "today": "<span color='#ff5555'><b><u>{}</u></b></span>"
-            }
-        },
-        "actions": {
-            "on-click-right": "mode",
-            "on-click-forward": "tz_up",
-            "on-click-backward": "tz_down",
-            "on-scroll-up": "shift_up",
-            "on-scroll-down": "shift_down"
-        }
-    },
-    "custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-            "notification": "",
-            "none": "",
-            "dnd-notification": "",
-            "dnd-none": "",
-            "inhibited-notification": "",
-            "inhibited-none": "",
-            "dnd-inhibited-notification": "",
-            "dnd-inhibited-none": ""
-        },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "swaync-client -t -sw",
-        "on-click-right": "swaync-client -d -sw",
-        "escape": true
+  "keyboard-state": {
+    "capslock": true,
+    "format": "{icon}",
+    "format-icons": {
+      "locked": "󰌎",
+      "unlocked": ""
     }
+  },
+  "hyprland/language": {
+    "on-click": "notify-send -t 5000 Error 'You can only switch the keyboard layout by using the keyboard.'"
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%a %b %d   %I:%M %p}",
+    "format-alt": "{:%Y-%m-%d %H:%M:%S}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ff79c6'><b>{}</b></span>",
+        "days": "<span color='#f8f8f2'>{}</span>",
+        "weekdays": "<span color='#bd93f9'><b>{}</b></span>",
+        "today": "<span color='#ff5555'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "",
+      "none": "",
+      "dnd-notification": "",
+      "dnd-none": "",
+      "inhibited-notification": "",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
 }
 
-// vim: syntax=jsonc
+// vim: filetype=jsonc

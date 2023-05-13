@@ -4,9 +4,11 @@ import sys
 
 import sysinteraction
 
-VARIABLE_NAME = 'change-opacity'
+VARIABLE_NAME = "change-opacity"
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    flag = False
+
     if len(sys.argv) > 2:
         sysinteraction.exit_with_error()
 
@@ -17,9 +19,9 @@ if __name__ == '__main__':
         action = sys.argv[1]
 
         match action:
-            case 'on':
+            case "on":
                 flag = False
-            case 'off':
+            case "off":
                 flag = True
             case _:
                 sysinteraction.exit_with_error()
@@ -29,7 +31,7 @@ if __name__ == '__main__':
     else:
         opacity_value = 0.75
 
-    keyword = 'decoration:inactive_opacity'
+    keyword = "decoration:inactive_opacity"
     sysinteraction.set_keyword(keyword, opacity_value)
 
     sysinteraction.write_variable(VARIABLE_NAME, not flag)

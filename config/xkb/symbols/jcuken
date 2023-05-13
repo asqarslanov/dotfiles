@@ -60,4 +60,4 @@ xkb_symbols "basic" {
     key <AB10> { [      period,       comma  ] };
 };
 
-// vim: syntax=xkb
+// vim: filetype=xkb

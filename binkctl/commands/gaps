@@ -6,35 +6,36 @@ import sys
 
 import sysinteraction
 
-VARIABLE_NAME = 'gaps-level'
+VARIABLE_NAME = "gaps-level"
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) == 1 or len(sys.argv) > 3:
         sysinteraction.exit_with_error()
 
     current_level = sysinteraction.read_variable(VARIABLE_NAME)
 
-    keywords_path = os.path.join(sysinteraction.base_directory, 'gaps.json')
+    keywords_path = os.path.join(sysinteraction.base_directory, "gaps.json")
 
     with open(keywords_path) as keywords_file:
         keywords = json.load(keywords_file)
 
+    new_level = 0
     action = sys.argv[1]
 
     match action:
-        case 'set':
+        case "set":
             if len(sys.argv) != 3:
                 sysinteraction.exit_with_error()
 
             new_level = sys.argv[2]
 
-            if new_level not in ('0', '1', '2'):
+            if new_level not in ("0", "1", "2"):
                 sysinteraction.exit_with_error()
 
-        case 'next':
+        case "next":
             new_level = str((current_level + 1) % 3)
 
-        case 'previous':
+        case "previous":
             new_level = str((current_level - 1) % 3)
 
         case _:

@@ -55,4 +55,4 @@ xkb_symbols "basic" {
     key <AB10>	{[  period,	 greater	]};
 };
 
-// vim: syntax=xkb
+// vim: filetype=xkb

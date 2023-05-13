@@ -5,21 +5,21 @@ import sys
 import typing
 
 username = os.getlogin()
-hypr_directory = f'/home/{username}/.config/hypr'
+hypr_directory = f"/home/{username}/.config/hypr"
 
 commands_directory = os.path.dirname(__file__)
 base_directory = os.path.dirname(commands_directory)
-vars_directory = os.path.join(base_directory, 'vars')
+vars_directory = os.path.join(base_directory, "vars")
 
 
 def convert_to_json(object: typing.Any) -> str:
     match object:
         case True:
-            return 'true'
+            return "true"
         case False:
-            return 'false'
+            return "false"
         case None:
-            return 'null'
+            return "null"
 
     if isinstance(object, str):
         return object
@@ -27,15 +27,13 @@ def convert_to_json(object: typing.Any) -> str:
     return str(object)
 
 
-def convert_to_python(
-        object: str
-) -> typing.Union[bool, float, int, str, None]:
+def convert_to_python(object: str) -> typing.Union[bool, float, int, str, None]:
     match object:
-        case 'true':
+        case "true":
             return True
-        case 'false':
+        case "false":
             return False
-        case 'null':
+        case "null":
             return None
 
     try:
@@ -62,15 +60,9 @@ def execute(command: str, silent: bool = True) -> None:
 
 def exit_with_error(reloading: bool = False) -> None:
     if reloading:
-        print(
-            "Invalid arguments! Reloading…\n"
-            ""
-        )
+        print("Invalid arguments! Reloading…\n" "")
     else:
-        print(
-            "Invalid arguments!\n"
-            ""
-        )
+        print("Invalid arguments!\n" "")
 
     INVALID_ARGUMENT_CODE = 22
     sys.exit(INVALID_ARGUMENT_CODE)
@@ -97,7 +89,7 @@ def read_variable(name: str, convert: bool = True) -> typing.Any:
     with open(variable_file_path) as variable_file:
         value = variable_file.read()
 
-    value = value.removesuffix('\n')
+    value = value.removesuffix("\n")
 
     if convert:
         value = convert_to_python(value)
@@ -106,7 +98,7 @@ def read_variable(name: str, convert: bool = True) -> typing.Any:
 
 
 def reload_system(exit: bool = True) -> None:
-    command = 'hyprctl reload'
+    command = "hyprctl reload"
     execute(command)
 
     if exit:
@@ -114,19 +106,16 @@ def reload_system(exit: bool = True) -> None:
 
 
 def set_keyword(key: str, value) -> None:
-    command = f'hyprctl keyword {key} {value}'
+    command = f"hyprctl keyword {key} {value}"
     execute(command)
 
 
 def source_config(path: str) -> None:
-    set_keyword('source', path)
+    set_keyword("source", path)
 
 
 def print_success_message() -> None:
-    print(
-        "Success!\n"
-        ""
-    )
+    print("Success!\n" "")
 
 
 def update_directory(path: str) -> None:
@@ -145,5 +134,5 @@ def write_variable(name: str, value: typing.Any, convert: bool = True) -> None:
 
     variable_file_path = os.path.join(vars_directory, name)
 
-    with open(variable_file_path, 'w') as variable_file:
+    with open(variable_file_path, "w") as variable_file:
         print(value, file=variable_file)

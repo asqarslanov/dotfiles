@@ -21,7 +21,7 @@ def check_command_file(filepath: str) -> bool:
     forbidden = string.punctuation + string.whitespace
 
     for i in forbidden:
-        if i == '-':
+        if i == "-":
             continue
 
         if i in filename:
@@ -31,9 +31,7 @@ def check_command_file(filepath: str) -> bool:
 
 
 def print_help_message(
-        arguments=None,
-        end_with_blank: bool = True,
-        indentation_size: int = 4
+    arguments=None, end_with_blank: bool = True, indentation_size: int = 4
 ) -> None:
     if arguments is None:
         description = "?"
@@ -41,13 +39,9 @@ def print_help_message(
     indentation = indentation_size * " "
 
     base_directory, filename = os.path.split(__file__)
-    glob_pattern = os.path.join(base_directory, 'commands/*')
+    glob_pattern = os.path.join(base_directory, "commands/*")
 
-    print(
-        f"Usage: {filename} 'command' ('arguments')\n"
-        "\n"
-        "Commands:"
-    )
+    print(f"Usage: {filename} 'command' ('arguments')\n" "\n" "Commands:")
 
     for command_path in glob.iglob(glob_pattern):
         if not check_command_file(command_path):
@@ -65,10 +59,10 @@ def print_help_message(
         print()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     base_directory = os.path.dirname(__file__)
 
-    arguments_path = os.path.join(base_directory, 'arguments.json')
+    arguments_path = os.path.join(base_directory, "arguments.json")
     with open(arguments_path) as arguments_file:
         arguments = json.load(arguments_file)
 
@@ -78,7 +72,7 @@ if __name__ == '__main__':
         SUCCESS_CODE = 0
         sys.exit(SUCCESS_CODE)
 
-    commands_directory = os.path.join(base_directory, 'commands')
+    commands_directory = os.path.join(base_directory, "commands")
 
     command = sys.argv[1]
     command_path = os.path.join(commands_directory, command)

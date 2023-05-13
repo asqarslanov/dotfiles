@@ -5,7 +5,7 @@
 
 current_workspace=$(hyprctl -j monitors | jq '.[0]["activeWorkspace"]["id"]')
 
-if [ $current_workspace != 1 ] && [ $2 = up ] ; then
+if [ $current_workspace != 1 ] && [ $2 = up ]; then
     hyprctl dispatch $1 -1
 elif [ $current_workspace != 10 ] && [ $2 = down ]; then
     hyprctl dispatch $1 +1

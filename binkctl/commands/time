@@ -5,15 +5,15 @@ import sys
 
 import sysinteraction
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) != 1:
         sysinteraction.exit_with_error()
 
     now = datetime.datetime.now()
 
-    hour = now.strftime('%I').lstrip('0')
-    minute = now.strftime('%M')
-    noon_flag = now.strftime('%p')
+    hour = now.strftime("%I").lstrip("0")
+    minute = now.strftime("%M")
+    noon_flag = now.strftime("%p")
 
     current_time = f"{hour}:{minute} {noon_flag}"
 

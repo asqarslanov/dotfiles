@@ -55,4 +55,4 @@ xkb_symbols "basic" {
     key <AB10>	{[   slash,	 question	]};
 };
 
-// vim: syntax=xkb
+// vim: filetype=xkb

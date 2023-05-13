@@ -6,27 +6,25 @@ import sysinteraction
 
 variables = {
     # True, False
-    'change-opacity': True,
-
+    "change-opacity": True,
     # 0, 1, 2
-    'gaps-level': 0,
-
+    "gaps-level": 0,
     # 'En', 'Ru'
-    'keyboard-layout': 'En',
-
+    "keyboard-layout": "En",
     # None, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    'previous-workspace': None,
-
+    "previous-workspace": None,
     # True, False
-    'show-bar': True
+    "show-bar": True,
 }
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     arguments = sys.argv[1:]
 
     for i in arguments:
+        key = value = ""
+
         try:
-            key, value = i.split('=')
+            key, value = i.split("=")
         except BaseException:
             sysinteraction.reload_system()
 
