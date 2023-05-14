@@ -9,7 +9,6 @@ return {
 	},
 
 	opts = {
-		-- auto_hide = true,
 		icons = { button = false },
 	},
 
@@ -37,4 +36,6 @@ return {
 
 		require("barbar").setup(opts)
 	end,
+
+	event = "BufAdd",
 }
