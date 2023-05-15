@@ -29,9 +29,9 @@ return {
 				"cpp",
 				"css",
 				"diff",
-				"dockerfile",
 				"git_config",
 				"git_rebase",
+				"dockerfile",
 				"gitattributes",
 				"gitcommit",
 				"gitignore",
@@ -53,6 +53,7 @@ return {
 				"scss",
 				"sql",
 				"toml",
+				"vim",
 				"yaml",
 			},
 

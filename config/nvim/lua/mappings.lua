@@ -20,6 +20,10 @@ vim.keymap.set("i", "<C-t>", "<Esc>Xpa")
 vim.keymap.set("i", "<M-b>", "<C-o>b")
 vim.keymap.set("i", "<M-f>", "<C-o>w")
 
+vim.keymap.set("n", "<Leader>gp", "<Cmd>Lazy<CR>")
+vim.keymap.set("n", "<Leader>gu", "<Cmd>Lazy sync<CR>")
+vim.keymap.set("n", "<Leader>gs", "<Cmd>Mason<CR>")
+
 -- Get overridden by plugins/barbar.lua
 vim.keymap.set("n", "<Leader>Q", "<Cmd>quitall<CR>")
 vim.keymap.set("n", "<Leader>q", "<Cmd>quit<CR>")
