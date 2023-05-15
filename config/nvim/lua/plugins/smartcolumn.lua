@@ -4,7 +4,7 @@ return {
 	cond = not vim.g.vscode,
 
 	opts = {
-		colorcolumn = nil,
+		colorcolumn = 0,
 		custom_colorcolumn = {
 			python = { 72, 79 },
 		},
