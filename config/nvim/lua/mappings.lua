@@ -10,6 +10,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
+vim.keymap.set("n", "<Leader>rn", ":%s/<C-r><C-w>//g<Left><Left><C-r><C-w>")
+
 vim.keymap.set("i", "<C-a>", "<Esc>I")
 vim.keymap.set("i", "<C-b>", "<Left>")
 vim.keymap.set("i", "<C-e>", "<Esc>A")
