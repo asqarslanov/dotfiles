@@ -1,8 +1,6 @@
 return {
 	"ziontee113/color-picker.nvim",
 
-	cond = not vim.g.vscode,
-
 	opts = {
 		icons = { "-", ">" },
 	},

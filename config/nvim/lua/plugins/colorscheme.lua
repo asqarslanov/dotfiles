@@ -21,8 +21,6 @@ return {
 		}
 	end,
 
-	cond = not vim.g.vscode,
-
 	config = function(plugin, opts)
 		vim.cmd("colorscheme dracula")
 

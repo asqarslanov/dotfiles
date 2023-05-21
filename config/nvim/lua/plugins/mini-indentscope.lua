@@ -1,8 +1,6 @@
 return {
 	"echasnovski/mini.indentscope",
 
-	cond = not vim.g.vscode,
-
 	init = function()
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = {

@@ -1,8 +1,6 @@
 return {
 	"folke/noice.nvim",
 
-	cond = not vim.g.vscode,
-
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 	},

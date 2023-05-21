@@ -1,8 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
 
-	cond = not vim.g.vscode,
-
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"debugloop/telescope-undo.nvim",

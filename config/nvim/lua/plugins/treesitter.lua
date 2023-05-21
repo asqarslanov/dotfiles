@@ -1,8 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 
-	cond = not vim.g.vscode,
-
 	dependencies = {
 		{
 			"HiPhish/nvim-ts-rainbow2",

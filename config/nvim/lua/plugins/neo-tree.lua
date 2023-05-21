@@ -1,8 +1,6 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 
-	cond = not vim.g.vscode,
-
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 		"nvim-lua/plenary.nvim",
