@@ -17,4 +17,3 @@ pip3 list --outdated |
 
 echo
 echo 'nvim :Lazy'
-echo 'zinit self-update; zinit update --all'

@@ -62,4 +62,7 @@ if status is-interactive
     # TODO: Tmux Actions
     abbr ':q!' exit
     abbr ':q' exit
+
+    # XXX:
+    starship init fish | source
 end
