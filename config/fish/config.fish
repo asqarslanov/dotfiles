@@ -10,6 +10,7 @@ end
 
 if status is-interactive
     if [ -z $TMUX ]
+        cat ~/.cache/wal/sequences &
         ~/.cache/wal/colors-tty.sh
         ~/.config/tmux/scripts/initialization
         clear
