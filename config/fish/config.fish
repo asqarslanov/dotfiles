@@ -9,6 +9,9 @@ end
 ~/.config/tmux/scripts/clear-unattached-sessions
 
 if status is-interactive
+    # TODO: Check Tmux Presence
+    # TODO: Check Pywal Presence
+
     if [ -z $TMUX ]
         cat ~/.cache/wal/sequences &
         ~/.cache/wal/colors-tty.sh
