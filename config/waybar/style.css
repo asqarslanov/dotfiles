@@ -48,5 +48,5 @@ window#waybar {
 
 #custom-notification {
   color: @color4;
-  margin: 0 12px 0 -12px;
+  margin: 0 16px 0 -12px;
 }
