@@ -7,6 +7,8 @@ return {
 		local ensure_installed = {
 			"bash-language-server",
 			"black",
+			"clang-format",
+			"clangd",
 			"html-lsp",
 			"isort",
 			"json-lsp",
