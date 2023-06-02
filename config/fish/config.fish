@@ -12,21 +12,42 @@ if status is-interactive
     # TODO: Check Tmux Presence
     # TODO: Check Pywal Presence
 
+    function greet
+        # XXX:
+        if [ -z $TMUX ]
+        else if [ $TERM != xterm-256color ]
+            fortune -s
+            echo
+            fastfetch
+        end
+    end
+
+    function clear_fetch
+        clear
+        greet
+        commandline -f repaint
+    end
+
+    function fish_user_key_bindings
+        fish_default_key_bindings --mode insert
+        fish_vi_key_bindings --no-erase insert
+
+        bind --mode default \cl clear_fetch
+        bind --mode insert \cl clear_fetch
+        bind --mode paste \cl clear_fetch
+        bind --mode replace \cl clear_fetch
+        bind --mode replace_one \cl clear_fetch
+        bind --mode visual \cl clear_fetch
+    end
+
     if [ -z $TMUX ]
         cat ~/.cache/wal/sequences &
         ~/.cache/wal/colors-tty.sh
         ~/.config/tmux/scripts/initialization
         clear
-    else if [ $TERM != xterm-256color ]
-        fortune -s
-        echo
-        fastfetch
     end
 
-    function fish_user_key_bindings
-        fish_default_key_bindings -M insert
-        fish_vi_key_bindings --no-erase insert
-    end
+    greet
 
     set fish_cursor_default block blink
     set fish_cursor_insert line blink
