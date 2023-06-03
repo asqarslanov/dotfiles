@@ -54,6 +54,7 @@ return {
 				"toml",
 				"vim",
 				"yaml",
+                "fish",
 			},
 
 			rainbow = {
