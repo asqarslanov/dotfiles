@@ -86,6 +86,7 @@ if status is-interactive
     alias 'remove'='command rm --interactive=once --verbose'
     alias 'trash'='trash --verbose'
 
+    alias 'cat'='bat'
     alias 'info'='info --vi-keys'
     alias 'ls'='exa --classify --icons --all --header'
     alias 'neofetch'='echo neofetch: aliased to fastfetch; echo; fastfetch'
