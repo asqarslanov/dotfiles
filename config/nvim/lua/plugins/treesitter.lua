@@ -44,7 +44,6 @@ return {
 				"make",
 				"markdown",
 				"markdown_inline",
-				"nix",
 				"passwd",
 				"python",
 				"regex",
@@ -54,7 +53,7 @@ return {
 				"toml",
 				"vim",
 				"yaml",
-                "fish",
+				"fish",
 			},
 
 			rainbow = {

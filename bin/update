@@ -2,8 +2,6 @@
 
 flatpak update
 
-nix-env --upgrage
-
 sudo npm update --global
 
 paru
