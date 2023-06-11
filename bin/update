@@ -2,6 +2,8 @@
 
 flatpak update
 
+sudo pkgfile --update
+
 sudo npm update --global
 
 paru
