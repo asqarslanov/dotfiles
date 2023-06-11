@@ -11,6 +11,7 @@ return {
 			"clangd",
 			"html-lsp",
 			"isort",
+			"jdtls",
 			"json-lsp",
 			"lua-language-server",
 			"prettierd",

@@ -28,6 +28,7 @@ return {
 				"css",
 				"diff",
 				"dockerfile",
+				"fish",
 				"git_config",
 				"git_rebase",
 				"gitattributes",
@@ -35,6 +36,8 @@ return {
 				"gitignore",
 				"html",
 				"ini",
+				"java",
+				"javascript",
 				"jq",
 				"json",
 				"json5",
@@ -53,7 +56,6 @@ return {
 				"toml",
 				"vim",
 				"yaml",
-				"fish",
 			},
 
 			rainbow = {

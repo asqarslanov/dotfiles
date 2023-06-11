@@ -11,6 +11,7 @@ return {
 
 		local setup_default = {
 			"clangd",
+			"jdtls",
 			"jsonls",
 			"pyright",
 			"rust_analyzer",
