@@ -1,0 +1,7 @@
+[[language]]
+name = "python"
+formatter = { command = "black", args = ["-"] }
+
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["format", "-"] }
