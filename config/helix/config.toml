@@ -2,7 +2,7 @@ theme = "dracula"
 
 [editor]
 line-number = "relative"
-auto-format = false
+# auto-format = false
 auto-save = true
 idle-timeout = 0
 completion-replace = true
@@ -26,5 +26,6 @@ hidden = false
 render = true
 
 [keys.normal]
-A-q = [":quit"]
-A-w = [":fmt", ":write"]
+A-q = ":quit"
+# A-w = [":fmt", ":write"]
+A-w = ":write"

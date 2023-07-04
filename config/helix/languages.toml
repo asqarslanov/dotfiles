@@ -1,7 +1,14 @@
 [[language]]
 name = "python"
+auto-format = true
 formatter = { command = "black", args = ["-"] }
 
 [[language]]
+name = "rust"
+auto-format = true
+formatter = { command = "rustfmt" }
+
+[[language]]
 name = "toml"
+auto-format = true
 formatter = { command = "taplo", args = ["format", "-"] }
