@@ -1,7 +1,40 @@
 [[language]]
+name = "bash"
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = 'shfmt', args = ["-i", "2"] }
+
+[[language]]
+name = "css"
+formatter = { command = "prettier", args = ["--parser", "css"] }
+
+[[language]]
+name = "fish"
+auto-format = true
+formatter = { command = "fish_indent" }
+
+[[language]]
+name = "html"
+formatter = { command = "prettier", args = ["--parser", "html"] }
+
+[[language]]
+name = "javascript"
+auto-format = true
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "js"] }
+
+[[language]]
+name = "json"
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "json"] }
+
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
+
+[[language]]
 name = "python"
 auto-format = true
-formatter = { command = "black", args = ["-"] }
+formatter = { command = "black", args = ["--quiet", "-"] }
 
 [[language]]
 name = "rust"
@@ -9,6 +42,15 @@ auto-format = true
 formatter = { command = "rustfmt" }
 
 [[language]]
+name = "scss"
+formatter = { command = "prettier", args = ["--parser", "scss"] }
+
+[[language]]
 name = "toml"
 auto-format = true
 formatter = { command = "taplo", args = ["format", "-"] }
+
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
