@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-brightness="$(brightnessctl g)"
-brightnessctl s 1%
-swaylock -c 000000 --font "Google Sans"
-brightnessctl s $brightness
+pkexec $(which brillo) -O
+pkexec $(which brillo) -S 0
+swaylock --color 000000 --font Outfit
+pkexec $(which brillo) -I
 echo $brightness
