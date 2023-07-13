@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ $(eww get keyboard-layout-value) = 'En' ]; then
-    eww update keyboard-layout-value=Ru
+  eww update keyboard-layout-value=Ru
 else
-    eww update keyboard-layout-value=En
+  eww update keyboard-layout-value=En
 fi
