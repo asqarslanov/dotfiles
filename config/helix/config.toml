@@ -2,10 +2,9 @@ theme = "dracula"
 
 [editor]
 line-number = "relative"
-# auto-format = false
 auto-save = true
 idle-timeout = 0
-completion-replace = true
+# completion-replace = true
 bufferline = "always"
 color-modes = true
 
@@ -27,5 +26,7 @@ render = true
 
 [keys.normal]
 A-q = ":quit"
-# A-w = [":fmt", ":write"]
 A-w = ":write"
+
+[keys.normal.space]
+A-q = ":buffer-close"
