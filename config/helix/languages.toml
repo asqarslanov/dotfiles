@@ -6,7 +6,7 @@ formatter = { command = 'shfmt', args = ["-i", "2"] }
 
 [[language]]
 name = "css"
-formatter = { command = "prettier", args = ["--parser", "css"] }
+formatter = { command = "prettierd", args = [".css"] }
 
 [[language]]
 name = "fish"
@@ -15,16 +15,18 @@ formatter = { command = "fish_indent" }
 
 [[language]]
 name = "html"
-formatter = { command = "prettier", args = ["--parser", "html"] }
+formatter = { command = "prettierd", args = [".html"] }
 
 [[language]]
 name = "javascript"
 auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "js"] }
+# formatter = { command = "prettierd", args = [".js"] }
 
 [[language]]
 name = "json"
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "json"] }
+# formatter = { command = "prettierd", args = [".json"] }
 
 [[language]]
 name = "lua"
@@ -35,6 +37,7 @@ formatter = { command = "stylua", args = ["-"] }
 name = "markdown"
 auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
+# formatter = { command = "prettierd", args = [".md"] }
 
 [[language]]
 name = "python"
@@ -48,11 +51,12 @@ formatter = { command = "rustfmt" }
 
 [[language]]
 name = "scss"
-formatter = { command = "prettier", args = ["--parser", "scss"] }
+formatter = { command = "prettierd", args = [".scss"] }
 
 [[language]]
 name = "svelte"
 auto-format = true
+# formatter = { command = "prettierd", args = [".svelte"] }
 
 [[language]]
 name = "toml"
@@ -63,3 +67,9 @@ formatter = { command = "taplo", args = ["format", "-"] }
 name = "typescript"
 auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
+# formatter = { command = "prettierd", args = [".ts"] }
+
+[[language]]
+name = "yaml"
+auto-format = true
+formatter = { command = "prettierd", args = [".yaml"] }
