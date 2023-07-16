@@ -27,6 +27,11 @@ name = "json"
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "json"] }
 
 [[language]]
+name = "lua"
+auto-format = true
+formatter = { command = "stylua", args = ["-"] }
+
+[[language]]
 name = "markdown"
 auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
@@ -44,6 +49,10 @@ formatter = { command = "rustfmt" }
 [[language]]
 name = "scss"
 formatter = { command = "prettier", args = ["--parser", "scss"] }
+
+[[language]]
+name = "svelte"
+auto-format = true
 
 [[language]]
 name = "toml"
