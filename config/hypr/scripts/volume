@@ -12,10 +12,10 @@ fi
 
 wpctl get-volume @DEFAULT_AUDIO_SOURCE@ |
   while read OUTPUT; do
-    notify-send -t 400 "$OUTPUT"
+    notify-send -t 400 Microphone "$OUTPUT"
   done
 
 wpctl get-volume @DEFAULT_AUDIO_SINK@ |
   while read OUTPUT; do
-    notify-send -t 400 "$OUTPUT"
+    notify-send -t 400 Audio "$OUTPUT"
   done
