@@ -12,6 +12,7 @@
   "spacing": 12,
 
   "hyprland/window": {
+    "separate-outputs": true,
     "max-length": 48
   },
 
