@@ -4,13 +4,16 @@
   "modules-left": ["hyprland/window"],
   "modules-center": ["wlr/workspaces"],
   "modules-right": [
-    "keyboard-state",
     "hyprland/language",
     "battery",
     "clock",
     "custom/notification"
   ],
   "spacing": 12,
+
+  "hyprland/window": {
+    "max-length": 48
+  },
 
   "wlr/workspaces": {
     "format": "{icon}",
@@ -35,16 +38,18 @@
     "on-scroll-down": "hyprctl dispatch workspace e+1"
   },
 
-  "keyboard-state": {
-    "capslock": true,
-    "format": "{icon}",
-    "format-icons": {
-      "locked": "󰌎",
-      "unlocked": ""
-    }
-  },
   "hyprland/language": {
     "on-click": "notify-send -t 5000 Error 'You can only switch the keyboard layout by using the keyboard.'"
+  },
+  "battery": {
+    "states": {
+      "charged": 100,
+      "normal": 80,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}%",
+    "format-charging": "+{capacity}%"
   },
   "clock": {
     "interval": 1,

@@ -2,6 +2,7 @@
 
 * {
   all: unset;
+  font-family: Outfit, FiraCode Nerd Font;
 }
 
 window#waybar {
@@ -38,8 +39,28 @@ window#waybar {
   background-color: @color4;
 }
 
-#keyboard-state label.locked {
-  color: @color4;
+#battery.charging {
+  color: @color6;
+}
+
+#battery.charged {
+  color: @color2;
+}
+
+#battery.warning {
+  color: @color3;
+}
+
+#battery.critical {
+  color: @color1;
+}
+
+#battery.charging.warning {
+  color: @color6;
+}
+
+#battery.charging.critical {
+  color: @color6;
 }
 
 #clock {
