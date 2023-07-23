@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#/usr/bin/env sh
 
 xdg-user-dirs-update --set DESKTOP /data/Desktop
 xdg-user-dirs-update --set DOWNLOAD /data/Downloads

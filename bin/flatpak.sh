@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 sudo flatpak override --env=CLUTTER_BACKEND=$CLUTTER_BACKEND
 sudo flatpak override --env=GDK_BACKEND=$GDK_BACKEND

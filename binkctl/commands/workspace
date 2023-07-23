@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # $1: 'workspace' | 'movetoworkspace' | 'movetoworkspacesilent'
 # $2: int | 'up' | 'down'
@@ -6,17 +6,17 @@
 current_workspace=$(hyprctl -j monitors | jq '.[0]["activeWorkspace"]["id"]')
 
 if [ $current_workspace != 1 ] && [ $2 = up ]; then
-    hyprctl dispatch $1 -1
+  hyprctl dispatch $1 -1
 elif [ $current_workspace != 10 ] && [ $2 = down ]; then
-    hyprctl dispatch $1 +1
+  hyprctl dispatch $1 +1
 elif [ $2 = previous ]; then
-    hyprctl dispatch $1 $(eww get previous-workspace)
+  hyprctl dispatch $1 $(eww get previous-workspace)
 elif [ $2 != $current_workspace ]; then
-    hyprctl dispatch $1 $2
+  hyprctl dispatch $1 $2
 else
-    exit 1
+  exit 1
 fi
 
 if [ $1 != 'movetoworkspacesilent' ]; then
-    eww update previous-workspace=$current_workspace
+  eww update previous-workspace=$current_workspace
 fi
