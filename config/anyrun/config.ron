@@ -1,6 +1,6 @@
 Config(
   x: Fraction(0.5),
-  y: Fraction(0.2),
+  y: Fraction(0.25),
   width: Absolute(720),
   height: Absolute(0),
   hide_icons: false, 
