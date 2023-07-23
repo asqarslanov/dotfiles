@@ -13,7 +13,8 @@ host_specific_dir = f"{base_dir}/host-specific"
 user_specific_dir = f"{base_dir}/user-specific"
 
 
-output = "# This file is written by load_specific.py. Do not edit.\n"
+"bin/load-specific"
+output = "# This file is written automatically. Do not edit it.\n"
 
 if hostname + ".conf" in os.listdir(host_specific_dir):
     output += "\n"

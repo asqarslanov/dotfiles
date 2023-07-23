@@ -9,7 +9,7 @@ if [ ! -d ~/.cache/wal ]
     chmod +x ~/.cache/wal/colors-tty.sh
 end
 
-~/.config/tmux/scripts/clear-unattached-sessions
+~/.config/tmux/bin/clear-unattached-sessions
 
 if status is-interactive
     # TODO: Check Tmux Presence
@@ -23,7 +23,7 @@ if status is-interactive
     if [ -z $TMUX ]
         cat ~/.cache/wal/sequences &
         ~/.cache/wal/colors-tty.sh
-        ~/.config/tmux/scripts/initialization
+        ~/.config/tmux/bin/initialization
         clear
     else if [ $TERM != xterm-256color ]
         fortune -s
