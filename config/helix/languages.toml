@@ -60,6 +60,7 @@ auto-format = true
 
 [[language]]
 name = "toml"
+file-types = ["toml", "conf"]
 auto-format = true
 formatter = { command = "taplo", args = ["format", "-"] }
 
