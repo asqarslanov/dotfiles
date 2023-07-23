@@ -64,6 +64,7 @@ if status is-interactive
     alias 'cp'='cp --interactive --verbose'
     alias 'ln'='ln --interactive --verbose'
     alias 'mv'='mv --interactive --verbose'
+    alias 'mkdir'='mkdir --verbose'
     alias 'rm'='echo Use either `trash` or `command rm` instead.; false'
     alias 'remove'='command rm --interactive=once --verbose'
     alias 'trash'='trash --verbose'
