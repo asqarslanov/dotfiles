@@ -1,0 +1,41 @@
+@import "../../.cache/wal/colors-waybar.css";
+
+* {
+  all: unset;
+  font-size: 1.25rem;
+}
+
+#window {
+  background-color: transparent;
+}
+
+box#main {
+  border-radius: 16px;
+  padding: 12px;
+  background-color: @color0;
+  color: @foreground;
+  border: solid 3px @cursor;
+}
+
+#entry {
+  padding: 8px 4px 8px 4px;
+  background-color: transparent;
+}
+
+#match {
+  min-height: 48px;
+  margin: 4px 0 4px 0;
+  padding: 0 0 0 4px;
+  border-radius: 8px;
+  transition-duration: 0.15s, 0.05s;
+  transition-property: background-color, color;
+}
+
+#match:selected {
+  background-color: @background;
+  color: @color2;
+}
+
+#match-desc {
+  color: @color8;
+}

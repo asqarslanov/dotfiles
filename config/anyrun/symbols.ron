@@ -1,0 +1,7 @@
+Config(
+  prefix: ":u ",
+  symbols: {
+    // "name": "text to be copied"
+  },
+  max_entries: 3,
+)

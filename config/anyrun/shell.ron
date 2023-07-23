@@ -1,0 +1,4 @@
+Config(
+  prefix: ":sh ",
+  shell: Some(".config/anyrun/bin/terminal-wrapper"),
+)
