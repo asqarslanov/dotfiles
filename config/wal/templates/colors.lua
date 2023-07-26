@@ -6,7 +6,7 @@ return {{
 		background = "{background}",
 		foreground = "{foreground}",
 		cursor = "{cursor}",
-    }},
+	}},
 	colors = {{
 		color0 = "{color0}",
 		color1 = "{color1}",
@@ -24,5 +24,5 @@ return {{
 		color13 = "{color13}",
 		color14 = "{color14}",
 		color15 = "{color15}",
-    }},
+	}},
 }}
