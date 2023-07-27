@@ -1,6 +1,7 @@
 local module = {}
 
-local COLOR_SCHEME <const> = "Dracula (Official)"
+-- local COLOR_SCHEME <const> = "Dracula (Official)"
+local COLOR_SCHEME <const> = "Catppuccin Macchiato"
 
 local wal
 local function read_wal()
@@ -10,8 +11,7 @@ end
 function module.apply_to_config(config)
 	config.color_scheme = COLOR_SCHEME
 
-	-- if pcall(read_wal) then
-	if false then
+	if pcall(read_wal) then
 		config.colors = {
 			background = wal.special.background,
 			foreground = wal.special.foreground,
