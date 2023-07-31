@@ -3,3 +3,9 @@ command = "kitty"
 launch_delay = 0.5
 window_class = "kitty"
 window_rules = ["float", "center", "size 90% 80%"]
+
+[Authy]
+command = "flatpak run com.authy.Authy"
+launch_delay = 10
+window_class = "Authy Desktop"
+window_rules = ["center"]
