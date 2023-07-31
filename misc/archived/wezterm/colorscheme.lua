@@ -1,7 +1,6 @@
 local module = {}
 
--- local COLOR_SCHEME <const> = "Dracula (Official)"
-local COLOR_SCHEME <const> = "Catppuccin Macchiato"
+local COLOR_SCHEME <const> = "Dracula (Official)"
 
 local wal
 local function read_wal()
