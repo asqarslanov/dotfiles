@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import subprocess
+import sys
+import time
+import tomllib
+
+
+def execute(command: str) -> None:
+    arguments = command.split()
+
+    subprocess.run(("hyprctl", "keyword", "exec", command), stdout=subprocess.DEVNULL)
+
+
+def get_command_output(command: str) -> str:
+    arguments = command.split()
+    process = subprocess.run(arguments, capture_output=True, text=True)
+
+    result: str = process.stdout
+
+    return result
+
+
+def set_window_rule(rule: str, window_class: str) -> None:
+    arguments = (
+        "hyprctl",
+        "keyword",
+        "windowrule",
+        f"{rule}, {window_class}",
+    )
+
+    subprocess.run(arguments, stdout=subprocess.DEVNULL)
+
+
+if __name__ == "__main__":
+    name = sys.argv[1]
+
+    sw_file = os.path.dirname(__file__)
+    sw_file = os.path.dirname(sw_file)
+    sw_file = os.path.join(sw_file, "special-workspaces.toml")
+
+    with open(sw_file, "rb") as sw_file:
+        scratchpad = tomllib.load(sw_file)[name]
+
+    clients = get_command_output("hyprctl -j clients")
+    clients = json.loads(clients)
+
+    # Trying to detect an existing window:
+    for c in clients:
+        if c["initialClass"] != scratchpad["window_class"]:
+            continue
+        if c["workspace"]["name"] != f"special:{name}":
+            continue
+
+        break
+
+    # If not found, creating a new one:
+    else:
+        window_class = "^({})$".format(scratchpad["window_class"])
+
+        set_window_rule(f"workspace special:{name}", window_class)
+        for rule in scratchpad["window_rules"]:
+            set_window_rule(rule, window_class)
+
+        execute(scratchpad["command"])
+        time.sleep(scratchpad["launch_delay"])
+        set_window_rule("unset", window_class)
+
+    execute(f"hyprctl dispatch togglespecialworkspace {name}")
