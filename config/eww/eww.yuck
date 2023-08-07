@@ -1,27 +1,27 @@
-(defvar previous-workspace '')
-(defvar keyboard-layout-value 'En')
+(defvar previous-workspace "")
+(defvar keyboard-layout-value "En")
 
 
 (defwindow bar
   :monitor 0
-  :stacking 'fg'
+  :stacking "fg"
   :exclusive true
   :focusable false
-  :geometry (geometry :x '0%'
-                      :y '0%'
-                      :width '100%'
-                     :height '32px'
-                      :anchor 'top center')
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "32px"
+                      :anchor "top center")
   (bar))
 
 (defwidget bar []
-  (box :orientation 'h'
+  (box :orientation "h"
     (left-widgets)
     (center-widgets)
     (right-widgets)))
 
 (defwidget left-widgets []
-  (box :class 'left-widgets'
+  (box :class "left-widgets"
        :halign "start"
        :space-evenly false
        :spacing 6
@@ -29,13 +29,13 @@
     (hypr-workspaces)))
 
 (defwidget center-widgets []
-  (box :class 'center-widgets'
+  (box :class "center-widgets"
     (active-window-title)))
 
 (defwidget right-widgets []
-  (box :class 'right-widgets'
-       :halign 'end'
-       :orientation 'h'
+  (box :class "right-widgets"
+       :halign "end"
+       :orientation "h"
        :space-evenly false
        :spacing 12
     (keyboard-layout)
@@ -47,24 +47,24 @@
 (defwidget spacer [] (box))
 
 
-(deflisten workspaces :initial '[]'
-  'bash ~/.config/eww/scripts/get-workspaces')
+(deflisten workspaces :initial "[]"
+  "bash ~/.config/eww/scripts/get-workspaces")
 
 
-(deflisten current_workspace :initial '1'
-  'bash ~/.config/eww/scripts/get-active-workspace')
+(deflisten current_workspace :initial "1"
+  "bash ~/.config/eww/scripts/get-active-workspace")
 
 
 (defwidget hypr-workspaces []
   (eventbox :onscroll
-    'bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}' :class 'workspaces-widget'
+    "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
     (box :space-evenly true
          :spacing 2
       (for workspace in workspaces
-        (eventbox :onclick 'hyprctl dispatch workspace ${workspace.id}'
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
                   :width 20
           (box :class
-            'workspace-entry ${workspace.id == current_workspace ? 'current' : ''} ${workspace.windows > 0 ? 'occupied' : 'empty'} ${workspace.id == previous-workspace ? 'previous' : ''}' (label :text "${workspace.id % 10}")))))))
+            "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"} ${workspace.id == previous-workspace ? "previous" : ""}" (label :text "${workspace.id % 10}")))))))
 
 (defwidget active-window-title []
   (box :class "active-window-title"
@@ -79,13 +79,13 @@
 
 
 (defwidget keyboard-layout []
-  (box :class 'keyboard-layout'
+  (box :class "keyboard-layout"
     keyboard-layout-value))
 
 
 (defwidget battery []
-  (box :class 'battery'
-    '${EWW_BATTERY.BAT1.capacity}%'))
+  (box :class "battery"
+    "${EWW_BATTERY.BAT1.capacity}%"))
 
 
 (defwidget date []
