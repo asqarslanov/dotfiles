@@ -48,16 +48,16 @@
 
 
 (deflisten workspaces :initial "[]"
-  "bash ~/.config/eww/scripts/get-workspaces")
+  "~/.config/eww/bin/workspaces")
 
 
 (deflisten current_workspace :initial "1"
-  "bash ~/.config/eww/scripts/get-active-workspace")
+  "~/.config/eww/bin/active-workspace")
 
 
 (defwidget hypr-workspaces []
   (eventbox :onscroll
-    "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    "bash ~/.config/eww/bin/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
     (box :space-evenly true
          :spacing 2
       (for workspace in workspaces
@@ -73,32 +73,28 @@
        :halign "center"
     {active-window-title}))
 
-(defpoll active-window-title :interval "0.4s"
-                             :class active-window
-  "binkctl active-window 48")
+(deflisten active-window-title
+  "~/.config/eww/bin/active-window-title")
 
 
 (defwidget keyboard-layout []
   (box :class "keyboard-layout"
-    keyboard-layout-value))
+    {keyboard-layout}))
 
+(deflisten keyboard-layout
+  "~/.config/eww/bin/keyboard-layout")
 
 (defwidget battery []
   (box :class "battery"
-    "${EWW_BATTERY.BAT1.capacity}%"))
+    "${EWW_BATTERY.BAT0.capacity}%"))
 
 
 (defwidget date []
   (box :class "date"
-    {date}))
-
-(defpoll date :interval "0.4s"
-  "binkctl date")
+    (label :text {formattime(EWW_TIME, "%a %b %-d")})))
 
 
 (defwidget time []
   (box :class "time"
-    {time}))
+    (label :text {formattime(EWW_TIME, "%-I:%M %p")})))
 
-(defpoll time :interval "0.4s"
-  "binkctl time")
