@@ -1,12 +1,9 @@
 (defvar previous-workspace "")
-(defvar keyboard-layout-value "En")
-
 
 (defwindow bar
   :monitor 0
   :stacking "fg"
   :exclusive true
-  :focusable false
   :geometry (geometry :x "0%"
                       :y "0%"
                       :width "100%"
@@ -15,7 +12,7 @@
   (bar))
 
 (defwidget bar []
-  (box :orientation "h"
+  (centerbox :orientation "h"
     (left-widgets)
     (center-widgets)
     (right-widgets)))
@@ -24,13 +21,19 @@
   (box :class "left-widgets"
        :halign "start"
        :space-evenly false
-       :spacing 6
+       :spacing 12
     (spacer)
-    (hypr-workspaces)))
+    (super)
+    (workspaces)
+    (active-window-title)))
 
 (defwidget center-widgets []
   (box :class "center-widgets"
-    (active-window-title)))
+       :halign "center"
+       :space-evenly false
+       :spacing 6
+    (date)
+    (time)))
 
 (defwidget right-widgets []
   (box :class "right-widgets"
@@ -40,41 +43,53 @@
        :spacing 12
     (keyboard-layout)
     (battery)
-    (date)
-    (time)
     (spacer)))
 
 (defwidget spacer [] (box))
 
 
-(deflisten workspaces :initial "[]"
-  "~/.config/eww/bin/workspaces")
+(defwidget super []
+  (box :class "date"
+    (label :text "❖")))
 
 
-(deflisten current_workspace :initial "1"
-  "~/.config/eww/bin/active-workspace")
-
-
-(defwidget hypr-workspaces []
+(defwidget workspaces []
   (eventbox :onscroll
-    "bash ~/.config/eww/bin/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    "bash ~/.config/eww/bin/change-active-workspace {} ${current-workspace}" :class "workspaces-widget"
     (box :space-evenly true
          :spacing 2
       (for workspace in workspaces
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
                   :width 20
           (box :class
-            "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"} ${workspace.id == previous-workspace ? "previous" : ""}" (label :text "${workspace.id % 10}")))))))
+            "workspace-entry ${workspace.id == current-workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"} ${workspace.id == previous-workspace ? "previous" : ""}" (label :text "${workspace.id % 10}")))))))
+
+(deflisten workspaces :initial "[]"
+  "~/.config/eww/bin/workspaces")
+
+(deflisten current-workspace :initial "1"
+  "~/.config/eww/bin/active-workspace")
 
 (defwidget active-window-title []
   (box :class "active-window-title"
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {active-window-title}))
+    (label :text {active-window-title}
+           :limit-width 24)))
 
 (deflisten active-window-title
   "~/.config/eww/bin/active-window-title")
+
+
+(defwidget date []
+  (box :class "date"
+    (label :text {formattime(EWW_TIME, "%a %b %-d")})))
+
+
+(defwidget time []
+  (box :class "time"
+    (label :text {formattime(EWW_TIME, "%-I:%M %p")})))
 
 
 (defwidget keyboard-layout []
@@ -87,14 +102,3 @@
 (defwidget battery []
   (box :class "battery"
     "${EWW_BATTERY.BAT0.capacity}%"))
-
-
-(defwidget date []
-  (box :class "date"
-    (label :text {formattime(EWW_TIME, "%a %b %-d")})))
-
-
-(defwidget time []
-  (box :class "time"
-    (label :text {formattime(EWW_TIME, "%-I:%M %p")})))
-
