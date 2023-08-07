@@ -1,7 +1,7 @@
 [Terminal]
 command = "kitty"
 launch_delay = 0.5
-lazy = false
+lazy = true
 window_class = "kitty"
 window_rules = ["float", "center", "size 90% 80%"]
 
