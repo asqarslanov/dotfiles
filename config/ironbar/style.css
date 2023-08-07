@@ -1,0 +1,48 @@
+@import "../../.cache/wal/colors-waybar.css";
+
+#bar {
+  background-color: @background;
+}
+
+.focused .label {
+  color: @foreground;
+  font-weight: 500;
+}
+
+.workspaces {
+  background-color: @background;
+}
+
+.workspaces .item {
+  background-color: @background;
+}
+
+.workspaces .item.focused {
+  background-color: @color8;
+}
+
+.upower {
+  background-color: @background;
+}
+
+.upower .button {
+  background-color: red;
+  color: blue;
+}
+
+.clock {
+  background-color: @background;
+  color: @foreground;
+}
+
+.popup-clock {
+  background-color: @color0;
+}
+
+.popup-clock .calendar-clock {
+  font-weight: 500;
+}
+
+.popup-clock .calendar {
+  background-color: @background;
+}

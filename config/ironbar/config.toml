@@ -1,0 +1,38 @@
+# name = "bar-0"
+position = "top"
+anchor-to-edges = true
+height = 32
+popup_gap = 16
+# icon_theme =
+# ironvar_default =
+
+[margin]
+top = 0    #
+bottom = 0 #
+left = 0   #
+right = 0  #
+
+[[start]]
+type = "focused"
+show_icon = true    #
+show_title = true   #
+icon_size = 20
+truncate = "middle"
+
+[[center]]
+type = "workspaces"
+name_map = { 10 = "0", "special:Authy" = "Authy", "special:Terminal" = "Terminal" }
+# icon_size = 32
+all_monitors = false  #
+sort = "alphanumeric" #
+
+[[end]]
+type = "upower"
+format = "{percentage}%" #
+icon_size = 20
+
+[[end]]
+type = "clock"
+format = "%a %b %-d  %-I:%M %p"
+format_popup = "%H:%M:%S\tUTC%:::z"
+# locale =
