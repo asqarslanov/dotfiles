@@ -62,7 +62,11 @@
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
                   :width 20
           (box :class
-            "workspace-entry ${workspace.id == current-workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"} ${workspace.id == previous-workspace ? "previous" : ""}" (label :text "${workspace.id % 10}")))))))
+            "workspace-entry \
+              ${workspace.id == current-workspace ? "current" : ""} \
+              ${workspace.windows > 0 ? "occupied" : "empty"} \
+              ${workspace.id == previous-workspace ? "previous" : ""}"
+          (label :text "${workspace.id % 10}")))))))
 
 (deflisten workspaces :initial "[]"
   "~/.config/eww/bin/workspaces")
@@ -75,7 +79,7 @@
        :orientation "h"
        :space-evenly false
        :halign "center"
-    (label :text {active-window-title}
+    (label :text {active-window-title ?: "Hyprland"}
            :limit-width 24)))
 
 (deflisten active-window-title
@@ -94,11 +98,20 @@
 
 (defwidget keyboard-layout []
   (box :class "keyboard-layout"
-    {keyboard-layout}))
+    {keyboard-layout ?: "Qwerty"}))
 
 (deflisten keyboard-layout
   "~/.config/eww/bin/keyboard-layout")
 
 (defwidget battery []
-  (box :class "battery"
-    "${EWW_BATTERY.BAT0.capacity}%"))
+  (box :class
+    "battery \
+      ${EWW_BATTERY.BAT0.capacity <= 15 ? "critical"
+        : EWW_BATTERY.BAT0.capacity <= 30 ? "warning"
+        : EWW_BATTERY.BAT0.capacity > 80 ? "charged"
+        : "normal"} \
+      ${EWW_BATTERY.BAT0.status}"
+
+    "${EWW_BATTERY.BAT0.status == "Charging"
+       ? "+${EWW_BATTERY.BAT0.capacity}%"
+       : "${EWW_BATTERY.BAT0.capacity}%"}"))

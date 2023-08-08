@@ -1,45 +1,70 @@
-@import '../../../.cache/wal/colors.scss';
-
+@import "../../../.cache/wal/colors.scss";
 
 * {
-    all: unset;
+  all: unset;
 }
-
 
 .bar {
-    font-family: 'Google Sans';
+  font-family: "Outfit";
 
-    color: $foreground;
-    background-color: $background;
+  color: $foreground;
+  background-color: $background;
 }
-
-
-.active-window-title {
-    font-weight: 500;
-}
-
 
 .workspace-entry {
-    margin: 6px 0px;
-    padding: 0px 2px;
+  margin: 6px 0px;
+  padding: 0px 2px;
 
-    color: $color8;
+  color: $color8;
 }
-
 
 .workspace-entry.current {
-    border-radius: 4px;
+  border-radius: 4px;
 
-    color: $background;
-    background-color: $color8;
+  color: $background;
+  background-color: $color8;
 }
-
 
 .workspace-entry.occupied {
-    color: $foreground;
+  color: $foreground;
 }
 
-
 .workspace-entry.previous {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.active-window-title {
+  font-weight: 500;
+}
+
+.battery.critical.Discharging {
+  color: $color1;
+}
+
+.battery.warning.Discharging {
+  color: $color3;
+}
+
+.battery.normal.Discharging {
+  color: $foreground;
+}
+
+.battery.charged.Discharging {
+  color: $color2;
+}
+
+.battery.critical.Charging {
+  color: $color6;
+}
+
+.battery.warning.Charging {
+  color: $color6;
+}
+
+.battery.normal.Charging {
+  color: $color6;
+}
+
+.battery.charged.Charging {
+  color: $color2;
 }
