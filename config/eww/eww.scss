@@ -9,30 +9,44 @@
   background-color: $background;
 }
 
-.workspace-entry {
+.workspace {
   margin: 6px 0px;
   padding: 0px 2px;
 
+  border-radius: 4px;
+}
+
+.workspace.empty {
   color: $color8;
 }
 
-.workspace-entry.current {
-  border-radius: 4px;
-
-  color: $background;
-  background-color: $color8;
-}
-
-.workspace-entry.occupied {
+.workspace.occupied {
   color: $foreground;
 }
 
-.workspace-entry.previous {
-  font-weight: bold;
+.workspace.hasfullscreen {
+  color: $color1;
 }
 
+.workspace.current {
+  background-color: $color8;
+}
+
+.workspace.hasfullscreen.current {
+  background-color: $color1;
+  color: $foreground;
+}
+
+.workspace.empty.current {
+  color: $background;
+}
+
+// .workspace.previous {
+//   font-weight: bold;
+// }
+
 .active-window-title {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .battery.critical.Discharging {
@@ -53,16 +67,20 @@
 
 .battery.critical.Charging {
   color: $color6;
+  font-weight: 600;
 }
 
 .battery.warning.Charging {
   color: $color6;
+  font-weight: 600;
 }
 
 .battery.normal.Charging {
   color: $color6;
+  font-weight: 600;
 }
 
 .battery.charged.Charging {
   color: $color2;
+  font-weight: 600;
 }

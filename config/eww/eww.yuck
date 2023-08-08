@@ -55,24 +55,27 @@
 
 (defwidget workspaces []
   (eventbox :onscroll
-    "bash ~/.config/eww/bin/change-active-workspace {} ${current-workspace}" :class "workspaces-widget"
+    "~/.config/eww/bin/change-active-workspace ${current-workspace}" :class "workspaces-widget"
     (box :space-evenly true
          :spacing 2
       (for workspace in workspaces
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
                   :width 20
           (box :class
-            "workspace-entry \
+            "workspace \
+              ${workspace.occupation} \
               ${workspace.id == current-workspace ? "current" : ""} \
-              ${workspace.windows > 0 ? "occupied" : "empty"} \
               ${workspace.id == previous-workspace ? "previous" : ""}"
-          (label :text "${workspace.id % 10}")))))))
+          (label :text "${workspace.name}")))))))
 
-(deflisten workspaces :initial "[]"
-  "~/.config/eww/bin/workspaces")
+(deflisten workspaces :initial '[{"id":1,"name":1,"occupation":"empty"},{"id":2,"name":2,"occupation":"empty"},{"id":3,"name":3,"occupation":"empty"},{"id":4,"name":4,"occupation":"empty"},{"id":5,"name":5,"occupation":"empty"},{"id":6,"name":6,"occupation":"empty"},{"id":7,"name":7,"occupation":"empty"},{"id":8,"name":8,"occupation":"empty"},{"id":9,"name":9,"occupation":"empty"},{"id":10,"name":0,"occupation":"empty"}]'
+  "~/.config/eww/bin/workspaces-listener")
 
-(deflisten current-workspace :initial "1"
+(deflisten current-workspace
   "~/.config/eww/bin/active-workspace")
+
+; (deflisten have-fullscreen
+  ; "~/.config/eww/bin/have-fullscreen-listener")
 
 (defwidget active-window-title []
   (box :class "active-window-title"
@@ -98,9 +101,9 @@
 
 (defwidget keyboard-layout []
   (box :class "keyboard-layout"
-    {keyboard-layout ?: "Qwerty"}))
+    {keyboard-layout}))
 
-(deflisten keyboard-layout
+(deflisten keyboard-layout :initial "Qwerty"
   "~/.config/eww/bin/keyboard-layout")
 
 (defwidget battery []
