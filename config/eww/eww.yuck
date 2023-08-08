@@ -79,7 +79,7 @@
        :orientation "h"
        :space-evenly false
        :halign "center"
-    (label :text {active-window-title ?: "Hyprland"}
+    (label :text {active-window-title ?: "Desktop"}
            :limit-width 24)))
 
 (deflisten active-window-title
