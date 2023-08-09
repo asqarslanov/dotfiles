@@ -1,4 +1,3 @@
 __pycache__
-lazy-lock.json
-loadspecific.conf
-vars
+config/hypr/hostspecific.conf
+binkctl/vars/
