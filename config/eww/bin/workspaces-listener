@@ -2,10 +2,11 @@
 
 handle() {
   case $1 in
+  workspace*) ~/.config/eww/bin/workspaces ;;
   fullscreen*) ~/.config/eww/bin/workspaces ;;
   openwindow*) ~/.config/eww/bin/workspaces ;;
   closewindow*) ~/.config/eww/bin/workspaces ;;
-  workspace*) ~/.config/eww/bin/workspaces ;;
+  movewindow*) ~/.config/eww/bin/workspaces ;;
   esac
 }
 
