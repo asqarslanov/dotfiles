@@ -1,5 +1,5 @@
 set -U fish_greeting
-set -gx EDITOR helix
+set -gx EDITOR nvim
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
 set -gx MANROFFOPT '-P -c'
 
@@ -12,7 +12,6 @@ end
 ~/.config/tmux/bin/clear-unattached-sessions
 
 if status is-interactive
-    # TODO: Check Tmux Presence
     # TODO: Check Pywal Presence
 
     function fish_user_key_bindings
@@ -20,9 +19,13 @@ if status is-interactive
         fish_vi_key_bindings --no-erase insert
     end
 
-    if [ -z $TMUX ]
-        cat ~/.cache/wal/sequences &
-        ~/.cache/wal/colors-tty.sh
+    cat ~/.cache/wal/sequences &
+    ~/.cache/wal/colors-tty.sh
+    if set -q DISPLAY
+        fortune -s
+        echo
+        fastfetch
+    else if [ -z $TMUX ]
         ~/.config/tmux/bin/initialization
         clear
     else if [ $TERM != xterm-256color ]
@@ -47,6 +50,14 @@ if status is-interactive
     #     # printf '\n%s%s %s%s%s\n$ ' \
     #     #     (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
     # end
+
+    function edit
+        if set -q DISPLAY
+            neovide -- $argv
+        else
+            nvim $argv
+        end
+    end
 
     function lg
         set -x LAZYGIT_NEW_DIR_FILE ~/.lazygit/newdir
