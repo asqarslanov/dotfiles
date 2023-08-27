@@ -51,13 +51,13 @@ if status is-interactive
     #     #     (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
     # end
 
-    function edit
-        if set -q DISPLAY
-            neovide -- $argv
-        else
-            nvim $argv
-        end
-    end
+    # function edit
+    #     if set -q DISPLAY
+    #         neovide -- $argv
+    #     else
+    #         helix $argv
+    #     end
+    # end
 
     function lg
         set -x LAZYGIT_NEW_DIR_FILE ~/.lazygit/newdir
@@ -85,6 +85,7 @@ if status is-interactive
     alias 'ls'='exa --classify --icons --all --header'
     alias 'neofetch'='echo neofetch: aliased to fastfetch; echo; fastfetch'
     alias 'plz'='sudo'
+    abbr hx helix
     abbr sudo plz
 
     # TODO: Tmux Actions
