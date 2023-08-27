@@ -5,6 +5,10 @@ indent = { tab-width = 2, unit = "  " }
 formatter = { command = 'shfmt', args = ["-i", "2"] }
 
 [[language]]
+name = "c"
+auto-format = true
+
+[[language]]
 name = "css"
 formatter = { command = "prettierd", args = [".css"] }
 
