@@ -82,7 +82,7 @@
        :orientation "h"
        :space-evenly false
        :halign "center"
-    (label :text {active-window-title ?: "Desktop"}
+    (label :text {active-window-title ?: ""}
            :limit-width 24)))
 
 (deflisten active-window-title
