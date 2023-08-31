@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-pkexec $(which brillo) -O
-pkexec $(which brillo) -S 0
-swaylock --color 000000 --font Outfit
-pkexec $(which brillo) -I
-echo $brightness
+# pkexec $(which brillo) -O
+# pkexec $(which brillo) -S 0
+swaylock --color 000000 --font "Wix Madefor Text" &
+systemctl suspend
+# pkexec $(which brillo) -I
