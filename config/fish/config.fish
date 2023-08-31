@@ -1,5 +1,5 @@
 set -U fish_greeting
-set -gx EDITOR nvim
+set -gx EDITOR helix
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
 set -gx MANROFFOPT '-P -c'
 
