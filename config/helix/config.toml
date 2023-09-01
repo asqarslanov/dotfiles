@@ -25,8 +25,8 @@ hidden = false
 render = true
 
 [keys.normal]
-A-q = ":quit"
+A-q = ":buffer-close"
 A-w = ":write"
 
 [keys.normal.space]
-A-q = ":buffer-close"
+A-q = ":quit"
