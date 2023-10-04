@@ -22,6 +22,10 @@ name = "html"
 formatter = { command = "prettierd", args = [".html"] }
 
 [[language]]
+name = "java"
+auto-format = true
+
+[[language]]
 name = "javascript"
 auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "js"] }
