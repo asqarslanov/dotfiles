@@ -25,7 +25,6 @@ hidden = false
 render = true
 
 [keys.normal]
-A-q = ":buffer-close"
 A-w = ":write"
 
 [keys.normal.space]
