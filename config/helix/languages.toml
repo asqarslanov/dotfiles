@@ -49,7 +49,10 @@ formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
 
 [[language]]
 name = "python"
+roots = ["pyproject.toml"]
 auto-format = true
+language-server = { command = "pyright-langserver", args = ["--stdio"] }
+config = {}
 formatter = { command = "black", args = ["--quiet", "-"] }
 
 [[language]]
