@@ -39,6 +39,7 @@ formatter = { command = "deno", args = ["fmt", "-", "--ext", "json"] }
 [[language]]
 name = "lua"
 auto-format = true
+indent = { tab-width = 3, unit = "   " }
 formatter = { command = "stylua", args = ["-"] }
 
 [[language]]
