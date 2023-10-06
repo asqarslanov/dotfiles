@@ -11,6 +11,7 @@ os.execute(string.format('[ -e "%s" ] || git clone "%s" "%s"', xpm_path, xpm_url
 
 require("xpm").setup({
 	"dtomvan/xpm.xplr",
+	"sayanarijit/trash-cli.xplr",
 	auto_install = true,
 	auto_cleanup = true,
 })
