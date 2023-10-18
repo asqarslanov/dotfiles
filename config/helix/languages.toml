@@ -83,6 +83,12 @@ formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
 # formatter = { command = "prettierd", args = [".ts"] }
 
 [[language]]
+name = "verilog"
+auto-format = true
+# formatter = { command = "verible-verilog-format", args = ["-"] }
+language-server = { command = "veridian" }
+
+[[language]]
 name = "yaml"
 auto-format = true
 formatter = { command = "prettierd", args = [".yaml"] }
