@@ -6,6 +6,8 @@
 - Desktop: [Hyprland](https://github.com/hyprwm/Hyprland)
 - GTK Theme: [Materia Dark](https://github.com/nana-4/materia-theme)
 - Cursor Theme: [GoogleDot Blue](https://github.com/ful1e5/Google_Cursor)
+- Icon Theme:
+  [Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 - Colorscheme: [Dracula](https://github.com/dracula/dracula-theme)
 - Colorscheme Management: [Pywal](https://github.com/dylanaraps/pywal)
   (considering using [Wallust](https://codeberg.org/explosion-mental/wallust))
