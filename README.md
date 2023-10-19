@@ -1,5 +1,7 @@
 # AsqArs’ Dotfiles
 
+![Preview](assets/preview.png)
+
 ### Components
 
 - OS: [Arch Linux](https://github.com/archlinux)
