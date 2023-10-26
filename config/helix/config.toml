@@ -2,7 +2,7 @@ theme = "dracula"
 
 [editor]
 line-number = "relative"
-auto-save = true
+# auto-save = true
 idle-timeout = 0
 # completion-replace = true
 bufferline = "always"
