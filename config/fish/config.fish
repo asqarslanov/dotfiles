@@ -82,7 +82,7 @@ if status is-interactive
 
     alias 'cat'='bat'
     alias 'info'='info --vi-keys'
-    alias 'ls'='eza --classify --icons --all --header'
+    alias 'ls'='eza --icons --all --header'
     alias 'neofetch'='echo neofetch: aliased to fastfetch; echo; fastfetch'
     alias 'plz'='sudo'
     abbr hx helix
