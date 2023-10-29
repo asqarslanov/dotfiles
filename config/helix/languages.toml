@@ -4,26 +4,32 @@ auto-format = true
 indent = { tab-width = 2, unit = "  " }
 formatter = { command = 'shfmt', args = ["-i", "2"] }
 
+
 [[language]]
 name = "c"
 auto-format = true
 
+
 [[language]]
 name = "css"
 formatter = { command = "prettierd", args = [".css"] }
+
 
 [[language]]
 name = "fish"
 auto-format = true
 formatter = { command = "fish_indent" }
 
+
 [[language]]
 name = "html"
 formatter = { command = "prettierd", args = [".html"] }
 
+
 [[language]]
 name = "java"
 auto-format = true
+
 
 [[language]]
 name = "javascript"
@@ -31,10 +37,12 @@ auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "js"] }
 # formatter = { command = "prettierd", args = [".js"] }
 
+
 [[language]]
 name = "json"
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "json"] }
 # formatter = { command = "prettierd", args = [".json"] }
+
 
 [[language]]
 name = "lua"
@@ -42,11 +50,13 @@ auto-format = true
 indent = { tab-width = 3, unit = "   " }
 formatter = { command = "stylua", args = ["-"] }
 
+
 [[language]]
 name = "markdown"
 auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
 # formatter = { command = "prettierd", args = [".md"] }
+
 
 [[language]]
 name = "python"
@@ -60,19 +70,23 @@ command = "ruff-lsp"
 [language-server.pyright]
 command = "pyright-langserver"
 
+
 [[language]]
 name = "rust"
 auto-format = true
 formatter = { command = "rustfmt" }
 
+
 [[language]]
 name = "scss"
 formatter = { command = "prettierd", args = [".scss"] }
+
 
 [[language]]
 name = "svelte"
 auto-format = true
 # formatter = { command = "prettierd", args = [".svelte"] }
+
 
 [[language]]
 name = "toml"
@@ -80,11 +94,13 @@ file-types = ["toml", "conf"]
 auto-format = true
 formatter = { command = "taplo", args = ["format", "-"] }
 
+
 [[language]]
 name = "typescript"
 auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
 # formatter = { command = "prettierd", args = [".ts"] }
+
 
 [[language]]
 name = "verilog"
@@ -94,6 +110,7 @@ language-servers = ["veridian"]
 [language-server.veridian]
 command = "veridian"
 # formatter = { command = "verible-verilog-format", args = ["-"] }
+
 
 [[language]]
 name = "yaml"
