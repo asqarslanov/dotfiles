@@ -50,11 +50,15 @@ formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
 
 [[language]]
 name = "python"
-roots = ["pyproject.toml"]
 auto-format = true
-language-server = { command = "pyright-langserver", args = ["--stdio"] }
-config = {}
-formatter = { command = "black", args = ["--quiet", "-"] }
+language-servers = ["ruff-lsp", "pyright"]
+
+[language-server.ruff-lsp]
+command = "ruff-lsp"
+# formatter = { command = "ruff", args = ["format", "-"] }
+
+[language-server.pyright]
+command = "pyright-langserver"
 
 [[language]]
 name = "rust"
@@ -85,8 +89,11 @@ formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
 [[language]]
 name = "verilog"
 auto-format = true
+language-servers = ["veridian"]
+
+[language-server.veridian]
+command = "veridian"
 # formatter = { command = "verible-verilog-format", args = ["-"] }
-language-server = { command = "veridian" }
 
 [[language]]
 name = "yaml"
