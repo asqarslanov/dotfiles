@@ -2,6 +2,7 @@ set -U fish_greeting
 set -gx EDITOR helix
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
 set -gx MANROFFOPT '-P -c'
+set PATH $PATH ~/.local/bin
 
 if [ ! -d ~/.cache/wal ]
     wal -f dracula
