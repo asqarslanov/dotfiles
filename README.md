@@ -22,6 +22,7 @@
 |      Web Browser       | [Google Chrome](https://github.com/chromium/chromium) (considering using [Firefox](https://github.com/mozilla/gecko-dev)) |
 |    Display Manager     |                                           [SDDM](https://github.com/sddm/sddm)                                            |
 | Display Manager Theme  |                                 [Sugar Candy](https://github.com/Kangie/sddm-sugar-candy)                                 |
+|     Screen Locker      |                                      [Swaylock](https://github.com/swaywm/swaylock)                                       |
 |    GUI File Manager    |                                         [Nemo](https://github.com/linuxmint/nemo)                                         |
 |    TUI File Manager    |                                        [xplr](https://github.com/sayanarijit/xplr)                                        |
 |         Git UI         |                                    [Lazygit](https://github.com/jesseduffield/lazygit)                                    |
