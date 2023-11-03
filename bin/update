@@ -2,5 +2,5 @@
 
 flatpak update
 nix-env -u
-paru
 rustup update
+paru
