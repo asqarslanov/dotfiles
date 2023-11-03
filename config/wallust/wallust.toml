@@ -1,0 +1,58 @@
+# v2.7.*
+
+backend = "fastresize"
+color_space = "labfast"
+threshold = 20
+filter = "dark16"
+
+[[entry]]
+template = "templates/colors"
+target = "~/.cache/wallust/colors"
+
+[[entry]]
+template = "templates/colors.css"
+target = "~/.cache/wallust/colors.css"
+
+[[entry]]
+template = "templates/colors.json"
+target = "~/.cache/wallust/colors.json"
+
+[[entry]]
+template = "templates/colors.lua"
+target = "~/.cache/wallust/colors.lua"
+
+[[entry]]
+template = "templates/colors.ron"
+target = "~/.cache/wallust/colors.ron"
+
+[[entry]]
+template = "templates/colors.scss"
+target = "~/.cache/wallust/colors.scss"
+
+[[entry]]
+template = "templates/colors.sh"
+target = "~/.cache/wallust/colors.sh"
+
+[[entry]]
+template = "templates/colors.toml"
+target = "~/.cache/wallust/colors.toml"
+
+[[entry]]
+template = "templates/colors.yaml"
+target = "~/.cache/wallust/colors.yaml"
+
+[[entry]]
+template = "templates/gtk.css"
+target = "~/.cache/wallust/gtk.css"
+
+[[entry]]
+template = "templates/hyprland.conf"
+target = "~/.cache/wallust/hyprland.conf"
+
+[[entry]]
+template = "templates/kitty.conf"
+target = "~/.cache/wallust/kitty.conf"
+
+[[entry]]
+template = "templates/tty.sh"
+target = "~/.cache/wallust/tty.sh"

@@ -12,7 +12,7 @@
 |      Cursor Theme      |                                 [GoogleDot Blue](https://github.com/ful1e5/Google_Cursor)                                 |
 |       Icon Theme       |                       [Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)                        |
 |      Colorscheme       |                                    [Dracula](https://github.com/dracula/dracula-theme)                                    |
-| Colorscheme Management | [Pywal](https://github.com/dylanaraps/pywal) (considering using [Wallust](https://codeberg.org/explosion-mental/wallust)) |
+| Colorscheme Management |                                 [Wallust](https://codeberg.org/explosion-mental/wallust))                                 |
 |   Proportional Font    |                              [Wix Madefor Text](https://github.com/wix-incubator/wixmadefor)                              |
 |    Monospaced Font     |     [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) [Nerd Font](https://github.com/ryanoasis/nerd-fonts)     |
 |  Application Launcher  |                                        [Anyrun](https://github.com/Kirottu/anyrun)                                        |

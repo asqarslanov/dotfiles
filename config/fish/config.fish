@@ -5,24 +5,18 @@ set -gx EDITOR hx
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
 set -gx MANROFFOPT '-P -c'
 
-if [ ! -d ~/.cache/wal ]
-    wal -f dracula
-    chmod +x ~/.cache/wal/colors.sh
-    chmod +x ~/.cache/wal/colors-tty.sh
-end
-
 ~/.config/tmux/bin/clear-unattached-sessions
 
 if status is-interactive
-    # TODO: Check Pywal Presence
+    # TODO: Check the Wallust Presence.
 
     function fish_user_key_bindings
         fish_default_key_bindings --mode insert
         fish_vi_key_bindings --no-erase insert
     end
 
-    cat ~/.cache/wal/sequences &
-    ~/.cache/wal/colors-tty.sh
+    cat ~/.cache/wallust/sequences &
+    sh ~/.cache/wallust/tty.sh
     if set -q DISPLAY
         fortune -s
         echo
