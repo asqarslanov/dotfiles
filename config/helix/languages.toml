@@ -57,15 +57,16 @@ auto-format = true
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
 # formatter = { command = "prettierd", args = [".md"] }
 
+[[language]]
+name = "nix"
+auto-format = true
+formatter = { command = "alejandra" }
 
 [[language]]
 name = "python"
 auto-format = true
-language-servers = ["ruff-lsp", "pyright"]
-
-[language-server.ruff-lsp]
-command = "ruff-lsp"
-# formatter = { command = "ruff", args = ["format", "-"] }
+language-servers = ["pyright"]
+formatter = { command = "ruff", args = ["format", "-"] }
 
 [language-server.pyright]
 command = "pyright-langserver"
@@ -105,7 +106,7 @@ formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
 [[language]]
 name = "verilog"
 auto-format = true
-language-servers = ["veridian"]
+# language-servers = ["svls", "veridian"]
 
 [language-server.veridian]
 command = "veridian"
