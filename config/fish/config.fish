@@ -1,7 +1,7 @@
 set -U fish_greeting
 set -gx PATH $PATH ~/.local/bin ~/.nix-profile/bin
 set -gx XDG_DATA_DIRS $XDG_DATA_DIRS ~/.nix-profile/share
-set -gx EDITOR helix
+set -gx EDITOR hx
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
 set -gx MANROFFOPT '-P -c'
 
@@ -57,7 +57,7 @@ if status is-interactive
     #     if set -q DISPLAY
     #         neovide -- $argv
     #     else
-    #         helix $argv
+    #         hx $argv
     #     end
     # end
 
@@ -87,7 +87,7 @@ if status is-interactive
     alias 'ls'='eza --icons --all --header'
     alias 'neofetch'='echo neofetch: aliased to fastfetch; echo; fastfetch'
     alias 'plz'='sudo'
-    abbr hx helix
+    abbr helix hx
     abbr sudo plz
 
     # TODO: Tmux Actions
