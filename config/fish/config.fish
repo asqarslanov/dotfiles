@@ -82,6 +82,8 @@ if status is-interactive
     alias 'neofetch'='echo neofetch: aliased to fastfetch; echo; fastfetch'
     alias 'plz'='sudo'
     abbr helix hx
+    abbr npm bun
+    abbr npx bunx
     abbr sudo plz
 
     # TODO: Tmux Actions
