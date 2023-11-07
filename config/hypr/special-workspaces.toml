@@ -1,15 +1,11 @@
 [Terminal]
 command = "kitty"
-launch_delay = 0.5
-lazy = true
-window_class = "kitty"
-window_rules = []
-# window_rules = ["float", "center", "size 90% 80%"]
+launch-delay-seconds = 0.5
+window-class = "kitty"
 
 [Authy]
-command = "flatpak run com.authy.Authy"
-launch_delay = 10
+command = "flatpak"
+arguments = ["run", "com.authy.Authy"]
+launch-delay-seconds = 10
 lazy = false
-window_class = "Authy Desktop"
-window_rules = []
-# window_rules = ["center"]
+window-class = "Authy Desktop"
