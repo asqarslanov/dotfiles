@@ -1,4 +1,42 @@
-use hyprland::{data::Workspaces, prelude::HyprData};
+/*
+[package]
+name = "workspaces"
+version = "2023.11.7"
+edition = "2021"
+
+[dependencies]
+hyprland = "0.3.12"
+serde = "1.0.192"
+serde_json = "1.0.108"
+*/
+
+use hyprland::{data::Workspaces, prelude::HyprData, shared::WorkspaceId};
+use serde::Serialize;
+
+#[derive(Serialize)]
+struct WorkspaceProcessed {
+    id: WorkspaceId,
+    name: String,
+    occupation: Occupation,
+}
+
+impl WorkspaceProcessed {
+    fn build(id: WorkspaceId, name: &str) -> Self {
+        Self {
+            id,
+            name: name.to_string(),
+            occupation: Occupation::Empty,
+        }
+    }
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "lowercase")]
+enum Occupation {
+    Empty,
+    Occupied,
+    HasFullscreen,
+}
 
 fn main() {
     let mut workspaces_processed = [
@@ -32,32 +70,4 @@ fn main() {
 
     let workspaces_processed = serde_json::to_string(&workspaces_processed).unwrap();
     println!("{workspaces_processed}");
-}
-
-use hyprland::shared::WorkspaceId;
-use serde::Serialize;
-
-#[derive(Serialize)]
-struct WorkspaceProcessed {
-    id: WorkspaceId,
-    name: String,
-    occupation: Occupation,
-}
-
-impl WorkspaceProcessed {
-    fn build(id: WorkspaceId, name: &str) -> Self {
-        Self {
-            id,
-            name: name.to_string(),
-            occupation: Occupation::Empty,
-        }
-    }
-}
-
-#[derive(Serialize)]
-#[serde(rename_all = "lowercase")]
-enum Occupation {
-    Empty,
-    Occupied,
-    HasFullscreen,
 }
