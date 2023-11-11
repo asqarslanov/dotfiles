@@ -3,6 +3,11 @@ command = "kitty"
 launch-delay-seconds = 0.5
 window-class = "kitty"
 
+[File-Manager]
+command = "nemo"
+launch-delay-seconds = 0.5
+window-class = "nemo"
+
 [Authy]
 command = "flatpak"
 arguments = ["run", "com.authy.Authy"]
