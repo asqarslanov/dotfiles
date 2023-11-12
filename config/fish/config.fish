@@ -68,27 +68,31 @@ if status is-interactive
         return 0
     end
 
-    alias "cp"="cp --interactive --verbose"
-    alias "ln"="ln --interactive --verbose"
-    alias "mv"="mv --interactive --verbose"
-    alias "mkdir"="mkdir --verbose"
-    alias "rm"="echo Use either `trash` or `command rm` instead.; false"
-    alias "remove"="command rm --interactive=once --verbose"
-    alias "trash"="trash --verbose"
+    alias cp="cp --interactive --recursive --verbose"
+    alias ln="ln --interactive --verbose"
+    alias mv="mv --interactive --verbose"
+    alias mkdir="mkdir --parents --verbose"
+    alias rm="echo 'Use either `trash` or `command rm` instead.'; false"
+    alias remove="command rm --interactive=once --verbose"
+    alias trash="trash --verbose"
 
-    alias "cat"="bat"
-    alias "info"="info --vi-keys"
-    alias "ls"="eza --icons --all --header"
-    alias "neofetch"="echo neofetch: aliased to fastfetch; echo; fastfetch"
-    alias "plz"="sudo"
+    alias cat="bat"
+    alias info="info --vi-keys"
+    alias ls="eza --icons --all --header"
+    alias neofetch="echo neofetch: aliased to fastfetch; echo; fastfetch"
+    alias plz="sudo"
+
     abbr helix hx
     abbr npm bun
     abbr npx bunx
     abbr sudo plz
 
-    # TODO: Tmux Actions
-    abbr ':q!' exit
-    abbr ':q' exit
+    abbr :q! exit
+    abbr :q exit
+
+    abbr cd.. cd ../
+    abbr .. cd ../
+    abbr '~' cd '~'/
 
     # XXX:
     starship init fish | source
