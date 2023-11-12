@@ -91,8 +91,6 @@ if status is-interactive
     abbr :q exit
 
     abbr cd.. cd ../
-    abbr .. cd ../
-    abbr '~' cd '~'/
 
     # XXX:
     starship init fish | source
