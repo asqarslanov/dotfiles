@@ -8,6 +8,7 @@ edition = "2021"
 clap = { version = "4.4.8", features = ["cargo", "string"] }
 dirs = "5.0.1"
 hyprland = "0.3.12"
+regex = "1.10.2"
 serde = "1.0.192"
 serde_with = "3.4.0"
 toml = "0.8.8"
@@ -81,12 +82,13 @@ impl SpecialWorkspace {
     }
 
     fn launch(&self, name: &str, toggle: bool) {
-        let window_class = format!("^({})$", self.window_class);
-
         if toggle {
-            set_window_rule(&window_class, &format!("workspace special:{name}"));
+            set_window_rule(&self.window_class, &format!("workspace special:{name}"));
         } else {
-            set_window_rule(&window_class, &format!("workspace silent special:{name}"));
+            set_window_rule(
+                &self.window_class,
+                &format!("workspace special:{name} silent"),
+            );
         }
 
         Command::new(&self.command)
@@ -96,7 +98,7 @@ impl SpecialWorkspace {
 
         thread::sleep(self.launch_delay);
 
-        set_window_rule(&window_class, "workspace unset");
+        set_window_rule(&self.window_class, "workspace unset");
     }
 
     fn toggle_special_workspace(name: &str) {
@@ -107,7 +109,9 @@ impl SpecialWorkspace {
 }
 
 fn set_window_rule(window_class: &str, window_rule: &str) {
+    let window_class = format!("^{}$", regex::escape(window_class));
     let rule = format!("{window_rule}, {window_class}");
+
     Keyword::set("windowrule", rule).expect("the window rule should be applied successfully");
 }
 
@@ -118,7 +122,7 @@ fn cmd() -> clap::Command {
         .into_os_string();
 
     command!()
-        .arg(arg!([NAME] "The special workspace to launch").required_unless_present("all"))
+        .arg(arg!([NAME] "The special workspace to launch").conflicts_with("all"))
         .arg(arg!(-a --all "Launch all non-lazy special workspaces"))
         .arg(
             arg!(-c --config <FILE> "Override the path to the config file")
