@@ -1,7 +1,7 @@
 /*
 [package]
 name = "workspaces"
-version = "2023.11.7"
+version = "2023.11.15"
 edition = "2021"
 
 [dependencies]
@@ -21,7 +21,7 @@ struct WorkspaceProcessed {
 }
 
 impl WorkspaceProcessed {
-    fn build(id: WorkspaceId, name: &str) -> Self {
+    fn with_id_and_name(id: WorkspaceId, name: &str) -> Self {
         Self {
             id,
             name: name.to_string(),
@@ -40,26 +40,28 @@ enum Occupation {
 
 fn main() {
     let mut workspaces_processed = [
-        WorkspaceProcessed::build(1, "1"),
-        WorkspaceProcessed::build(2, "2"),
-        WorkspaceProcessed::build(3, "3"),
-        WorkspaceProcessed::build(4, "4"),
-        WorkspaceProcessed::build(5, "5"),
-        WorkspaceProcessed::build(6, "6"),
-        WorkspaceProcessed::build(7, "7"),
-        WorkspaceProcessed::build(8, "8"),
-        WorkspaceProcessed::build(9, "9"),
-        WorkspaceProcessed::build(10, "0"),
+        WorkspaceProcessed::with_id_and_name(1, "1"),
+        WorkspaceProcessed::with_id_and_name(2, "2"),
+        WorkspaceProcessed::with_id_and_name(3, "3"),
+        WorkspaceProcessed::with_id_and_name(4, "4"),
+        WorkspaceProcessed::with_id_and_name(5, "5"),
+        WorkspaceProcessed::with_id_and_name(6, "6"),
+        WorkspaceProcessed::with_id_and_name(7, "7"),
+        WorkspaceProcessed::with_id_and_name(8, "8"),
+        WorkspaceProcessed::with_id_and_name(9, "9"),
+        WorkspaceProcessed::with_id_and_name(10, "0"),
     ];
 
-    for workspace in Workspaces::get().unwrap() {
+    for workspace in
+        Workspaces::get().expect("running inside a Hyprland session, so workspaces exist")
+    {
         let id = workspace.id;
 
         if !(1..=10).contains(&id) {
             continue;
         }
 
-        let id = usize::try_from(id - 1).unwrap();
+        let id = usize::try_from(id - 1).expect("the workspace IDs are hardcoded to be valid");
 
         if workspace.fullscreen {
             workspaces_processed[id].occupation = Occupation::HasFullscreen;
@@ -68,6 +70,7 @@ fn main() {
         }
     }
 
-    let workspaces_processed = serde_json::to_string(&workspaces_processed).unwrap();
+    let workspaces_processed =
+        serde_json::to_string(&workspaces_processed).expect("the structure should be serializable");
     println!("{workspaces_processed}");
 }
