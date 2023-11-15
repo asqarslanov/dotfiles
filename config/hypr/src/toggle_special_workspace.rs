@@ -1,19 +1,19 @@
 /*
 [package]
 name = "toggle-special-workspace"
-version = "2023.11.7"
+version = "2023.11.15"
 edition = "2021"
 
 [dependencies]
-clap = { version = "4.4.7", features = ["derive", "string"] }
+clap = { version = "4.4.8", features = ["cargo", "string"] }
 dirs = "5.0.1"
 hyprland = "0.3.12"
-serde = { version = "1.0.192", features = ["derive"] }
+serde = "1.0.192"
 serde_with = "3.4.0"
 toml = "0.8.8"
 */
 
-use clap::Parser;
+use clap::{arg, command, value_parser};
 use hyprland::{
     data::Clients,
     dispatch::{Dispatch, DispatchType},
@@ -29,45 +29,29 @@ use std::process::Command;
 use std::thread;
 use std::time::Duration;
 
-#[derive(Parser)]
-#[command(version)]
-struct CommandLineArguments {
-    special_workspace: String,
-    #[arg(short, long)]
-    all: bool,
-    #[arg(short, long, default_value = CommandLineArguments::default_source().into_os_string())]
-    #[arg(short, long)]
-    source: PathBuf,
-}
-
-impl CommandLineArguments {
-    fn default_source() -> PathBuf {
-        dirs::config_dir()
-            .expect("The config dir to exist")
-            .join("hypr")
-            .join("special-workspaces.toml")
-    }
-}
-
 #[serde_as]
 #[derive(Deserialize, Default)]
 #[serde(rename_all = "kebab-case")]
 struct SpecialWorkspace {
     command: String,
+
     #[serde(default = "SpecialWorkspace::default_arguments")]
     arguments: Vec<String>,
+
     #[serde(rename = "launch-delay-seconds")]
     #[serde_as(as = "DurationSeconds<f64>")]
     #[serde(default = "SpecialWorkspace::default_launch_delay")]
     launch_delay: Duration,
+
     #[serde(default = "SpecialWorkspace::default_lazy")]
     lazy: bool,
+
     window_class: String,
 }
 
 impl SpecialWorkspace {
     fn default_arguments() -> Vec<String> {
-        vec![]
+        Vec::new()
     }
 
     fn default_launch_delay() -> Duration {
@@ -79,10 +63,16 @@ impl SpecialWorkspace {
     }
 
     fn presents(&self, name: &str) -> bool {
-        for client in Clients::get().expect("Running inside a Hyprland session") {
-            if client.initial_class == self.window_class
-                && client.workspace.name == format!("special:{name}")
-            {
+        let clients =
+            Clients::get().expect("running inside a Hyprland session, so clients should exist");
+
+        let name = format!("special:{name}");
+
+        for client in clients {
+            let class_matches = client.initial_class == self.window_class;
+            let name_matches = client.workspace.name == name;
+
+            if class_matches && name_matches {
                 return true;
             }
         }
@@ -102,7 +92,7 @@ impl SpecialWorkspace {
         Command::new(&self.command)
             .args(&self.arguments)
             .spawn()
-            .expect("The user to write a working command");
+            .expect("the user should specify a valid command");
 
         thread::sleep(self.launch_delay);
 
@@ -112,24 +102,47 @@ impl SpecialWorkspace {
     fn toggle_special_workspace(name: &str) {
         let name = Some(String::from(name));
         let dispatch = DispatchType::ToggleSpecialWorkspace(name);
-        Dispatch::call(dispatch).expect("The special workspace to exist");
+        Dispatch::call(dispatch).expect("the special workspace was created previously");
     }
 }
 
 fn set_window_rule(window_class: &str, window_rule: &str) {
     let rule = format!("{window_rule}, {window_class}");
-    Keyword::set("windowrule", rule).expect("The rule to be applied successfully");
+    Keyword::set("windowrule", rule).expect("the window rule should be applied successfully");
+}
+
+fn cmd() -> clap::Command {
+    let default_config = dirs::config_dir()
+        .expect("running as a Linux user, so the config dir should exist")
+        .join("hypr/special-workspaces.toml")
+        .into_os_string();
+
+    command!()
+        .arg(arg!([NAME] "The special workspace to launch").required_unless_present("all"))
+        .arg(arg!(-a --all "Launch all non-lazy special workspaces"))
+        .arg(
+            arg!(-c --config <FILE> "Override the path to the config file")
+                .default_value(default_config)
+                .value_parser(value_parser!(PathBuf)),
+        )
+        .arg_required_else_help(true)
 }
 
 fn main() {
-    let arguments = CommandLineArguments::parse();
+    let matches = cmd().get_matches();
 
-    let special_workspaces = fs::read_to_string(arguments.source).expect("The file to be readable");
+    let config: &PathBuf = matches
+        .get_one("config")
+        .expect("the config file path is set by default");
+
+    let special_workspaces =
+        fs::read_to_string(config).expect("the file should exist and be readable");
 
     let special_workspaces: HashMap<String, SpecialWorkspace> =
-        toml::from_str(&special_workspaces).expect("The file's structure to be correct");
+        toml::from_str(&special_workspaces).expect("the file's structure should be correct");
 
-    if arguments.all {
+    let all = matches.get_flag("all");
+    if all {
         return for (name, special_workspace) in special_workspaces {
             if !special_workspace.lazy && !special_workspace.presents(&name) {
                 special_workspace.launch(&name, false);
@@ -137,11 +150,15 @@ fn main() {
         };
     }
 
-    let special_workspace = &special_workspaces[&arguments.special_workspace];
+    let name: &String = matches
+        .get_one("NAME")
+        .expect("the special workspace name is required at this point");
 
-    if !special_workspace.presents(&arguments.special_workspace) {
-        return special_workspace.launch(&arguments.special_workspace, true);
+    let special_workspace = &special_workspaces[name];
+
+    if !special_workspace.presents(name) {
+        return special_workspace.launch(name, true);
     }
 
-    SpecialWorkspace::toggle_special_workspace(&arguments.special_workspace);
+    SpecialWorkspace::toggle_special_workspace(name);
 }
