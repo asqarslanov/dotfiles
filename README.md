@@ -28,6 +28,6 @@
 |         Git UI         |                                    [Lazygit](https://github.com/jesseduffield/lazygit)                                    |
 |   Terminal Emulator    |        [kitty](https://github.com/kovidgoyal/kitty) (considering using [WezTerm](https://github.com/wez/wezterm))         |
 |   Command Line Shell   |                                     [fish](https://github.com/fish-shell/fish-shell)                                      |
-|      Shell Prompt      |                        [Starship](https://github.com/starship/starship) (considering not using it)                        |
+|      Shell Prompt      |                                     [Starship](https://github.com/starship/starship)                                      |
 |        Show-off        |                                  [Fastfetch](https://github.com/fastfetch-cli/fastfetch)                                  |
 |  Terminal Multiplexer  |          [tmux](https://github.com/tmux/tmux) (considering using [Zellij](https://github.com/zellij-org/zellij))          |
