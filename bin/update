@@ -1,6 +1,12 @@
 #!/usr/bin/env sh
 
 flatpak update
+
+nix-channel --update
+
+export NIXPKGS_ALLOW_UNFREE=1
 nix-env -u
+
 rustup update
+
 paru
