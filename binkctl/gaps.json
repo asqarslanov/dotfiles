@@ -4,20 +4,20 @@
     "general:gaps_in": 0,
     "general:gaps_out": 0,
     "decoration:rounding": 0,
-    "decoration:drop_shadow": "false"
+    "decoration:drop_shadow": false
   },
   "1": {
     "general:border_size": 3,
-    "general:gaps_in": 8,
-    "general:gaps_out": 16,
+    "general:gaps_in": 5,
+    "general:gaps_out": 10,
     "decoration:rounding": 12,
-    "decoration:drop_shadow": "true"
+    "decoration:drop_shadow": true
   },
   "2": {
     "general:border_size": 3,
-    "general:gaps_in": 8,
-    "general:gaps_out": 32,
+    "general:gaps_in": 5,
+    "general:gaps_out": 20,
     "decoration:rounding": 16,
-    "decoration:drop_shadow": "true"
+    "decoration:drop_shadow": true
   }
 }
