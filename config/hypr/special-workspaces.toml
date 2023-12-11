@@ -1,11 +1,13 @@
 [Terminal]
 command = "kitty"
 launch-delay-seconds = 0.5
+lazy = false
 window-class = "kitty"
 
 [File-Manager]
 command = "nemo"
 launch-delay-seconds = 0.5
+lazy = false
 window-class = "nemo"
 
 [Authy]
