@@ -17,7 +17,7 @@
 |    Monospaced Font     |     [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) [Nerd Font](https://github.com/ryanoasis/nerd-fonts)     |
 |  Application Launcher  |                                        [Anyrun](https://github.com/Kirottu/anyrun)                                        |
 |       Status Bar       |                                           [Eww](https://github.com/elkowar/eww)                                           |
-|  Notification Center   |                     [Sway Notification Center](https://github.com/ErikReider/SwayNotificationCenter)                      |
+|  Notification Center   |                                         [mako](https://github.com/emersion/mako)                                          |
 |      Text Editor       |                                      [Helix](https://github.com/helix-editor/helix)                                       |
 |      Web Browser       | [Google Chrome](https://github.com/chromium/chromium) (considering using [Firefox](https://github.com/mozilla/gecko-dev)) |
 |    Display Manager     |                                           [SDDM](https://github.com/sddm/sddm)                                            |
