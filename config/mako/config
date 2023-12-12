@@ -1,1 +1,14 @@
-
+font=Wix Madefor Text 12
+background-color=#21222c
+text-color=#f8f8f2
+width=420
+height=120
+margin=12
+padding=12
+border-size=3
+border-color=#6272a4
+border-radius=12
+default-timeout=15000
+ignore-timeout=0
+layer=overlay
+anchor=top-right
