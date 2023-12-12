@@ -21,19 +21,17 @@
   (box :class "left-widgets"
        :halign "start"
        :space-evenly false
-       :spacing 12
+       :spacing 6 ; 12
     (spacer)
-    (super)
-    (workspaces)
-    (active-window-title)))
+    ; (super)
+    (workspaces)))
 
 (defwidget center-widgets []
   (box :class "center-widgets"
        :halign "center"
        :space-evenly false
        :spacing 6
-    (date)
-    (time)))
+    (active-window-title)))
 
 (defwidget right-widgets []
   (box :class "right-widgets"
@@ -43,15 +41,15 @@
        :spacing 12
     (keyboard-layout)
     (battery)
+    (date)
+    (time)
     (spacer)))
 
 (defwidget spacer [] (box))
 
-
 (defwidget super []
   (box :class "date"
     (label :text "❖")))
-
 
 (defwidget workspaces []
   (eventbox :onscroll
@@ -74,30 +72,16 @@
 (deflisten current-workspace
   "~/.config/eww/bin/active-workspace")
 
-; (deflisten have-fullscreen
-  ; "~/.config/eww/bin/have-fullscreen-listener")
-
 (defwidget active-window-title []
   (box :class "active-window-title"
        :orientation "h"
        :space-evenly false
        :halign "center"
     (label :text {active-window-title ?: ""}
-           :limit-width 24)))
+           :limit-width 48)))
 
 (deflisten active-window-title
   "~/.config/eww/bin/active-window-title")
-
-
-(defwidget date []
-  (box :class "date"
-    (label :text {formattime(EWW_TIME, "%a %b %-d")})))
-
-
-(defwidget time []
-  (box :class "time"
-    (label :text {formattime(EWW_TIME, "%-I:%M %p")})))
-
 
 (defwidget keyboard-layout []
   (box :class "keyboard-layout"
@@ -118,3 +102,11 @@
     "${EWW_BATTERY.BAT0.status == "Charging"
        ? "+${EWW_BATTERY.BAT0.capacity}%"
        : "${EWW_BATTERY.BAT0.capacity}%"}"))
+
+(defwidget date []
+  (box :class "date"
+    (label :text {formattime(EWW_TIME, "%a %b %-d")})))
+
+(defwidget time []
+  (box :class "time"
+    (label :text {formattime(EWW_TIME, "%-I:%M %p")})))
