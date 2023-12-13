@@ -1,7 +1,7 @@
 /*
 [package]
 name = "volume"
-version = "2023.12.13"
+version = "2023.12.14"
 edition = "2021"
 
 [dependencies]
@@ -22,11 +22,12 @@ enum Action {
     Up,
     Down,
     Mute,
+    Ignore,
 }
 
 impl ValueEnum for Action {
     fn value_variants<'a>() -> &'a [Self] {
-        &[Self::Up, Self::Down, Self::Mute]
+        &[Self::Up, Self::Down, Self::Mute, Self::Ignore]
     }
 
     fn from_str(input: &str, ignore_case: bool) -> Result<Self, String> {
@@ -40,6 +41,7 @@ impl ValueEnum for Action {
             "up" => Self::Up,
             "down" => Self::Down,
             "mute" => Self::Mute,
+            "ignore" => Self::Ignore,
             _ => unreachable!("clap should catch errors before"),
         })
     }
@@ -49,6 +51,7 @@ impl ValueEnum for Action {
             Self::Up => "up",
             Self::Down => "down",
             Self::Mute => "mute",
+            Self::Ignore => "ignore",
         }))
     }
 }
@@ -81,7 +84,11 @@ impl Device {
         }
     }
 
-    fn apply(&self, action: &Action, step: i32, max: i32) {
+    fn apply(&self, action: &Action, step: i32, max: i32, replace_id: u32) {
+        if let Action::Ignore = action {
+            return;
+        }
+
         let output = execute_wpctl(&["get-volume", self.low_level_name()]);
 
         // Can either be
@@ -115,6 +122,7 @@ impl Device {
                     .summary(self.high_level_name())
                     .body("Muted")
                     .timeout(Milliseconds(400))
+                    .id(replace_id)
                     .show()
                     .expect("notifications should work");
 
@@ -133,20 +141,27 @@ impl Device {
             .body(&percent_formatted)
             .hint(CustomInt(String::from("value"), percent))
             .timeout(Milliseconds(400))
+            .id(replace_id)
             .show()
             .expect("notifications should work");
     }
 }
 
 fn cmd() -> clap::Command {
+    const RESERVED_ID: &str = "4294967249";
+
     command!()
         .arg(
             arg!(-o --sink <ACTION> "An action for the default sink")
-                .value_parser(EnumValueParser::<Action>::new()),
+                .value_parser(EnumValueParser::<Action>::new())
+                .default_value("ignore")
+                .hide_default_value(true),
         )
         .arg(
             arg!(-i --source <ACTION> "An action for the default source")
-                .value_parser(EnumValueParser::<Action>::new()),
+                .value_parser(EnumValueParser::<Action>::new())
+                .default_value("ignore")
+                .hide_default_value(true),
         )
         .arg(
             arg!(-s --step <PERCENT> "How much to change the volume, %")
@@ -154,9 +169,15 @@ fn cmd() -> clap::Command {
                 .default_value("1"),
         )
         .arg(
-            arg!(-m --max <PERCENT> "The maximum volume value, %")
+            arg!(-m --max <PERCENT> "A number to limit the volume up to, %")
                 .value_parser(value_parser!(i32).range(100..))
                 .default_value("100"),
+        )
+        .arg(
+            arg!(-r --"replace-id" <ID> "The ID of the notification to replace")
+                .value_parser(value_parser!(u32))
+                .default_value(RESERVED_ID)
+                .hide_default_value(true),
         )
         .arg_required_else_help(true)
 }
@@ -164,19 +185,22 @@ fn cmd() -> clap::Command {
 fn main() {
     let matches = cmd().get_matches();
 
+    let sink_action: &Action = matches
+        .get_one("sink")
+        .expect("at least, it has a default value");
+    let source_action: &Action = matches
+        .get_one("source")
+        .expect("at least, it has a default value");
     let step: i32 = *matches
         .get_one("step")
         .expect("at least, it has a default value");
-
     let max: i32 = *matches
         .get_one("max")
         .expect("at least, it has a default value");
+    let replace_id: u32 = *matches
+        .get_one("replace-id")
+        .expect("at least, it has a default value");
 
-    if let Some(action) = matches.get_one("sink") {
-        Device::DefaultAudioSink.apply(action, step, max);
-    }
-
-    if let Some(action) = matches.get_one("source") {
-        Device::DefaultAudioSource.apply(action, step, max);
-    }
+    Device::DefaultAudioSink.apply(sink_action, step, max, replace_id);
+    Device::DefaultAudioSource.apply(source_action, step, max, replace_id);
 }
