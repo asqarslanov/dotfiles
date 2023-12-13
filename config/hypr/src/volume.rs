@@ -11,7 +11,7 @@ notify-rust = "4.10.0"
 
 use clap::{
     arg,
-    builder::{EnumValueParser, PossibleValue},
+    builder::{BoolishValueParser, EnumValueParser, PossibleValue},
     command, value_parser, ValueEnum,
 };
 use notify_rust::{
@@ -88,7 +88,7 @@ impl Device {
         }
     }
 
-    fn apply(&self, action: &Action, step: i32, max: i32) {
+    fn apply(&self, action: &Action, step: i32, max: i32, notify: bool) {
         if let Action::Ignore = action {
             return;
         }
@@ -121,19 +121,18 @@ impl Device {
             Action::Down => percent -= step,
             Action::Mute if !muted => {
                 execute_wpctl(&["set-mute", self.low_level_name(), "1"]);
-
-                Notification::new()
-                    .summary(self.high_level_name())
-                    .body("Muted")
-                    .timeout(Milliseconds(400))
-                    .hint(Custom(
-                        String::from("x-canonical-private-synchronous"),
-                        self.low_level_name().to_string(),
-                    ))
-                    .show()
-                    .expect("notifications should work");
-
-                return;
+                return if notify {
+                    Notification::new()
+                        .summary(self.high_level_name())
+                        .body("Muted")
+                        .timeout(Milliseconds(400))
+                        .hint(Custom(
+                            String::from("x-canonical-private-synchronous"),
+                            self.low_level_name().to_string(),
+                        ))
+                        .show()
+                        .expect("notifications should work");
+                };
             }
             _ => (),
         }
@@ -143,17 +142,19 @@ impl Device {
 
         execute_wpctl(&["set-volume", self.low_level_name(), &percent_formatted]);
 
-        Notification::new()
-            .summary(self.high_level_name())
-            .body(&percent_formatted)
-            .hint(CustomInt(String::from("value"), percent))
-            .hint(Custom(
-                String::from("x-canonical-private-synchronous"),
-                self.low_level_name().to_string(),
-            ))
-            .timeout(Milliseconds(400))
-            .show()
-            .expect("notifications should work");
+        if notify {
+            Notification::new()
+                .summary(self.high_level_name())
+                .body(&percent_formatted)
+                .hint(CustomInt(String::from("value"), percent))
+                .hint(Custom(
+                    String::from("x-canonical-private-synchronous"),
+                    self.low_level_name().to_string(),
+                ))
+                .timeout(Milliseconds(400))
+                .show()
+                .expect("notifications should work");
+        }
     }
 }
 
@@ -181,6 +182,12 @@ fn cmd() -> clap::Command {
                 .value_parser(value_parser!(i32).range(100..))
                 .default_value("100"),
         )
+        .arg(
+            arg!(-n --notify <FLAG> "Whether to show a notification")
+                .value_parser(BoolishValueParser::new())
+                .default_value("true")
+                .hide_possible_values(true),
+        )
         .arg_required_else_help(true)
 }
 
@@ -199,7 +206,10 @@ fn main() {
     let max: i32 = *matches
         .get_one("max")
         .expect("at least, it has a default value");
+    let notify: bool = *matches
+        .get_one("notify")
+        .expect("at least, it has a default value");
 
-    Device::DefaultAudioSink.apply(sink_action, step, max);
-    Device::DefaultAudioSource.apply(source_action, step, max);
+    Device::DefaultAudioSink.apply(sink_action, step, max, notify);
+    Device::DefaultAudioSource.apply(source_action, step, max, notify);
 }
