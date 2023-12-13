@@ -8,6 +8,7 @@ padding=12
 border-size=3
 border-color=#6272a4
 border-radius=12
+progress-color=source #6272a4
 default-timeout=15000
 ignore-timeout=0
 layer=overlay
