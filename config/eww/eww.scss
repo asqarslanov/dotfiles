@@ -2,11 +2,16 @@
 
 * {
   all: unset;
+  transition-duration: 0.15s;
 }
 
 .bar {
   color: $foreground;
   background-color: $background;
+}
+
+.super:hover {
+  color: $color4;
 }
 
 .workspace {

@@ -12,7 +12,7 @@
   (bar))
 
 (defwidget bar []
-  (centerbox :orientation "h"
+  (centerbox :orientation "horizontal"
     (left-widgets)
     (center-widgets)
     (right-widgets)))
@@ -21,9 +21,9 @@
   (box :class "left-widgets"
        :halign "start"
        :space-evenly false
-       :spacing 6 ; 12
+       :spacing 12
     (spacer)
-    ; (super)
+    (super)
     (workspaces)))
 
 (defwidget center-widgets []
@@ -48,23 +48,25 @@
 (defwidget spacer [] (box))
 
 (defwidget super []
-  (box :class "date"
+  (eventbox :class "super"
+            :cursor "pointer"
+            :onclick "hyprctl keyword exec anyrun"
     (label :text "❖")))
 
 (defwidget workspaces []
-  (eventbox :onscroll
-    "~/.config/eww/bin/change-active-workspace ${current-workspace}" :class "workspaces-widget"
+  (eventbox :class "workspaces-widget"
     (box :space-evenly true
          :spacing 2
       (for workspace in workspaces
-        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+        (eventbox :cursor "pointer"
+                  :onclick "hyprctl dispatch workspace ${workspace.id}"
                   :width 20
-          (box :class
-            "workspace \
-              ${workspace.occupation} \
-              ${workspace.id == current-workspace ? "current" : ""} \
-              ${workspace.id == previous-workspace ? "previous" : ""}"
-          (label :text "${workspace.name}")))))))
+                  :height 20
+          (box :class "workspace \
+                      ${workspace.occupation} \
+                      ${workspace.id == current-workspace ? "current" : ""} \
+                      ${workspace.id == previous-workspace ? "previous" : ""}"
+            (label :text "${workspace.name}")))))))
 
 (deflisten workspaces :initial '[{"id":1,"name":1,"occupation":"empty"},{"id":2,"name":2,"occupation":"empty"},{"id":3,"name":3,"occupation":"empty"},{"id":4,"name":4,"occupation":"empty"},{"id":5,"name":5,"occupation":"empty"},{"id":6,"name":6,"occupation":"empty"},{"id":7,"name":7,"occupation":"empty"},{"id":8,"name":8,"occupation":"empty"},{"id":9,"name":9,"occupation":"empty"},{"id":10,"name":0,"occupation":"empty"}]'
   "~/.config/eww/bin/workspaces-listener")
