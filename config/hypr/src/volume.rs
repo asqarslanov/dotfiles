@@ -88,7 +88,7 @@ impl Device {
         }
     }
 
-    fn apply(&self, action: &Action, step: i32, max: i32, notify: bool) {
+    fn apply(&self, action: &Action, step: i32, max: i32, notify: bool, timeout: u32) {
         if let Action::Ignore = action {
             return;
         }
@@ -125,7 +125,7 @@ impl Device {
                     Notification::new()
                         .summary(self.high_level_name())
                         .body("Muted")
-                        .timeout(Milliseconds(400))
+                        .timeout(Milliseconds(timeout))
                         .hint(Custom(
                             String::from("x-canonical-private-synchronous"),
                             self.low_level_name().to_string(),
@@ -151,7 +151,7 @@ impl Device {
                     String::from("x-canonical-private-synchronous"),
                     self.low_level_name().to_string(),
                 ))
-                .timeout(Milliseconds(400))
+                .timeout(Milliseconds(timeout))
                 .show()
                 .expect("notifications should work");
         }
@@ -188,6 +188,12 @@ fn cmd() -> clap::Command {
                 .default_value("true")
                 .hide_possible_values(true),
         )
+        .arg(
+            arg!(-t --timeout <MILLISECONDS> "How long to show the notification for (0 - forever), ms")
+                .value_parser(value_parser!(u32))
+                .default_value("1000")
+                .hide_possible_values(true),
+        )
         .arg_required_else_help(true)
 }
 
@@ -209,7 +215,10 @@ fn main() {
     let notify: bool = *matches
         .get_one("notify")
         .expect("at least, it has a default value");
+    let timeout: u32 = *matches
+        .get_one("timeout")
+        .expect("at least, it has a default value");
 
-    Device::DefaultAudioSink.apply(sink_action, step, max, notify);
-    Device::DefaultAudioSource.apply(source_action, step, max, notify);
+    Device::DefaultAudioSink.apply(sink_action, step, max, notify, timeout);
+    Device::DefaultAudioSource.apply(source_action, step, max, notify, timeout);
 }
