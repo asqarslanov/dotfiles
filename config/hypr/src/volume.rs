@@ -109,38 +109,34 @@ impl Device {
             .expect("`wpctl` should return valid output");
         let percent: f32 = percent.parse().expect("`wpctl` should return valid output");
         let mut percent = (100.0 * percent).round() as i32;
+        match action {
+            Action::Up => percent += step,
+            Action::Down => percent -= step,
+            _ => (),
+        }
+        percent = percent.clamp(0, max);
+        let percent_formatted = format!("{percent}%");
+        execute_wpctl(&["set-volume", self.low_level_name(), &percent_formatted]);
 
         let muted = output.peek().is_some();
 
         if muted {
             execute_wpctl(&["set-mute", self.low_level_name(), "0"]);
+        } else if let Action::Mute = action {
+            execute_wpctl(&["set-mute", self.low_level_name(), "1"]);
+            return if notify {
+                Notification::new()
+                    .summary(self.high_level_name())
+                    .body(&format!("{percent_formatted} (muted)"))
+                    .timeout(Milliseconds(timeout))
+                    .hint(Custom(
+                        String::from("x-canonical-private-synchronous"),
+                        self.low_level_name().to_string(),
+                    ))
+                    .show()
+                    .expect("notifications should work");
+            };
         }
-
-        match action {
-            Action::Up => percent += step,
-            Action::Down => percent -= step,
-            Action::Mute if !muted => {
-                execute_wpctl(&["set-mute", self.low_level_name(), "1"]);
-                return if notify {
-                    Notification::new()
-                        .summary(self.high_level_name())
-                        .body("Muted")
-                        .timeout(Milliseconds(timeout))
-                        .hint(Custom(
-                            String::from("x-canonical-private-synchronous"),
-                            self.low_level_name().to_string(),
-                        ))
-                        .show()
-                        .expect("notifications should work");
-                };
-            }
-            _ => (),
-        }
-
-        percent = percent.clamp(0, max);
-        let percent_formatted = format!("{percent}%");
-
-        execute_wpctl(&["set-volume", self.low_level_name(), &percent_formatted]);
 
         if notify {
             Notification::new()
