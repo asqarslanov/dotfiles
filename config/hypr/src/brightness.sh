@@ -8,4 +8,4 @@ elif [[ $1 == down ]]; then
 
 fi
 
-notify-send -t 400 $(pkexec $(which brillo) -G)%
+notify-send -t 400 $(pkexec $(which brillo) -q -G)%
