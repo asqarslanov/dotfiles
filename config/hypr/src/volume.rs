@@ -170,11 +170,11 @@ fn cmd() -> clap::Command {
         )
         .arg(
             arg!(-s --step <PERCENT> "How much to change the volume, %")
-                .value_parser(value_parser!(i32).range(0..=150))
+                .value_parser(value_parser!(i32).range(0..))
                 .default_value("1"),
         )
         .arg(
-            arg!(-m --max <PERCENT> "A number to limit the volume up to, %")
+            arg!(-m --max <PERCENT> "A number to limit volume up to, %")
                 .value_parser(value_parser!(i32).range(100..))
                 .default_value("100"),
         )
