@@ -26,6 +26,7 @@ render = true
 
 [keys.normal]
 A-w = ":write"
+esc = ["collapse_selection", "keep_primary_selection"]
 
 [keys.normal.space]
 A-q = ":quit"
