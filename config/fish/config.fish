@@ -90,6 +90,5 @@ if status is-interactive
 
     abbr cd.. cd ../
 
-    # XXX:
     starship init fish | source
 end
