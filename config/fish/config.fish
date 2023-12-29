@@ -83,8 +83,6 @@ if status is-interactive
     alias plz="sudo"
 
     abbr helix hx
-    abbr npm bun
-    abbr npx bunx
     abbr sudo plz
 
     abbr :q! exit
