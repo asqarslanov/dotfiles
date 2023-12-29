@@ -8,7 +8,7 @@ set -gx MANROFFOPT '-P -c'
 ~/.config/tmux/bin/clear-unattached-sessions
 
 if status is-interactive
-    # TODO: Check the Wallust Presence.
+    # TODO: Check Wallust Presence.
 
     function fish_user_key_bindings
         fish_default_key_bindings --mode insert
