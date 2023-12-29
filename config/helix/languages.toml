@@ -9,6 +9,10 @@ formatter = { command = 'shfmt', args = ["-i", "2"] }
 name = "c"
 auto-format = true
 
+[[language]]
+name = "cpp"
+auto-format = true
+
 
 [[language]]
 name = "css"
