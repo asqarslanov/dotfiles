@@ -38,14 +38,12 @@ auto-format = true
 [[language]]
 name = "javascript"
 auto-format = true
-formatter = { command = "deno", args = ["fmt", "-", "--ext", "js"] }
-# formatter = { command = "prettierd", args = [".js"] }
+formatter = { command = "prettierd", args = [".js"] }
 
 
 [[language]]
 name = "json"
-formatter = { command = "deno", args = ["fmt", "-", "--ext", "json"] }
-# formatter = { command = "prettierd", args = [".json"] }
+formatter = { command = "prettierd", args = [".json"] }
 
 
 [[language]]
@@ -58,8 +56,7 @@ formatter = { command = "stylua", args = ["-"] }
 [[language]]
 name = "markdown"
 auto-format = true
-formatter = { command = "deno", args = ["fmt", "-", "--ext", "md"] }
-# formatter = { command = "prettierd", args = [".md"] }
+formatter = { command = "prettierd", args = [".md"] }
 
 [[language]]
 name = "nix"
@@ -103,8 +100,7 @@ formatter = { command = "taplo", args = ["format", "-"] }
 [[language]]
 name = "typescript"
 auto-format = true
-formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts"] }
-# formatter = { command = "prettierd", args = [".ts"] }
+formatter = { command = "prettierd", args = [".ts"] }
 
 
 [[language]]
