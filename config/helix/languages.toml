@@ -9,6 +9,7 @@ formatter = { command = 'shfmt', args = ["-i", "2"] }
 name = "c"
 auto-format = true
 
+
 [[language]]
 name = "cpp"
 auto-format = true
@@ -64,10 +65,12 @@ name = "markdown"
 auto-format = true
 formatter = { command = "prettierd", args = [".md"] }
 
+
 [[language]]
 name = "nix"
 auto-format = true
 formatter = { command = "alejandra" }
+
 
 [[language]]
 name = "python"
