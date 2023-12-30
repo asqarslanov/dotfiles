@@ -47,6 +47,12 @@ formatter = { command = "prettierd", args = [".json"] }
 
 
 [[language]]
+name = "jsx"
+auto-format = true
+formatter = { command = "prettierd", args = [".jsx"] }
+
+
+[[language]]
 name = "lua"
 auto-format = true
 indent = { tab-width = 3, unit = "   " }
@@ -95,6 +101,12 @@ name = "toml"
 file-types = ["toml", "conf"]
 auto-format = true
 formatter = { command = "taplo", args = ["format", "-"] }
+
+
+[[language]]
+name = "tsx"
+auto-format = true
+formatter = { command = "prettierd", args = [".tsx"] }
 
 
 [[language]]
