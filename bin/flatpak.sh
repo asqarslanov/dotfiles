@@ -15,6 +15,5 @@ sudo flatpak override --filesystem=/usr/share/themes:ro
 sudo flatpak override --filesystem=/usr/share/icons:ro
 
 sudo flatpak override --filesystem=host:ro com.discordapp.Discord
-sudo flatpak override --filesystem=host:ro com.google.Chrome
 sudo flatpak override --filesystem=host:ro org.telegram.desktop
 sudo flatpak override --filesystem=xdg-download org.telegram.desktop
