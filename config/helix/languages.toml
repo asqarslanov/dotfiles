@@ -119,16 +119,6 @@ formatter = { command = "prettierd", args = [".ts"] }
 
 
 [[language]]
-name = "verilog"
-auto-format = true
-# language-servers = ["svls", "veridian"]
-
-[language-server.veridian]
-command = "veridian"
-# formatter = { command = "verible-verilog-format", args = ["-"] }
-
-
-[[language]]
 name = "yaml"
 auto-format = true
 formatter = { command = "prettierd", args = [".yaml"] }
