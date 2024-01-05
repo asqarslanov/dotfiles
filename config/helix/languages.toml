@@ -1,8 +1,8 @@
 [[language]]
 name = "bash"
 auto-format = true
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = 'shfmt', args = ["-i", "2"] }
+indent = { unit = "  ", tab-width = 2 }
+formatter = { command = "shfmt", args = ["-i", "2"] }
 
 
 [[language]]
