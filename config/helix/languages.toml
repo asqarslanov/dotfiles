@@ -85,7 +85,6 @@ command = "pyright-langserver"
 [[language]]
 name = "rust"
 auto-format = true
-formatter = { command = "rustfmt" }
 
 
 [[language]]
