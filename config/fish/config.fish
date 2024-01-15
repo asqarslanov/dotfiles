@@ -18,9 +18,9 @@ if status is-interactive
     cat ~/.cache/wallust/sequences &
     sh ~/.cache/wallust/tty.sh
     if set -q DISPLAY
-        fortune -s
-        echo
-        fastfetch
+        # fortune -s
+        # echo
+        # fastfetch
     else if [ -z $TMUX ]
         ~/.config/tmux/bin/initialization
         clear
