@@ -105,7 +105,7 @@ impl Args {
             .arg(
                 arg!(-f --fade <HUMANTIME> "How long to show the fade effect for")
                     .value_parser(humantime::parse_duration)
-                    .default_value("100ms"),
+                    .default_value("150ms"),
             )
             .arg(
                 arg!(-n --notify <BOOLISH> "Whether to show a notification")
