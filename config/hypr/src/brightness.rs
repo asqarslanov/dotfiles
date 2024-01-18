@@ -38,6 +38,7 @@ pub struct UxArgs {
     pub print: bool,
     pub fade: Duration,
     pub notify: bool,
+    pub level_style: LevelStyle,
     pub timeout: Duration,
 }
 
@@ -51,10 +52,13 @@ impl Args {
         command!()
             .about(indoc! {"
                 Adjusts screen brightness in accordance with human perception.
+                Dependencies: `brillo`, `pkexec`.
+
                 Run `brightness --help | less` to see some examples.\
             "})
             .long_about(indoc! {"
                 Adjusts screen brightness in accordance with human perception.
+                Dependencies: `brillo`, `pkexec`.
 
                 Examples:
 
@@ -64,9 +68,9 @@ impl Args {
                 $ brightness -d up
                 $ brightness --direction down
 
-                > Just output the current brightness level to the terminal:
-                $ brightness -pn no
-                $ brightness --print --notify=\"no\"
+                > Output the current brightness percentage to the terminal:
+                $ brightness -pn no -l percent
+                $ brightness --print --notify=\"no\" --level=\"percent\"
 
                 > Set brightness level to 50% with no fade effect and notification:
                 $ brightness -n=off -e=50 -S=100 -f=0s
@@ -83,7 +87,7 @@ impl Args {
                     .conflicts_with("direction"),
             )
             .arg(
-                arg!(-d --direction <DIRECTION> "Where to turn the brightness to")
+                arg!(-d --direction <VARIANT> "Where to turn the brightness to")
                     .value_parser(EnumValueParser::<Direction>::new()),
             )
             .arg(
@@ -110,6 +114,11 @@ impl Args {
                     .hide_possible_values(true),
             )
             .arg(
+                arg!(-l --"level-style" <VARIANT> "The brightness level style")
+                    .value_parser(EnumValueParser::<LevelStyle>::new())
+                    .default_value("ratio"),
+            )
+            .arg(
                 arg!(-t --timeout <HUMANTIME> "How long to show the notification for (0 - forever)")
                     .value_parser(humantime::parse_duration)
                     .default_value("1sec"),
@@ -131,6 +140,7 @@ impl Args {
                 print: matches.get_flag("print"),
                 fade: *matches.get_one("fade").expect("has a default value"),
                 notify: matches.get_flag("notify"),
+                level_style: *matches.get_one("level-style").expect("has a default value"),
                 timeout: *matches.get_one("timeout").expect("has a default value"),
             },
         }
@@ -166,6 +176,42 @@ impl ValueEnum for Direction {
         Some(PossibleValue::new(match self {
             Self::Up => "up",
             Self::Down => "down",
+        }))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub enum LevelStyle {
+    Step,
+    Ratio,
+    Percent,
+}
+
+impl ValueEnum for LevelStyle {
+    fn value_variants<'a>() -> &'a [Self] {
+        &[Self::Step, Self::Ratio, Self::Percent]
+    }
+
+    fn from_str(input: &str, ignore_case: bool) -> Result<Self, String> {
+        let input = if ignore_case {
+            input.to_lowercase()
+        } else {
+            input.to_string()
+        };
+
+        Ok(match input.as_str() {
+            "step" => Self::Step,
+            "ratio" => Self::Ratio,
+            "percent" => Self::Percent,
+            _ => unreachable!("clap should catch errors before"),
+        })
+    }
+
+    fn to_possible_value(&self) -> Option<PossibleValue> {
+        Some(PossibleValue::new(match self {
+            Self::Step => "step",
+            Self::Ratio => "ratio",
+            Self::Percent => "percent",
         }))
     }
 }
@@ -298,13 +344,23 @@ impl Value {
         let percent = self.percent();
 
         if args.print {
-            println!("{percent}")
+            println!(
+                "{}",
+                match args.level_style {
+                    LevelStyle::Step | LevelStyle::Ratio => self.step,
+                    LevelStyle::Percent => percent,
+                }
+            );
         }
 
         if args.notify {
             Notification::new()
                 .summary("Brightness")
-                .body(&format!("{percent}%"))
+                .body(&match args.level_style {
+                    LevelStyle::Step => format!("{}", self.step),
+                    LevelStyle::Ratio => format!("{}/{}", self.step, self.segments),
+                    LevelStyle::Percent => format!("{}%", percent),
+                })
                 .timeout(args.timeout)
                 .hint(CustomInt(String::from("value"), percent as i32))
                 .hint(Custom(
