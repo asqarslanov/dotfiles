@@ -7,52 +7,52 @@ filter = "dark16"
 
 [[entry]]
 template = "templates/colors"
-target = "~/.cache/wallust/colors"
+target = "~/.cache/wal/colors"
 
 [[entry]]
 template = "templates/colors.css"
-target = "~/.cache/wallust/colors.css"
+target = "~/.cache/wal/colors.css"
 
 [[entry]]
 template = "templates/colors.json"
-target = "~/.cache/wallust/colors.json"
+target = "~/.cache/wal/colors.json"
 
 [[entry]]
 template = "templates/colors.lua"
-target = "~/.cache/wallust/colors.lua"
+target = "~/.cache/wal/colors.lua"
 
 [[entry]]
 template = "templates/colors.ron"
-target = "~/.cache/wallust/colors.ron"
+target = "~/.cache/wal/colors.ron"
 
 [[entry]]
 template = "templates/colors.scss"
-target = "~/.cache/wallust/colors.scss"
+target = "~/.cache/wal/colors.scss"
 
 [[entry]]
 template = "templates/colors.sh"
-target = "~/.cache/wallust/colors.sh"
+target = "~/.cache/wal/colors.sh"
 
 [[entry]]
 template = "templates/colors.toml"
-target = "~/.cache/wallust/colors.toml"
+target = "~/.cache/wal/colors.toml"
 
 [[entry]]
 template = "templates/colors.yaml"
-target = "~/.cache/wallust/colors.yaml"
+target = "~/.cache/wal/colors.yaml"
 
 [[entry]]
 template = "templates/gtk.css"
-target = "~/.cache/wallust/gtk.css"
+target = "~/.cache/wal/gtk.css"
 
 [[entry]]
 template = "templates/hyprland.conf"
-target = "~/.cache/wallust/hyprland.conf"
+target = "~/.cache/wal/hyprland.conf"
 
 [[entry]]
 template = "templates/kitty.conf"
-target = "~/.cache/wallust/kitty.conf"
+target = "~/.cache/wal/kitty.conf"
 
 [[entry]]
 template = "templates/tty.sh"
-target = "~/.cache/wallust/tty.sh"
+target = "~/.cache/wal/tty.sh"
