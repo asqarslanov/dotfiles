@@ -5,15 +5,16 @@
 capslock = layer(extend)
 
 [extend]
-backspace = delete
 q = escape
 w = pageup
 a = home
 s = pagedown
 d = end
-j = left
-k = down
-l = up
-semicolon = right
-dot = C-S-tab
-slash = C-tab
+h = left
+j = down
+k = up
+l = right
+semicolon = delete
+m = backspace
+comma = C-S-tab
+dot = C-tab
