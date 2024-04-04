@@ -94,7 +94,7 @@ auto-format = true
 
 [[language]]
 name = "toml"
-file-types = ["toml", "conf"]
+file-types = ["toml"]
 auto-format = true
 formatter = { command = "taplo", args = ["format", "-"] }
 
