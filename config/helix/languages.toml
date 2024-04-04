@@ -21,12 +21,6 @@ formatter = { command = "prettierd", args = [".css"] }
 
 
 [[language]]
-name = "fish"
-auto-format = true
-formatter = { command = "fish_indent" }
-
-
-[[language]]
 name = "html"
 formatter = { command = "prettierd", args = [".html"] }
 
