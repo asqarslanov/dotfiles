@@ -9,10 +9,3 @@ command = "nemo"
 launch-delay-seconds = 0.5
 lazy = false
 window-class = "nemo"
-
-[Authy]
-command = "flatpak"
-arguments = ["run", "com.authy.Authy"]
-launch-delay-seconds = 10
-lazy = false
-window-class = "Authy Desktop"
