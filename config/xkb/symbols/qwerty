@@ -1,6 +1,6 @@
 default partial alphanumeric_keys
 xkb_symbols "basic" {
-    name[Group1] = "Qwerty";
+    name[Group1] = "En";
 
     key <TLDE> { [grave, asciitilde] };
     key <AE01> { [1, exclam] };

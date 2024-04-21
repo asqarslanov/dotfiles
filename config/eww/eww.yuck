@@ -89,7 +89,7 @@
   (box :class "keyboard-layout"
     {keyboard-layout}))
 
-(deflisten keyboard-layout :initial "Colemak-DHw"
+(deflisten keyboard-layout :initial "En"
   "~/.config/eww/bin/keyboard-layout")
 
 (defwidget battery []
