@@ -1,0 +1,4 @@
+Adjusts screen brightness in accordance with human perception.
+Dependencies: `brillo`, `pkexec`.
+
+Run `brightness --help | less` to see some examples.

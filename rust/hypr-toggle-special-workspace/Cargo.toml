@@ -1,0 +1,6 @@
+[package]
+name = "hypr-toggle-special-workspace"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

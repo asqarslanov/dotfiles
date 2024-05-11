@@ -1,0 +1,23 @@
+Adjusts screen brightness in accordance with human perception.
+Dependencies: `brillo`, `pkexec`.
+
+Examples:
+
+> Turn brightness 10% up/down applying the fade effect and calling
+  a system notification without printing anything to the terminal
+  (your bread-and-butter):
+$ brightness -d up
+$ brightness --direction down
+
+> Output the current brightness percentage to the terminal:
+$ brightness -pn no -l percent
+$ brightness --print --notify=\"no\" --level=\"percent\"
+
+> Set brightness level to 50% with no fade effect and notification:
+$ brightness -n=off -e=50 -S=100 -f=0s
+$ brightness --notify \"off\" --exact \"50\" --segments \"100\" --fade \"0sec\"
+
+> Divide the \"progress bar\" by 8 segments, increase brightness level
+  by 2 segments, and call a persistent system notification.
+$ brightness -S 8 -s 2 -d up -t 0nsec
+$ brightness --segments=8 --steps=2 -direction=up --timeout=0ns
