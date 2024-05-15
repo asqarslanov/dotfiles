@@ -84,6 +84,11 @@ if status is-interactive
     alias neofetch="echo neofetch: aliased to fastfetch; echo; fastfetch"
     alias plz="sudo"
 
+    abbr -a b --function projectdo_build
+    abbr -a r --function projectdo_run
+    abbr -a t --function projectdo_test
+    abbr -a p --function projectdo_tool
+
     abbr helix hx
     abbr sudo plz
 
