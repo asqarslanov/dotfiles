@@ -9,4 +9,6 @@ nix-env --upgrade
 
 rustup update
 
+cargo install-update --all
+
 paru
