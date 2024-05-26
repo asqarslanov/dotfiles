@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+paru --sync --clean --clean
+
+nix-collect-garbage --delete-old
+
+cargo cache --autoclean-expensive
+
+flatpak uninstall --unused
+
+trash-empty -f
+
+shopt -s dotglob
+rm $HOME/Downloads/*
