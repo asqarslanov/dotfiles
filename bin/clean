@@ -11,4 +11,4 @@ flatpak uninstall --unused
 trash-empty -f
 
 shopt -s dotglob
-rm $HOME/Downloads/*
+rm "$HOME"/Downloads/*
