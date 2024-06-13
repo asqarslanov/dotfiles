@@ -9,6 +9,8 @@ nix-env --upgrade
 
 rustup update
 
+gh extension upgrade --all
+
 cargo install-update --all
 
 paru
