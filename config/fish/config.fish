@@ -1,5 +1,5 @@
 set -U fish_greeting
-set -gx PATH $PATH $HOME/.local/bin $HOME/.cargo/bin
+set -gx PATH $PATH /home/.shared/bin $HOME/.local/bin $HOME/.cargo/bin
 set -gx XDG_DATA_DIRS $XDG_DATA_DIRS $HOME/.nix-profile/share
 set -gx EDITOR hx
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
