@@ -15,6 +15,9 @@ mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
 
+# [editor.lsp]
+# display-inlay-hints = true
+
 [editor.cursor-shape]
 insert = "bar"
 
