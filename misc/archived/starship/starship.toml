@@ -1,7 +1,0 @@
-[character]
-success_symbol = '[\$](green)'
-error_symbol = '[\$](red)'
-vimcmd_symbol = '[#](blue)'
-vimcmd_replace_one_symbol = '[r](bold blue)'
-vimcmd_replace_symbol = '[R](bold yellow)'
-vimcmd_visual_symbol = '[v](bold bright-purple)'
