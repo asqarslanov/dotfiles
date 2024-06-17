@@ -12,10 +12,10 @@ def check_command_file(filepath: str) -> bool:
     if not os.path.isfile(filepath):
         return False
 
-    EXECUTABLE_MODE = 33261
+    # EXECUTABLE_MODE = 33261
 
-    if os.stat(filepath).st_mode != EXECUTABLE_MODE:
-        return False
+    # if os.stat(filepath).st_mode != EXECUTABLE_MODE:
+    #     return False
 
     filename = os.path.basename(filepath)
     forbidden = string.punctuation + string.whitespace
