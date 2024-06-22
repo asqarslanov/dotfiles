@@ -2,11 +2,6 @@
 
 flatpak update
 
-nix-channel --update
-
-export NIXPKGS_ALLOW_UNFREE=1
-nix-env --upgrade
-
 rustup update
 
 gh extension upgrade --all
