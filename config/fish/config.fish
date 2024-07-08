@@ -88,7 +88,6 @@ if status is-interactive
     abbr -a p --function projectdo_tool
 
     abbr helix hx
-    abbr sudo plz
 
     abbr :q! exit
     abbr :q exit
