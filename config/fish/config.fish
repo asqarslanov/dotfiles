@@ -72,7 +72,7 @@ if status is-interactive
     alias ln="ln --interactive --verbose"
     alias mv="mv --interactive --verbose"
     alias mkdir="mkdir --parents --verbose"
-    alias rm="echo 'Use either `trash` or `command rm` instead.'; false"
+    alias rm="echo 'Either use `trash` or `command rm` instead.'; false"
     alias remove="command rm --interactive=once --verbose"
     alias trash="trash --verbose"
 
