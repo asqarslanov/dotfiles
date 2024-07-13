@@ -88,6 +88,7 @@ if status is-interactive
     abbr -a p --function projectdo_tool
 
     abbr helix hx
+    abbr zeditor zed
 
     abbr :q! exit
     abbr :q exit
