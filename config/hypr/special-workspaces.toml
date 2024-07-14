@@ -4,8 +4,15 @@ launch-delay-seconds = 0.5
 lazy = false
 window-class = "kitty"
 
-[File-Manager]
+[GUI-File-Manager]
 command = "nemo"
 launch-delay-seconds = 0.5
 lazy = false
 window-class = "nemo"
+
+[TUI-File-Manager]
+command = "kitty"
+arguments = ["--class", "yazi", "yazi"]
+launch-delay-seconds = 0.5
+lazy = false
+window-class = "yazi"
