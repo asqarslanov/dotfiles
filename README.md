@@ -24,7 +24,7 @@
 | Display Manager Theme  |                             [Sugar Candy](https://github.com/Kangie/sddm-sugar-candy)                             |
 |     Screen Locker      |                                  [Swaylock](https://github.com/swaywm/swaylock)                                   |
 |    GUI File Manager    |                                     [Nemo](https://github.com/linuxmint/nemo)                                     |
-|    TUI File Manager    |                                    [xplr](https://github.com/sayanarijit/xplr)                                    |
+|    TUI File Manager    |                                      [Yazi](https://github.com/sxyazi/yazi)                                       |
 |         Git UI         |                                [Lazygit](https://github.com/jesseduffield/lazygit)                                |
 |   Terminal Emulator    |    [kitty](https://github.com/kovidgoyal/kitty) (considering using [WezTerm](https://github.com/wez/wezterm))     |
 |   Command Line Shell   |                                 [fish](https://github.com/fish-shell/fish-shell)                                  |
