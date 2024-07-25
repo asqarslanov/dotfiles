@@ -68,12 +68,20 @@ if status is-interactive
         return 0
     end
 
+    function yy
+        set tmp (mktemp -t "yazi-cwd.XXXXXX")
+        yazi $argv --cwd-file="$tmp"
+        if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+            cd -- "$cwd"
+        end
+        rm -f -- "$tmp"
+    end
+
     alias cp="cp --interactive --recursive --verbose"
     alias ln="ln --interactive --verbose"
     alias mv="mv --interactive --verbose"
     alias mkdir="mkdir --parents --verbose"
-    alias rm="echo 'Either use `trash` or `command rm` instead.'; false"
-    alias remove="command rm --interactive=once --verbose"
+    alias rm="rm --interactive=once --verbose"
     alias trash="trash --verbose"
 
     alias cat="bat"
