@@ -18,7 +18,8 @@
 |  Application Launcher  |                                    [Anyrun](https://github.com/Kirottu/anyrun)                                    |
 |       Status Bar       |                                       [Eww](https://github.com/elkowar/eww)                                       |
 |  Notification Center   |                                     [mako](https://github.com/emersion/mako)                                      |
-|      Text Editor       |                                  [Helix](https://github.com/helix-editor/helix)                                   |
+|    GUI Text Editor     |                                   [Zed](https://github.com/zed-industries/zed)                                    |
+|    TUI Text Editor     |                                  [Helix](https://github.com/helix-editor/helix)                                   |
 |      Web Browser       |                                  [Firefox](https://github.com/mozilla/gecko-dev)                                  |
 |    Display Manager     |                                       [SDDM](https://github.com/sddm/sddm)                                        |
 | Display Manager Theme  |                             [Sugar Candy](https://github.com/Kangie/sddm-sugar-candy)                             |
