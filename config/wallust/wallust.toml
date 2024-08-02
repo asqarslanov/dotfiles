@@ -1,58 +1,19 @@
-# v2.7.*
-
-backend = "fastresize"
-color_space = "labfast"
+backend = "wal"
+color_space = "lab"
 threshold = 20
 filter = "dark16"
 
-[[entry]]
-template = "templates/colors"
-target = "~/.cache/wal/colors"
-
-[[entry]]
-template = "templates/colors.css"
-target = "~/.cache/wal/colors.css"
-
-[[entry]]
-template = "templates/colors.json"
-target = "~/.cache/wal/colors.json"
-
-[[entry]]
-template = "templates/colors.lua"
-target = "~/.cache/wal/colors.lua"
-
-[[entry]]
-template = "templates/colors.ron"
-target = "~/.cache/wal/colors.ron"
-
-[[entry]]
-template = "templates/colors.scss"
-target = "~/.cache/wal/colors.scss"
-
-[[entry]]
-template = "templates/colors.sh"
-target = "~/.cache/wal/colors.sh"
-
-[[entry]]
-template = "templates/colors.toml"
-target = "~/.cache/wal/colors.toml"
-
-[[entry]]
-template = "templates/colors.yaml"
-target = "~/.cache/wal/colors.yaml"
-
-[[entry]]
-template = "templates/gtk.css"
-target = "~/.cache/wal/gtk.css"
-
-[[entry]]
-template = "templates/hyprland.conf"
-target = "~/.cache/wal/hyprland.conf"
-
-[[entry]]
-template = "templates/kitty.conf"
-target = "~/.cache/wal/kitty.conf"
-
-[[entry]]
-template = "templates/tty.sh"
-target = "~/.cache/wal/tty.sh"
+[templates]
+css = { src = "templates/colors.css", dst = "~/.cache/wal/colors.css", new_engine = true }
+gtk = { src = "templates/gtk.css", dst = "~/.cache/wal/gtk.css", new_engine = true }
+hyprland = { src = "templates/hyprland.conf", dst = "~/.cache/wal/hyprland.conf", new_engine = true }
+json = { src = "templates/colors.json", dst = "~/.cache/wal/colors.json", new_engine = true }
+kitty = { src = "templates/kitty.conf", dst = "~/.cache/wal/kitty.conf", new_engine = true }
+lua = { src = "templates/colors.lua", dst = "~/.cache/wal/colors.lua", new_engine = true }
+plain = { src = "templates/colors", dst = "~/.cache/wal/colors", new_engine = true }
+ron = { src = "templates/colors.ron", dst = "~/.cache/wal/colors.ron", new_engine = true }
+scss = { src = "templates/colors.scss", dst = "~/.cache/wal/colors.scss", new_engine = true }
+sh = { src = "templates/colors.sh", dst = "~/.cache/wal/colors.sh", new_engine = true }
+toml = { src = "templates/colors.toml", dst = "~/.cache/wal/colors.toml", new_engine = true }
+tty = { src = "templates/tty.sh", dst = "~/.cache/wal/tty.sh", new_engine = true }
+yaml = { src = "templates/colors.yaml", dst = "~/.cache/wal/colors.yaml", new_engine = true }

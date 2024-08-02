@@ -15,8 +15,7 @@ if status is-interactive
         fish_vi_key_bindings --no-erase insert
     end
 
-    cat ~/.cache/wallust/sequences &
-    sh ~/.cache/wallust/tty.sh
+    cat ~/.cache/wallust/sequences & sh ~/.cache/wal/tty.sh
     if set -q DISPLAY
         # fortune -s
         # echo
