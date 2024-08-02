@@ -1,0 +1,34 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-tab": "pane::ActivateNextItem",
+      "ctrl-shift-tab": "pane::ActivatePrevItem"
+    }
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "alt-w": "workspace::Save",
+      "shift-u": "editor::Redo"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": ["vim::PushOperator", { "AddSurrounds": {} }]
+    }
+  },
+  {
+    "context": "vim_operator == f || (vim_mode == normal && vim_operator == t)",
+    "bindings": {
+      "enter": "vim::EndOfLine"
+    }
+  },
+  {
+    "context": "vim_mode == visual && vim_operator == t",
+    "bindings": {
+      "enter": ["vim::EndOfLine", "vim::Left"]
+    }
+  }
+]

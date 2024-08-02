@@ -1,0 +1,32 @@
+{
+  "base_keymap": "VSCode",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_features": { "zero": true, "cv14": true },
+  "buffer_font_size": 17,
+  "current_line_highlight": "none",
+  "cursor_blink": false,
+  "format_on_save": "on",
+  "inlay_hints": { "enabled": true },
+  "languages": {
+    "Python": {
+      "formatter": {
+        "external": { "command": "ruff", "arguments": ["format", "-"] }
+      }
+    }
+  },
+  "project_panel": {
+    // "button": false,
+    "dock": "right"
+  },
+  "relative_line_numbers": true,
+  "tab_bar": { "show_nav_history_buttons": false },
+  "theme": {
+    "dark": "Catppuccin Macchiato",
+    "light": "Catppuccin Latte",
+    "mode": "system"
+  },
+  "ui_font_family": "Lexend",
+  "vim": { "use_multiline_find": true, "use_system_clipboard": "on_yank" },
+  "vim_mode": true
+  // "toolbar": { "quick_actions": false },
+}
