@@ -18,6 +18,6 @@ Config(
     "libstdin.so",
     "libshell.so",
     "libtranslate.so",
-    "librandr.so",
+    // "librandr.so",
   ],
 )
