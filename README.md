@@ -11,7 +11,7 @@
 |       GTK Theme        |                              [Materia Dark](https://github.com/nana-4/materia-theme)                              |
 |      Cursor Theme      |                             [GoogleDot Blue](https://github.com/ful1e5/Google_Cursor)                             |
 |       Icon Theme       |                   [Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)                    |
-|      Colorscheme       |                                [Dracula](https://github.com/dracula/dracula-theme)                                |
+|      Colorscheme       |                         [Catppuccin Macchiato](https://github.com/catppuccin/catppuccin)                          |
 | Colorscheme Management |                             [Wallust](https://codeberg.org/explosion-mental/wallust)                              |
 |   Proportional Font    |                          [Wix Madefor Text](https://github.com/wix-incubator/wixmadefor)                          |
 |    Monospaced Font     | [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) [Nerd Font](https://github.com/ryanoasis/nerd-fonts) |
