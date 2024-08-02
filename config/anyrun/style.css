@@ -12,7 +12,7 @@
 box#main {
   border-radius: 16px;
   padding: 12px;
-  background-color: @color0;
+  background-color: @background;
   color: @foreground;
   border: solid 3px @cursor;
 }
@@ -32,7 +32,7 @@ box#main {
 }
 
 #match:selected {
-  background-color: @background;
+  background-color: @color0;
   color: @color2;
 }
 
