@@ -4,6 +4,8 @@ flatpak update
 
 rustup update
 
+fisher update
+
 gh extension upgrade --all
 
 cargo install-update --all
