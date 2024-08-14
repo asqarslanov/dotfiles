@@ -1,6 +1,14 @@
 [package]
 name = "hypr-toggle-special-workspace"
-version = "0.1.0"
+version = "2024.8.14"
 edition = "2021"
 
 [dependencies]
+clap = { version = "4.4.8", features = ["cargo", "string"] }
+color-eyre = "0.6.3"
+dirs = "5.0.1"
+hyprland = "0.4.0-alpha.2"
+regex = "1.10.2"
+serde = "1.0.192"
+serde_with = "3.4.0"
+toml = "0.8.8"
