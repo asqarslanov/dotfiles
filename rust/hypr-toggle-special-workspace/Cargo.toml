@@ -7,7 +7,7 @@ edition = "2021"
 clap = { version = "4.4.8", features = ["cargo", "string"] }
 color-eyre = "0.6.3"
 dirs = "5.0.1"
-hyprland = "0.4.0-alpha.2"
+hyprland = { git = "https://github.com/hyprland-community/hyprland-rs.git" }
 regex = "1.10.2"
 serde = "1.0.192"
 serde_with = "3.4.0"
