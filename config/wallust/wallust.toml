@@ -1,19 +1,14 @@
-backend = "wal"
-color_space = "lab"
-threshold = 20
-filter = "dark16"
-
 [templates]
-css = { src = "templates/colors.css", dst = "~/.cache/wal/colors.css", new_engine = true }
-gtk = { src = "templates/gtk.css", dst = "~/.cache/wal/gtk.css", new_engine = true }
-hyprland = { src = "templates/hyprland.conf", dst = "~/.cache/wal/hyprland.conf", new_engine = true }
-json = { src = "templates/colors.json", dst = "~/.cache/wal/colors.json", new_engine = true }
-kitty = { src = "templates/kitty.conf", dst = "~/.cache/wal/kitty.conf", new_engine = true }
-lua = { src = "templates/colors.lua", dst = "~/.cache/wal/colors.lua", new_engine = true }
-plain = { src = "templates/colors", dst = "~/.cache/wal/colors", new_engine = true }
-ron = { src = "templates/colors.ron", dst = "~/.cache/wal/colors.ron", new_engine = true }
-scss = { src = "templates/colors.scss", dst = "~/.cache/wal/colors.scss", new_engine = true }
-sh = { src = "templates/colors.sh", dst = "~/.cache/wal/colors.sh", new_engine = true }
-toml = { src = "templates/colors.toml", dst = "~/.cache/wal/colors.toml", new_engine = true }
-tty = { src = "templates/tty.sh", dst = "~/.cache/wal/tty.sh", new_engine = true }
-yaml = { src = "templates/colors.yaml", dst = "~/.cache/wal/colors.yaml", new_engine = true }
+css = { src = "colors.css", dst = "~/.cache/wal/colors.css" }
+gtk = { src = "gtk.css", dst = "~/.cache/wal/gtk.css" }
+hyprland = { src = "hyprland.conf", dst = "~/.cache/wal/hyprland.conf" }
+json = { src = "colors.json", dst = "~/.cache/wal/colors.json" }
+kitty = { src = "kitty.conf", dst = "~/.cache/wal/kitty.conf" }
+lua = { src = "colors.lua", dst = "~/.cache/wal/colors.lua" }
+plain = { src = "colors", dst = "~/.cache/wal/colors" }
+ron = { src = "colors.ron", dst = "~/.cache/wal/colors.ron" }
+scss = { src = "colors.scss", dst = "~/.cache/wal/colors.scss" }
+sh = { src = "colors.sh", dst = "~/.cache/wal/colors.sh" }
+toml = { src = "colors.toml", dst = "~/.cache/wal/colors.toml" }
+tty = { src = "tty.sh", dst = "~/.cache/wal/tty.sh" }
+yaml = { src = "colors.yaml", dst = "~/.cache/wal/colors.yaml" }
