@@ -9,9 +9,19 @@
   // "inlay_hints": { "enabled": true },
   "languages": {
     "Python": {
-      "formatter": {
-        "external": { "command": "ruff", "arguments": ["format", "-"] }
-      }
+      "language_servers": ["pyright", "ruff"],
+      "formatter": [
+        {
+          "code_actions": {
+            "source.organizeImports.ruff": true
+          }
+        },
+        {
+          "language_server": {
+            "name": "ruff"
+          }
+        }
+      ]
     }
   },
   "project_panel": {
