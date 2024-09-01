@@ -1,6 +1,7 @@
 set -U fish_greeting
 set -gx PATH $PATH /home/.shared/bin $HOME/.local/bin $HOME/.cargo/bin
 set -gx XDG_DATA_DIRS $XDG_DATA_DIRS $HOME/.nix-profile/share
+set -gx DOTFILES_DIR /home/.shared/dotfiles
 set -gx EDITOR hx
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
 set -gx MANROFFOPT '-P -c'
