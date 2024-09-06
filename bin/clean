@@ -2,13 +2,12 @@
 
 paru --sync --clean --clean
 
-nix-collect-garbage --delete-old
-
-cargo cache --autoclean-expensive
+cargo cache --autoclean
 
 flatpak uninstall --unused
 
 trash-empty -f
 
+# shellcheck disable=SC3044
 shopt -s dotglob
 rm "$HOME"/Downloads/*
