@@ -22,6 +22,15 @@
           }
         }
       ]
+    },
+    // A kludge because TOML files don't get formatted OOTB.
+    "TOML": {
+      "formatter": {
+        "external": {
+          "command": "taplo",
+          "arguments": ["fmt", "-"]
+        }
+      }
     }
   },
   "project_panel": {
