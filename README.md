@@ -21,6 +21,7 @@
 |    GUI Text Editor     |                                   [Zed](https://github.com/zed-industries/zed)                                    |
 |    TUI Text Editor     |                                  [Helix](https://github.com/helix-editor/helix)                                   |
 |      Web Browser       |                                  [Firefox](https://github.com/mozilla/gecko-dev)                                  |
+|      Media Player      |               [mpv](https://github.com/mpv-player/mpv) (want to move to something more for-normies)               |
 |    Display Manager     |                                       [SDDM](https://github.com/sddm/sddm)                                        |
 | Display Manager Theme  |                             [Sugar Candy](https://github.com/Kangie/sddm-sugar-candy)                             |
 |     Screen Locker      |                                  [Swaylock](https://github.com/swaywm/swaylock)                                   |
