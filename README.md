@@ -28,8 +28,8 @@
 |    GUI File Manager    |                                     [Nemo](https://github.com/linuxmint/nemo)                                     |
 |    TUI File Manager    |                                      [Yazi](https://github.com/sxyazi/yazi)                                       |
 |         Git UI         |                                [Lazygit](https://github.com/jesseduffield/lazygit)                                |
-|   Terminal Emulator    |    [kitty](https://github.com/kovidgoyal/kitty) (considering using [WezTerm](https://github.com/wez/wezterm))     |
+|   Terminal Emulator    |                                   [kitty](https://github.com/kovidgoyal/kitty)                                    |
 |   Command Line Shell   |                                 [fish](https://github.com/fish-shell/fish-shell)                                  |
 |      Shell Prompt      |                                 [Starship](https://github.com/starship/starship)                                  |
 |        Show-off        |                              [Fastfetch](https://github.com/fastfetch-cli/fastfetch)                              |
-|  Terminal Multiplexer  |      [tmux](https://github.com/tmux/tmux) (considering using [Zellij](https://github.com/zellij-org/zellij))      |
+|  Terminal Multiplexer  |                                       [tmux](https://github.com/tmux/tmux)                                        |
