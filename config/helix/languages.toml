@@ -42,6 +42,12 @@ formatter = { command = "prettierd", args = [".json"] }
 
 
 [[language]]
+name = "json5"
+auto-format = true
+formatter = { command = "prettierd", args = [".json5"] }
+
+
+[[language]]
 name = "jsx"
 auto-format = true
 formatter = { command = "prettierd", args = [".jsx"] }
