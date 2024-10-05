@@ -10,6 +10,7 @@
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
       "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
       "shift-u": "editor::Redo"
     }
   },
