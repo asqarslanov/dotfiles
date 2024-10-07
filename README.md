@@ -6,7 +6,7 @@
 
 |       Component        |                                                          Upstream                                                           |
 | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
-|    Dotfile Manager     |                                        [Chezmoi](https://github.com/twpayne/chezmoi)                                        |
+|    Dotfile Manager     |                                        [chezmoi](https://github.com/twpayne/chezmoi)                                        |
 |           OS           |                                         [Arch Linux](https://github.com/archlinux)                                          |
 |        Desktop         |                                       [Hyprland](https://github.com/hyprwm/Hyprland)                                        |
 |       GTK Theme        |                                   [Materia Dark](https://github.com/nana-4/materia-theme)                                   |
