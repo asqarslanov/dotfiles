@@ -2,6 +2,25 @@
 
 ![Preview](assets/preview.png)
 
+### Installation
+
+> Warning: these dotfiles aren&CloseCurlyQuote;t currently meant to be installed
+> on any other computer other than mine. The steps bellow aren&CloseCurlyQuote;t
+> sufficient, you would also need to perform some undocumented actions.
+>
+> You&CloseCurlyQuote;ve been warned.
+
+You&CloseCurlyQuote;re assumed to have [chezmoi](https://www.chezmoi.io/)
+installed. If not, you may follow their
+[installation guide](https://www.chezmoi.io/install/#__tabbed_2_2).
+
+```shell
+chezmoi init https://github.com/asqarslanov/dotfiles.git
+chezmoi apply
+```
+
+As simple as that. Or is it?..
+
 ### Components
 
 |       Component        |                                                          Upstream                                                           |
