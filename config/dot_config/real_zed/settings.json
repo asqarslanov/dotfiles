@@ -6,7 +6,6 @@
   "current_line_highlight": "none",
   "cursor_blink": false,
   "format_on_save": "on",
-  // "inlay_hints": { "enabled": true },
   "languages": {
     "Python": {
       "language_servers": ["pyright", "ruff"],
