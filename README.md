@@ -15,7 +15,7 @@ installed. If this is not the case, you may follow their
 [installation guide](https://www.chezmoi.io/install/#__tabbed_2_2).
 
 ```shell
-chezmoi init https://github.com/asqarslanov/dotfiles.git
+chezmoi init asqarslanov
 chezmoi apply
 ```
 
