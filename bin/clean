@@ -10,4 +10,4 @@ trash-empty -f
 
 # shellcheck disable=SC3044
 shopt -s dotglob
-rm "$HOME"/Downloads/*
+rm --recursive --force --verbose "$HOME"/Downloads/*
