@@ -30,6 +30,13 @@
           "arguments": ["fmt", "-"]
         }
       }
+    },
+    "Typst": {
+      "formatter": {
+        "external": {
+          "command": "typstyle"
+        }
+      }
     }
   },
   "project_panel": {
