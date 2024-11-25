@@ -52,6 +52,7 @@
   },
   "ui_font_family": "Lexend",
   "vim": { "use_multiline_find": true, "use_system_clipboard": "on_yank" },
-  "vim_mode": true
+  "vim_mode": true,
   // "toolbar": { "quick_actions": false },
+  "soft_wrap": "none"
 }
