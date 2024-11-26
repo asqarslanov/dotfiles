@@ -43,7 +43,6 @@
     // "button": false,
     "dock": "right"
   },
-  "relative_line_numbers": true,
   "tab_bar": { "show_nav_history_buttons": false },
   "theme": {
     "dark": "Catppuccin Macchiato",
@@ -51,7 +50,11 @@
     "mode": "system"
   },
   "ui_font_family": "Lexend",
-  "vim": { "use_multiline_find": true, "use_system_clipboard": "on_yank" },
+  "vim": {
+    "toggle_relative_line_numbers": true,
+    "use_multiline_find": true,
+    "use_system_clipboard": "on_yank"
+  },
   "vim_mode": true,
   // "toolbar": { "quick_actions": false },
   "soft_wrap": "none"
