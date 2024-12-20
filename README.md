@@ -32,7 +32,7 @@ As simple as that. Or is it?..
 |      Cursor Theme      | [GoogleDot Green](https://github.com/asqarslanov/Google_Cursor) (my fork of [ful1e5&CloseCurlyQuote;s GoogleDot](https://github.com/ful1e5/Google_Cursor) cursor theme) |
 |       Icon Theme       |                                              [Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)                                               |
 |      Colorscheme       |                                                    [Catppuccin Macchiato](https://github.com/catppuccin/catppuccin)                                                     |
-| Colorscheme Management |                         [Wallust](https://codeberg.org/explosion-mental/wallust) (want to try out [Matugen](https://github.com/InioX/matugen))                          |
+| Colorscheme Management |                                                        [Wallust](https://codeberg.org/explosion-mental/wallust)                                                         |
 |   Proportional Font    |                                                     [Wix Madefor Text](https://github.com/wix-incubator/wixmadefor)                                                     |
 |    Monospaced Font     |                            [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) [Nerd Font](https://github.com/ryanoasis/nerd-fonts)                            |
 |  Application Launcher  |                                                [Anyrun](https://github.com/Kirottu/anyrun) (want to write a custom one)                                                 |
