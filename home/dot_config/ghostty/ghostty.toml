@@ -1,3 +1,5 @@
+theme = "wal"
+
 config-file = "fonts.toml"
 config-file = "keybindings.toml"
 config-file = "window.toml"

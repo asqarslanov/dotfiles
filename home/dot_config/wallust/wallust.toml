@@ -1,5 +1,6 @@
 [templates]
 css = { src = "colors.css", dst = "~/.cache/wal/colors.css" }
+ghostty = { src = "ghostty", dst = "~/.cache/wal/ghostty" }
 gtk = { src = "gtk.css", dst = "~/.cache/wal/gtk.css" }
 hyprland = { src = "hyprland.conf", dst = "~/.cache/wal/hyprland.conf" }
 json = { src = "colors.json", dst = "~/.cache/wal/colors.json" }
