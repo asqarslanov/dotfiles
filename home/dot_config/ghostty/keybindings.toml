@@ -1,0 +1,53 @@
+keybind = "`>`=text:`"
+
+keybind = "`>p=previous_tab"
+keybind = "`>n=next_tab"
+keybind = "`>9=last_tab"
+keybind = "`>1=goto_tab:1"
+keybind = "`>2=goto_tab:2"
+keybind = "`>3=goto_tab:3"
+keybind = "`>4=goto_tab:4"
+keybind = "`>5=goto_tab:5"
+keybind = "`>6=goto_tab:6"
+keybind = "`>7=goto_tab:7"
+keybind = "`>8=goto_tab:8"
+# keybind = "`>;=goto_tab:-1"
+
+keybind = "`>shift+[=move_tab:-1"
+keybind = "`>shift+]=move_tab:+1"
+
+keybind = "`>c=new_tab"
+keybind = "`>x=close_surface"
+keybind = "`>shift+5=new_split:right"
+keybind = "`>shift+'=new_split:down"
+# keybind = "`>shift+7=close_tab"
+# keybind = "ctrl+o=layout_rotate:180"
+# keybind = "alt+o=layout_rotate:90"
+# keybind = "`>,=set_tab_title"
+
+keybind = "`>h=goto_split:left"
+keybind = "`>j=goto_split:bottom"
+keybind = "`>k=goto_split:top"
+keybind = "`>l=goto_split:right"
+
+keybind = "`>left=goto_split:left"
+keybind = "`>down=goto_split:bottom"
+keybind = "`>up=goto_split:top"
+keybind = "`>right=goto_split:right"
+
+keybind = "`>r=reload_config"
+
+# clear_all_shortcuts yes
+
+# map ctrl+shift+c copy_to_clipboard
+# map ctrl+shift+v paste_from_clipboard
+# map ctrl+equal change_font_size all +2.0
+# map ctrl+minus change_font_size all -2.0
+# map ctrl+0 change_font_size all 0
+
+# map ctrl+shift+page_up scroll_page_up
+# map ctrl+shift+page_down scroll_page_down
+# map ctrl+shift+down scroll_line_down
+# map ctrl+shift+up scroll_line_up
+# map ctrl+shift+j scroll_line_down
+# map ctrl+shift+k scroll_line_up
