@@ -48,7 +48,7 @@ As simple as that. Or is it?..
 |    GUI File Manager    |                                                                [Nemo](https://github.com/linuxmint/nemo)                                                                |
 |    TUI File Manager    |                                                                 [Yazi](https://github.com/sxyazi/yazi)                                                                  |
 |         Git UI         |                                                           [Lazygit](https://github.com/jesseduffield/lazygit)                                                           |
-|   Terminal Emulator    |                                [kitty](https://github.com/kovidgoyal/kitty) (want to try out [Ghostty](https://github.com/ghostty-org))                                 |
+|   Terminal Emulator    |                                                              [kitty](https://github.com/kovidgoyal/kitty)                                                               |
 |   Command Line Shell   |                                                            [fish](https://github.com/fish-shell/fish-shell)                                                             |
 |      Shell Prompt      |                                                            [Starship](https://github.com/starship/starship)                                                             |
 |        Show-off        |                                                         [Fastfetch](https://github.com/fastfetch-cli/fastfetch)                                                         |
