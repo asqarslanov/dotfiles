@@ -1,6 +1,7 @@
 theme = "catppuccin_macchiato"
 
 [editor]
+middle-click-paste = true
 line-number = "relative"
 # auto-save = true
 idle-timeout = 0
