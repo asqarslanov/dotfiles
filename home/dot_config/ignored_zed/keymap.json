@@ -11,9 +11,9 @@
     "bindings": { "ctrl-h": "vim::HelixNormalAfter" }
   },
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "VimControl",
     "bindings": {
-      "space w": "workspace::Save",
+      "enter": "workspace::Save",
       "space q": "pane::CloseActiveItem",
       "shift-u": "editor::Redo"
     }
