@@ -45,7 +45,6 @@ As simple as that. Or is it?..
 |    Display Manager     |                                                                  [SDDM](https://github.com/sddm/sddm)                                                                   |
 | Display Manager Theme  |                                                        [Sugar Candy](https://github.com/Kangie/sddm-sugar-candy)                                                        |
 |     Screen Locker      |                             [Swaylock](https://github.com/swaywm/swaylock) (want to move to [hyprlock](https://github.com/hyprwm/hyprlock))                             |
-|    GUI File Manager    |                                                                [Nemo](https://github.com/linuxmint/nemo)                                                                |
 |    TUI File Manager    |                                                                 [Yazi](https://github.com/sxyazi/yazi)                                                                  |
 |         Git UI         |                                                           [Lazygit](https://github.com/jesseduffield/lazygit)                                                           |
 |   Terminal Emulator    |                                                              [kitty](https://github.com/kovidgoyal/kitty)                                                               |
