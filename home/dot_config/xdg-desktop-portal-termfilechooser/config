@@ -1,0 +1,3 @@
+[filechooser]
+cmd=$HOME/.config/xdg-desktop-portal-termfilechooser/bin/wrapper
+default_dir=$HOME/Downloads

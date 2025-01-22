@@ -10,9 +10,3 @@ arguments = ["run", "org.telegram.desktop"]
 launch-delay-seconds = 0.5
 lazy = false
 window-class = "org.telegram.desktop"
-
-[GUI-File-Manager]
-command = "nemo"
-launch-delay-seconds = 0.5
-lazy = false
-window-class = "nemo"
