@@ -7,6 +7,6 @@ window-class = "kitty"
 [Chat]
 command = "flatpak"
 arguments = ["run", "org.telegram.desktop"]
-launch-delay-seconds = 0.5
+launch-delay-seconds = 2
 lazy = false
 window-class = "org.telegram.desktop"
