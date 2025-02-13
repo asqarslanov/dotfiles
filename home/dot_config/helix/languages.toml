@@ -99,6 +99,12 @@ auto-format = true
 
 
 [[language]]
+name = "sql"
+auto-format = true
+formatter = { command = "pg_format" }
+
+
+[[language]]
 name = "toml"
 file-types = ["toml"]
 auto-format = true
