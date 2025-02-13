@@ -2,7 +2,7 @@
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
-  "buffer_font_size": 17,
+  "buffer_font_size": 17.0,
   "current_line_highlight": "none",
   "cursor_blink": false,
   "format_on_save": "on",
