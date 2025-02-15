@@ -1,4 +1,5 @@
 {
+  "icon_theme": "Material Icon Theme",
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
