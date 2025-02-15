@@ -1,5 +1,15 @@
 {
+  "assistant": {
+    "default_model": {
+      "provider": "ollama",
+      "model": "deepseek-r1:latest"
+    },
+    "version": "2"
+  },
   "icon_theme": "Material Icon Theme",
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
