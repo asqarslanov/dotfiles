@@ -1,4 +1,8 @@
 {
+  "telemetry": {
+    "metrics": false,
+    "diagnostics": false
+  },
   "assistant": {
     "default_model": {
       "provider": "ollama",
