@@ -1,3 +1,5 @@
+# DO NOT EDIT! This file will be overwritten by nwg-look.
+
 gtk-theme-name="Materia-dark"
 gtk-icon-theme-name="Papirus-Dark"
 gtk-font-name="Wix Madefor Text 12"
@@ -11,5 +13,5 @@ gtk-enable-event-sounds=1
 gtk-enable-input-feedback-sounds=0
 gtk-xft-antialias=1
 gtk-xft-hinting=1
-gtk-xft-hintstyle="hintfull"
+gtk-xft-hintstyle="hintslight"
 gtk-xft-rgba="rgb"
