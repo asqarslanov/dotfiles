@@ -16,19 +16,19 @@ if status is-interactive
         fish_vi_key_bindings --no-erase insert
     end
 
-    cat ~/.cache/wallust/sequences & sh ~/.cache/wal/tty.sh
-    if set -q DISPLAY
-        # fortune -s
-        # echo
-        # fastfetch
-    else if [ -z $TMUX ]
-        ~/.config/tmux/bin/initialization
-        clear
-    else if [ $TERM != xterm-256color ]
-        fortune -s
-        echo
-        fastfetch
-    end
+    # cat ~/.cache/wallust/sequences & sh ~/.cache/wal/tty.sh
+    # if set -q DISPLAY
+    #     # fortune -s
+    #     # echo
+    #     # fastfetch
+    # else if [ -z $TMUX ]
+    #     ~/.config/tmux/bin/initialization
+    #     clear
+    # else if [ $TERM != xterm-256color ]
+    #     fortune -s
+    #     echo
+    #     fastfetch
+    # end
 
     set fish_cursor_default block blink
     set fish_cursor_insert line blink
