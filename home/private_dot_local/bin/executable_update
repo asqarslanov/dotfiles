@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-flatpak update
+# flatpak update
 
 rustup update
 
