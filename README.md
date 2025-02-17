@@ -35,7 +35,7 @@ As simple as that. Or is it?..
 | Colorscheme Management |                                                        [Wallust](https://codeberg.org/explosion-mental/wallust)                                                         |
 |   Proportional Font    |                                                     [Wix Madefor Text](https://github.com/wix-incubator/wixmadefor)                                                     |
 |    Monospaced Font     |                            [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) [Nerd Font](https://github.com/ryanoasis/nerd-fonts)                            |
-|  Application Launcher  |                                                [Anyrun](https://github.com/Kirottu/anyrun) (want to write a custom one)                                                 |
+|  Application Launcher  |                           [Anyrun](https://github.com/Kirottu/anyrun) (want to replace it with [KunKun](https://github.com/kunkunsh/kunkun))                            |
 |       Status Bar       |                       [Eww](https://github.com/elkowar/eww) (want either to move to [AGS](https://github.com/Aylur/ags) or to write a custom one)                       |
 |  Notification Center   |                                                                [mako](https://github.com/emersion/mako)                                                                 |
 |    GUI Text Editor     |                                                              [Zed](https://github.com/zed-industries/zed)                                                               |
