@@ -48,6 +48,11 @@ formatter = { command = "prettierd", args = [".json5"] }
 
 
 [[language]]
+name = "jsonc"
+formatter = { command = "prettierd", args = [".jsonc"] }
+
+
+[[language]]
 name = "jsx"
 auto-format = true
 formatter = { command = "prettierd", args = [".jsx"] }
