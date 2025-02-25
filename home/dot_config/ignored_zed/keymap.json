@@ -20,7 +20,8 @@
     "context": "VimControl",
     "bindings": {
       "space q": "pane::CloseActiveItem",
-      "shift-u": "editor::Redo"
+      "shift-u": "editor::Redo",
+      "space f": "file_finder::Toggle"
     }
   },
   {
