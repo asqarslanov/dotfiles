@@ -19,6 +19,10 @@
   {
     "context": "VimControl",
     "bindings": {
+      "h": "vim::Backspace",
+      "l": "vim::Space",
+      "left": "vim::Backspace",
+      "right": "vim::Space",
       "space q": "pane::CloseActiveItem",
       "shift-u": "editor::Redo",
       "space f": "file_finder::Toggle"
