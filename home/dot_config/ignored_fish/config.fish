@@ -54,19 +54,6 @@ if status is-interactive
     #     end
     # end
 
-    function lg
-        set -x LAZYGIT_NEW_DIR_FILE ~/.lazygit/newdir
-
-        lazygit $argv
-
-        if [ -f $LAZYGIT_NEW_DIR_FILE ]
-            cd (cat $LAZYGIT_NEW_DIR_FILE)
-            rm -f $LAZYGIT_NEW_DIR_FILE >/dev/null
-        end
-
-        return 0
-    end
-
     function yy
         set tmp (mktemp -t "yazi-cwd.XXXXXX")
         yazi $argv --cwd-file="$tmp"
@@ -90,6 +77,7 @@ if status is-interactive
     alias ls="eza --icons --all --header"
     alias neofetch="echo neofetch: aliased to fastfetch; echo; fastfetch"
     alias plz="sudo"
+    alias lg="lazygit"
 
     abbr -a b --function projectdo_build
     abbr -a r --function projectdo_run
