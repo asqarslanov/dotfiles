@@ -3,7 +3,7 @@
     "context": "Editor",
     "bindings": {
       "ctrl-tab": "pane::ActivateNextItem",
-      "ctrl-shift-tab": "pane::ActivatePrevItem"
+      "ctrl-shift-tab": "pane::ActivatePreviousItem"
     }
   },
   {
@@ -25,7 +25,7 @@
       "up": ["vim::Up", { "display_lines": true }],
       "g down": ["vim::Down", { "display_lines": false }],
       "g up": ["vim::Up", { "display_lines": false }],
-      "0": ["vim::StartOfLine", { "display_lines": true }],
+      // "0": ["vim::StartOfLine", { "display_lines": true }],
       "g 0": ["vim::StartOfLine", { "display_lines": false }],
       "home": ["vim::StartOfLine", { "display_lines": true }],
       "g home": ["vim::StartOfLine", { "display_lines": false }],
