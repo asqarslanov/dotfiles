@@ -37,6 +37,13 @@
         }
       ]
     },
+    "SQL": {
+      "formatter": {
+        "external": {
+          "command": "pg_format"
+        }
+      }
+    },
     // A kludge because TOML files don't get formatted OOTB.
     "TOML": {
       "formatter": {
