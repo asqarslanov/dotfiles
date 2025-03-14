@@ -16,14 +16,33 @@
   },
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
-  "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
+  "buffer_font_features": {
+    "calt": true,
+    "zero": true,
+    "cv14": true
+  },
   "buffer_font_size": 17.0,
   "current_line_highlight": "none",
   "cursor_blink": false,
   "format_on_save": "on",
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  },
+  "formatter": {
+    "language_server": {
+      "name": "biome"
+    }
+  },
   "languages": {
     "Python": {
-      "language_servers": ["pyright", "ruff"],
+      "language_servers": [
+        "pyright",
+        "ruff"
+      ],
       "formatter": [
         {
           "code_actions": {
@@ -49,7 +68,10 @@
       "formatter": {
         "external": {
           "command": "taplo",
-          "arguments": ["fmt", "-"]
+          "arguments": [
+            "fmt",
+            "-"
+          ]
         }
       }
     },
@@ -65,7 +87,9 @@
     // "button": false,
     "dock": "right"
   },
-  "tab_bar": { "show_nav_history_buttons": false },
+  "tab_bar": {
+    "show_nav_history_buttons": false
+  },
   "theme": {
     "dark": "Catppuccin Macchiato",
     "light": "Catppuccin Latte",
