@@ -1,95 +1,35 @@
 {
-  "telemetry": {
-    "metrics": false,
-    "diagnostics": false
-  },
-  "assistant": {
-    "default_model": {
-      "provider": "ollama",
-      "model": "deepseek-r1:latest"
-    },
-    "version": "2"
-  },
+  "telemetry": { "metrics": false, "diagnostics": false },
   "icon_theme": "Material Icon Theme",
-  "features": {
-    "edit_prediction_provider": "none"
-  },
+  "features": { "edit_prediction_provider": "none" },
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
-  "buffer_font_features": {
-    "calt": true,
-    "zero": true,
-    "cv14": true
-  },
+  "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
   "buffer_font_size": 17.0,
   "current_line_highlight": "none",
   "cursor_blink": false,
   "format_on_save": "on",
-  "lsp": {
-    "biome": {
-      "settings": {
-        "require_config_file": true
-      }
-    }
-  },
-  "formatter": {
-    "language_server": {
-      "name": "biome"
-    }
-  },
+  "language_servers": ["!biome", "..."],
   "languages": {
     "Python": {
-      "language_servers": [
-        "pyright",
-        "ruff"
-      ],
+      "language_servers": ["pyright", "ruff"],
       "formatter": [
-        {
-          "code_actions": {
-            "source.organizeImports.ruff": true
-          }
-        },
-        {
-          "language_server": {
-            "name": "ruff"
-          }
-        }
+        { "code_actions": { "source.organizeImports.ruff": true } },
+        { "language_server": { "name": "ruff" } }
       ]
     },
-    "SQL": {
-      "formatter": {
-        "external": {
-          "command": "pg_format"
-        }
-      }
-    },
-    // A kludge because TOML files don't get formatted OOTB.
+    "SQL": { "formatter": { "external": { "command": "pg_format" } } },
     "TOML": {
+      // A kludge because TOML files don't get formatted OOTB.
       "formatter": {
-        "external": {
-          "command": "taplo",
-          "arguments": [
-            "fmt",
-            "-"
-          ]
-        }
+        "external": { "command": "taplo", "arguments": ["fmt", "-"] }
       }
     },
-    "Typst": {
-      "formatter": {
-        "external": {
-          "command": "typstyle"
-        }
-      }
-    }
+    "Typst": { "formatter": { "external": { "command": "typstyle" } } }
   },
-  "project_panel": {
-    // "button": false,
-    "dock": "right"
-  },
-  "tab_bar": {
-    "show_nav_history_buttons": false
-  },
+  "project_panel": { "dock": "right", "auto_fold_dirs": false },
+  "soft_wrap": "none",
+  "tab_bar": { "show_nav_history_buttons": false },
   "theme": {
     "dark": "Catppuccin Macchiato",
     "light": "Catppuccin Latte",
@@ -101,7 +41,5 @@
     "use_multiline_find": true,
     "use_system_clipboard": "on_yank"
   },
-  "vim_mode": true,
-  // "toolbar": { "quick_actions": false },
-  "soft_wrap": "none"
+  "vim_mode": true
 }
