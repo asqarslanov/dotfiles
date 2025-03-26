@@ -1,7 +1,7 @@
 [package]
 name = "hypr-toggle-special-workspace"
 version = "2024.8.14"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
 clap = { version = "4.4.8", features = ["cargo", "string"] }

@@ -5,7 +5,7 @@ use hyprland::{
     prelude::HyprData,
 };
 use serde::Deserialize;
-use serde_with::{serde_as, DurationSeconds};
+use serde_with::{DurationSeconds, serde_as};
 use std::process::Command;
 use std::thread;
 use std::time::Duration;
@@ -92,7 +92,7 @@ impl SpecialWorkspace {
 
 pub fn set_window_rule(window_class: &str, window_rule: &str) {
     let window_class = format!("^{}$", regex::escape(window_class));
-    let rule = format!("{window_rule}, {window_class}");
+    let rule = format!("{window_rule}, class:{window_class}");
 
     Keyword::set("windowrule", rule).expect("the window rule should be applied successfully");
 }

@@ -6,7 +6,7 @@ use std::path::PathBuf;
 
 use color_eyre::eyre;
 
-use hypr_toggle_special_workspace::{cli, SpecialWorkspace};
+use hypr_toggle_special_workspace::{SpecialWorkspace, cli};
 
 fn main() -> eyre::Result<()> {
     color_eyre::install()?;
