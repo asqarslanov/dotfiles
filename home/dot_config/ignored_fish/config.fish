@@ -4,6 +4,7 @@ set -gx PATH $PATH $DOTFILES_DIR/bin $HOME/.local/bin $HOME/.cargo/bin
 set -gx EDITOR hx
 set -gx LESS '--raw-control-chars --use-color -Dd+r$Du+b$'
 set -gx MANROFFOPT '-P -c'
+set -gx SUDO_PROMPT "$(tput setab 1 setaf 7 bold)""[sudo]""$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
 
 ~/.config/tmux/bin/clear-unattached-sessions
 
