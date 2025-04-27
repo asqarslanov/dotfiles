@@ -8,117 +8,37 @@
   },
   {
     "context": "vim_mode == insert",
-    "bindings": {
-      "ctrl-h": "vim::HelixNormalAfter"
-    }
-  },
-  {
-    "context": "VimControl && !menu",
-    "bindings": {
-      "h": "vim::Backspace",
-      "l": "vim::Space",
-      "left": "vim::Backspace",
-      "right": "vim::Space",
-      "j": [
-        "vim::Down",
-        {
-          "display_lines": true
-        }
-      ],
-      "k": [
-        "vim::Up",
-        {
-          "display_lines": true
-        }
-      ],
-      "g j": [
-        "vim::Down",
-        {
-          "display_lines": false
-        }
-      ],
-      "g k": [
-        "vim::Up",
-        {
-          "display_lines": false
-        }
-      ],
-      "down": [
-        "vim::Down",
-        {
-          "display_lines": true
-        }
-      ],
-      "up": [
-        "vim::Up",
-        {
-          "display_lines": true
-        }
-      ],
-      "g down": [
-        "vim::Down",
-        {
-          "display_lines": false
-        }
-      ],
-      "g up": [
-        "vim::Up",
-        {
-          "display_lines": false
-        }
-      ],
-      // "0": ["vim::StartOfLine", { "display_lines": true }],
-      "g 0": [
-        "vim::StartOfLine",
-        {
-          "display_lines": false
-        }
-      ],
-      "home": [
-        "vim::StartOfLine",
-        {
-          "display_lines": true
-        }
-      ],
-      "g home": [
-        "vim::StartOfLine",
-        {
-          "display_lines": false
-        }
-      ],
-      "$": [
-        "vim::EndOfLine",
-        {
-          "display_lines": true
-        }
-      ],
-      "g $": [
-        "vim::EndOfLine",
-        {
-          "display_lines": false
-        }
-      ],
-      "end": [
-        "vim::EndOfLine",
-        {
-          "display_lines": true
-        }
-      ],
-      "g end": [
-        "vim::EndOfLine",
-        {
-          "display_lines": false
-        }
-      ],
-      "enter": "workspace::Save"
-    }
+    "bindings": { "ctrl-h": "vim::HelixNormalAfter" }
   },
   {
     "context": "VimControl",
     "bindings": {
-      "space q": "pane::CloseActiveItem",
+      "$": ["vim::EndOfLine", { "display_lines": true }],
+      "down": ["vim::Down", { "display_lines": true }],
+      "end": ["vim::EndOfLine", { "display_lines": true }],
+      "enter": "workspace::Save",
+      "g $": ["vim::EndOfLine", { "display_lines": false }],
+      "g 0": ["vim::StartOfLine", { "display_lines": false }],
+      "g down": ["vim::Down", { "display_lines": false }],
+      "g end": ["vim::EndOfLine", { "display_lines": false }],
+      "g home": ["vim::StartOfLine", { "display_lines": false }],
+      "g j": ["vim::Down", { "display_lines": false }],
+      "g k": ["vim::Up", { "display_lines": false }],
+      "g up": ["vim::Up", { "display_lines": false }],
+      "h": "vim::WrappingLeft",
+      "home": ["vim::StartOfLine", { "display_lines": true }],
+      "j": ["vim::Down", { "display_lines": true }],
+      "k": ["vim::Up", { "display_lines": true }],
+      "l": "vim::WrappingRight",
+      "left": "vim::WrappingLeft",
+      "right": "vim::WrappingRight",
+      "shift-c": "editor::AddSelectionBelow",
       "shift-u": "editor::Redo",
-      "space f": "file_finder::Toggle"
+      "space f": "file_finder::Toggle",
+      "space q": "pane::CloseActiveItem",
+      "up": ["vim::Up", { "display_lines": true }],
+      "g h": "vim::StartOfLine",
+      "g l": "vim::EndOfLine"
     }
   },
   {
@@ -133,10 +53,8 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": [
-        "vim::PushAddSurrounds",
-        {}
-      ]
+      "shift-s": ["vim::PushAddSurrounds", {}],
+      "m s": ["vim::PushAddSurrounds", {}]
     }
   }
 ]
