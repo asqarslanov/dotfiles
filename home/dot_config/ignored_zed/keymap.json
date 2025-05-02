@@ -1,5 +1,14 @@
 [
   {
+    "context": "Terminal",
+    "bindings": {
+      "alt-e": ["terminal::SendKeystroke", "alt-e"],
+      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
+      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
+      "ctrl-w": ["terminal::SendKeystroke", "ctrl-w"]
+    }
+  },
+  {
     "context": "Editor",
     "bindings": {
       "ctrl-tab": "pane::ActivateNextItem",
@@ -11,7 +20,7 @@
     "bindings": { "ctrl-h": "vim::HelixNormalAfter" }
   },
   {
-    "context": "VimControl",
+    "context": "VimControl && !menu",
     "bindings": {
       "$": ["vim::EndOfLine", { "display_lines": true }],
       "down": ["vim::Down", { "display_lines": true }],
@@ -35,7 +44,6 @@
       "shift-c": "editor::AddSelectionBelow",
       "shift-u": "editor::Redo",
       "space f": "file_finder::Toggle",
-      "space q": "pane::CloseActiveItem",
       "up": ["vim::Up", { "display_lines": true }],
       "g h": "vim::StartOfLine",
       "g l": "vim::EndOfLine"
