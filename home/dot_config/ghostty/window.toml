@@ -9,6 +9,7 @@ adjust-cursor-thickness = 3
 # confirm_os_window_close 0
 # cursor-trail = 3
 
+gtk-single-instance = true
 gtk-titlebar = false
 gtk-tabs-location = "bottom"
 gtk-wide-tabs = false
