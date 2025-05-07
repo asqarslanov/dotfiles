@@ -21,8 +21,26 @@ formatter = { command = "prettierd", args = [".css"] }
 
 
 [[language]]
+name = "go"
+language-servers = ["gopls", "golangci-lint-lsp"]
+
+[language-server.gopls.config]
+"formatting.gofumpt" = true
+
+[language-server.golangci-lint-lsp]
+command = "golangci-lint-langserver"
+config.command = [
+  "golangci-lint",
+  "run",
+  "--show-stats=false",
+  "--output.json.path=stdout",
+]
+
+
+[[language]]
 name = "fish"
 formatter = { command = "fish_indent" }
+
 
 [[language]]
 name = "html"
