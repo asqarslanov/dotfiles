@@ -12,6 +12,7 @@
   "format_on_save": "on",
   "language_servers": ["!biome", "..."],
   "languages": {
+    "Go": { "formatter": { "external": { "command": "gofumpt" } } },
     "Python": {
       "language_servers": ["pyright", "ruff"],
       "formatter": [
@@ -27,6 +28,19 @@
       }
     },
     "Typst": { "formatter": { "external": { "command": "typstyle" } } }
+  },
+  "lsp": {
+    "golangci-lint": {
+      "initialization_options": {
+        "command": [
+          "golangci-lint",
+          "run",
+          // "--default=all",
+          "--show-stats=false",
+          "--output.json.path=stdout"
+        ]
+      }
+    }
   },
   "project_panel": { "dock": "right", "auto_fold_dirs": false },
   "soft_wrap": "none",
