@@ -10,6 +10,7 @@
   "current_line_highlight": "none",
   "cursor_blink": false,
   "format_on_save": "on",
+  "git": { "inline_blame": { "enabled": false } },
   "language_servers": ["!biome", "..."],
   "languages": {
     "Python": {
