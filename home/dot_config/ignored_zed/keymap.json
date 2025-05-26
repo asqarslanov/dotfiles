@@ -1,14 +1,5 @@
 [
   {
-    "context": "Terminal",
-    "bindings": {
-      "alt-e": ["terminal::SendKeystroke", "alt-e"],
-      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
-      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
-      "ctrl-w": ["terminal::SendKeystroke", "ctrl-w"]
-    }
-  },
-  {
     "context": "Pane",
     "bindings": {
       "ctrl-tab": "pane::ActivateNextItem",
@@ -22,29 +13,13 @@
   {
     "context": "VimControl && !menu",
     "bindings": {
-      "$": ["vim::EndOfLine", { "display_lines": true }],
-      "down": ["vim::Down", { "display_lines": true }],
-      "end": ["vim::EndOfLine", { "display_lines": true }],
       "enter": "workspace::Save",
-      "g $": ["vim::EndOfLine", { "display_lines": false }],
-      "g 0": ["vim::StartOfLine", { "display_lines": false }],
-      "g down": ["vim::Down", { "display_lines": false }],
-      "g end": ["vim::EndOfLine", { "display_lines": false }],
-      "g home": ["vim::StartOfLine", { "display_lines": false }],
-      "g j": ["vim::Down", { "display_lines": false }],
-      "g k": ["vim::Up", { "display_lines": false }],
-      "g up": ["vim::Up", { "display_lines": false }],
       "h": "vim::WrappingLeft",
-      "home": ["vim::StartOfLine", { "display_lines": true }],
-      "j": ["vim::Down", { "display_lines": true }],
-      "k": ["vim::Up", { "display_lines": true }],
       "l": "vim::WrappingRight",
       "left": "vim::WrappingLeft",
       "right": "vim::WrappingRight",
       "shift-c": "editor::AddSelectionBelow",
       "shift-u": "editor::Redo",
-      "space f": "file_finder::Toggle",
-      "up": ["vim::Up", { "display_lines": true }],
       "g h": "vim::StartOfLine",
       "g l": "vim::EndOfLine"
     }
