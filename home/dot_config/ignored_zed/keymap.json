@@ -9,7 +9,7 @@
     }
   },
   {
-    "context": "Editor",
+    "context": "Pane",
     "bindings": {
       "ctrl-tab": "pane::ActivateNextItem",
       "ctrl-shift-tab": "pane::ActivatePreviousItem"
