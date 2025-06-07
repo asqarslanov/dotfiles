@@ -5,7 +5,7 @@ lazy = false
 window-class = "kitty"
 
 [Chat]
-command = "telegram-desktop"
+command = "Telegram"
 launch-delay-seconds = 2
 lazy = false
 window-class = "org.telegram.desktop"
