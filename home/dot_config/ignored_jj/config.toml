@@ -6,3 +6,6 @@ email = "asqarslanov@gmail.com"
 
 [ui]
 default-command = "log"
+
+[git]
+private-commits = '''description(glob:'private:*')'''
