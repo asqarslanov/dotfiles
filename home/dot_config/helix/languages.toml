@@ -4,25 +4,127 @@ auto-format = true
 indent = { unit = "  ", tab-width = 2 }
 formatter = { command = "shfmt", args = ["-i", "2"] }
 
-
 [[language]]
 name = "c"
 auto-format = true
-
 
 [[language]]
 name = "cpp"
 auto-format = true
 
-
 [[language]]
 name = "css"
 formatter = { command = "prettierd", args = [".css"] }
 
-
 [[language]]
 name = "go"
 language-servers = ["gopls", "golangci-lint-lsp"]
+
+[[language]]
+name = "fish"
+formatter = { command = "fish_indent" }
+
+[[language]]
+name = "html"
+formatter = { command = "prettierd", args = [".html"] }
+
+[[language]]
+name = "java"
+auto-format = true
+
+[[language]]
+name = "javascript"
+auto-format = true
+formatter = { command = "prettierd", args = [".js"] }
+
+[[language]]
+name = "json"
+formatter = { command = "prettierd", args = [".json"] }
+
+[[language]]
+name = "json5"
+auto-format = true
+formatter = { command = "prettierd", args = [".json5"] }
+
+[[language]]
+name = "jsonc"
+formatter = { command = "prettierd", args = [".jsonc"] }
+
+[[language]]
+name = "jsx"
+auto-format = true
+formatter = { command = "prettierd", args = [".jsx"] }
+
+[[language]]
+name = "lua"
+auto-format = true
+indent = { tab-width = 3, unit = "   " }
+formatter = { command = "stylua", args = ["-"] }
+
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "deno", args = ["fmt", "--ext", "md", "-"] }
+
+[[language]]
+name = "nix"
+auto-format = true
+formatter = { command = "alejandra" }
+
+[[language]]
+name = "protobuf"
+auto-format = true
+# formatter = { command = "buf", args = ["format"] }
+formatter = { command = "clang-format", args = ["--assume-filename=.proto"] }
+
+[[language]]
+name = "python"
+auto-format = true
+language-servers = ["pyright"]
+formatter = { command = "ruff", args = ["format", "-"] }
+
+[[language]]
+name = "rust"
+auto-format = true
+
+[[language]]
+name = "scss"
+formatter = { command = "prettierd", args = [".scss"] }
+
+[[language]]
+name = "svelte"
+auto-format = true
+# formatter = { command = "prettierd", args = [".svelte"] }
+
+[[language]]
+name = "sql"
+auto-format = true
+formatter = { command = "pg_format" }
+
+[[language]]
+name = "toml"
+auto-format = true
+language-servers = ["tombi"]
+
+[[language]]
+name = "tsx"
+auto-format = true
+formatter = { command = "prettierd", args = [".tsx"] }
+
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "prettierd", args = [".ts"] }
+
+[[language]]
+name = "typst"
+auto-format = true
+formatter = { command = "typstyle" }
+
+[[language]]
+name = "yaml"
+auto-format = true
+formatter = { command = "prettierd", args = [".yaml"] }
 
 [language-server.gopls.config]
 "formatting.gofumpt" = true
@@ -36,134 +138,9 @@ config.command = [
   "--output.json.path=stdout",
 ]
 
-
-[[language]]
-name = "fish"
-formatter = { command = "fish_indent" }
-
-
-[[language]]
-name = "html"
-formatter = { command = "prettierd", args = [".html"] }
-
-
-[[language]]
-name = "java"
-auto-format = true
-
-
-[[language]]
-name = "javascript"
-auto-format = true
-formatter = { command = "prettierd", args = [".js"] }
-
-
-[[language]]
-name = "json"
-formatter = { command = "prettierd", args = [".json"] }
-
-
-[[language]]
-name = "json5"
-auto-format = true
-formatter = { command = "prettierd", args = [".json5"] }
-
-
-[[language]]
-name = "jsonc"
-formatter = { command = "prettierd", args = [".jsonc"] }
-
-
-[[language]]
-name = "jsx"
-auto-format = true
-formatter = { command = "prettierd", args = [".jsx"] }
-
-
-[[language]]
-name = "lua"
-auto-format = true
-indent = { tab-width = 3, unit = "   " }
-formatter = { command = "stylua", args = ["-"] }
-
-
-[[language]]
-name = "markdown"
-auto-format = true
-formatter = { command = "deno", args = ["fmt", "--ext", "md", "-"] }
-
-
-[[language]]
-name = "nix"
-auto-format = true
-formatter = { command = "alejandra" }
-
-
-[[language]]
-name = "protobuf"
-auto-format = true
-# formatter = { command = "buf", args = ["format"] }
-formatter = { command = "clang-format", args = ["--assume-filename=.proto"] }
-
-
-[[language]]
-name = "python"
-auto-format = true
-language-servers = ["pyright"]
-formatter = { command = "ruff", args = ["format", "-"] }
-
 [language-server.pyright]
 command = "pyright-langserver"
 
-
-[[language]]
-name = "rust"
-auto-format = true
-
-
-[[language]]
-name = "scss"
-formatter = { command = "prettierd", args = [".scss"] }
-
-
-[[language]]
-name = "svelte"
-auto-format = true
-# formatter = { command = "prettierd", args = [".svelte"] }
-
-
-[[language]]
-name = "sql"
-auto-format = true
-formatter = { command = "pg_format" }
-
-
-[[language]]
-name = "toml"
-file-types = ["toml"]
-auto-format = true
-formatter = { command = "taplo", args = ["format", "-"] }
-
-
-[[language]]
-name = "tsx"
-auto-format = true
-formatter = { command = "prettierd", args = [".tsx"] }
-
-
-[[language]]
-name = "typescript"
-auto-format = true
-formatter = { command = "prettierd", args = [".ts"] }
-
-
-[[language]]
-name = "typst"
-auto-format = true
-formatter = { command = "typstyle" }
-
-
-[[language]]
-name = "yaml"
-auto-format = true
-formatter = { command = "prettierd", args = [".yaml"] }
+[language-server.tombi]
+command = "tombi"
+args = ["lsp"]
