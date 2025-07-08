@@ -22,12 +22,6 @@
       ]
     },
     "SQL": { "formatter": { "external": { "command": "pg_format" } } },
-    "TOML": {
-      // A kludge because TOML files don't get formatted OOTB.
-      "formatter": {
-        "external": { "command": "taplo", "arguments": ["fmt", "-"] }
-      }
-    },
     "Typst": { "formatter": { "external": { "command": "typstyle" } } }
   },
   "lsp": {
