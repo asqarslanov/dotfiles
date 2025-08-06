@@ -10,14 +10,24 @@
     "context": "VimControl && !menu",
     "bindings": {
       "enter": "workspace::Save",
+      "f": ["vim::PushFindForward", { "before": false, "multiline": true }],
+      "g h": "vim::StartOfLine",
+      "g l": "vim::EndOfLine",
       "h": "vim::WrappingLeft",
       "l": "vim::WrappingRight",
       "left": "vim::WrappingLeft",
       "right": "vim::WrappingRight",
       "shift-c": "editor::AddSelectionBelow",
+      "shift-f": [
+        "vim::PushFindBackward",
+        { "after": false, "multiline": true }
+      ],
+      "shift-t": [
+        "vim::PushFindBackward",
+        { "after": true, "multiline": true }
+      ],
       "shift-u": "editor::Redo",
-      "g h": "vim::StartOfLine",
-      "g l": "vim::EndOfLine"
+      "t": ["vim::PushFindForward", { "before": true, "multiline": true }]
     }
   },
   {
@@ -32,7 +42,8 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": ["vim::PushAddSurrounds", {}]
+      "alt-;": "editor::SwapSelectionEnds",
+      "shift-s": "vim::PushAddSurrounds"
     }
   }
 ]

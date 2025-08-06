@@ -1,7 +1,5 @@
 {
   "telemetry": { "metrics": false, "diagnostics": false },
-  "icon_theme": "Material Icon Theme",
-  "features": { "edit_prediction_provider": "none" },
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
@@ -9,7 +7,10 @@
   "code_actions_on_format": { "source.organizeImports": true },
   "current_line_highlight": "none",
   "cursor_blink": false,
+  "disable_ai": true,
+  "features": { "edit_prediction_provider": "none" },
   "format_on_save": "on",
+  "icon_theme": "Material Icon Theme",
   "git": { "inline_blame": { "enabled": false } },
   // "helix_mode": true,
   "language_servers": ["!biome", "..."],
@@ -48,7 +49,6 @@
   "ui_font_family": "Lexend",
   "vim": {
     "toggle_relative_line_numbers": true,
-    "use_multiline_find": true,
     "use_system_clipboard": "on_yank"
   },
   "vim_mode": true
