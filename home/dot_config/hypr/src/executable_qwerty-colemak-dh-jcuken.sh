@@ -2,8 +2,8 @@
 
 layout=$(hyprctl getoption input:kb_layout -j | jq .str)
 
-if [ "$layout" = '"colemak-dhw-antiwide, jcuken-w-antiwide"' ]; then
-  hyprctl keyword input:kb_layout "qwerty-antiwide, jcuken-antiwide"
+if [ "$layout" = '"colemak-dh, jcuken"' ]; then
+  hyprctl keyword input:kb_layout "qwerty, jcuken"
 else
-  hyprctl keyword input:kb_layout "colemak-dhw-antiwide, jcuken-w-antiwide"
+  hyprctl keyword input:kb_layout "colemak-dh, jcuken"
 fi
