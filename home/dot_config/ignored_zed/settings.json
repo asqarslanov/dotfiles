@@ -39,6 +39,11 @@
           "--output.json.path=stdout"
         ]
       }
+    },
+    "rust-analyzer": {
+      "initialization_options": {
+        "rustfmt": { "extraArgs": ["+nightly"] }
+      }
     }
   },
   "project_panel": { "dock": "right", "auto_fold_dirs": false },
