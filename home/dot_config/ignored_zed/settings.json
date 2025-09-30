@@ -13,7 +13,6 @@
   "icon_theme": "Material Icon Theme",
   "git": { "inline_blame": { "enabled": false } },
   // "helix_mode": true,
-  "language_servers": ["!biome", "..."],
   "languages": {
     "Python": {
       "language_servers": ["pyright", "ruff"],
