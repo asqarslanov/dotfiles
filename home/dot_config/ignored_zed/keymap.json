@@ -10,33 +10,12 @@
     "context": "VimControl && !menu",
     "bindings": {
       "enter": "workspace::Save",
-      "f": ["vim::PushFindForward", { "before": false, "multiline": true }],
-      "g h": "vim::StartOfLine",
-      "g l": "vim::EndOfLine",
       "h": "vim::WrappingLeft",
       "l": "vim::WrappingRight",
       "left": "vim::WrappingLeft",
       "right": "vim::WrappingRight",
       "shift-c": "editor::AddSelectionBelow",
-      "shift-f": [
-        "vim::PushFindBackward",
-        { "after": false, "multiline": true }
-      ],
-      "shift-t": [
-        "vim::PushFindBackward",
-        { "after": true, "multiline": true }
-      ],
-      "shift-u": "editor::Redo",
-      "t": ["vim::PushFindForward", { "before": true, "multiline": true }]
-    }
-  },
-  {
-    "context": "Dock",
-    "bindings": {
-      "ctrl-w h": "workspace::ActivatePaneLeft",
-      "ctrl-w l": "workspace::ActivatePaneRight",
-      "ctrl-w k": "workspace::ActivatePaneUp",
-      "ctrl-w j": "workspace::ActivatePaneDown"
+      "shift-u": "editor::Redo"
     }
   },
   {

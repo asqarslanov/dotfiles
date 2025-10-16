@@ -1,26 +1,15 @@
 {
-  "telemetry": { "metrics": false, "diagnostics": false },
+  "project_panel": { "auto_fold_dirs": false, "dock": "right" },
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
   "buffer_font_size": 17.0,
-  "code_actions_on_format": { "source.organizeImports": true },
   "current_line_highlight": "none",
   "cursor_blink": false,
-  "disable_ai": true,
-  "features": { "edit_prediction_provider": "none" },
   "format_on_save": "on",
   "icon_theme": "Material Icon Theme",
-  "git": { "inline_blame": { "enabled": false } },
-  // "helix_mode": true,
   "languages": {
-    "Python": {
-      "language_servers": ["pyright", "ruff"],
-      "formatter": [
-        { "code_actions": { "source.organizeImports.ruff": true } },
-        { "language_server": { "name": "ruff" } }
-      ]
-    },
+    "Haskell": { "tab_size": 2 },
     "Racket": {
       "formatter": { "external": { "command": "raco", "arguments": ["fmt"] } }
     },
@@ -40,14 +29,11 @@
       }
     },
     "rust-analyzer": {
-      "initialization_options": {
-        "rustfmt": { "extraArgs": ["+nightly"] }
-      }
+      "initialization_options": { "rustfmt": { "extraArgs": ["+nightly"] } }
     }
   },
-  "project_panel": { "dock": "right", "auto_fold_dirs": false },
-  "soft_wrap": "none",
   "tab_bar": { "show_nav_history_buttons": false },
+  "telemetry": { "diagnostics": false, "metrics": false },
   "theme": {
     "dark": "Catppuccin Macchiato",
     "light": "Catppuccin Latte",
