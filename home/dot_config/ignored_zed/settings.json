@@ -1,5 +1,4 @@
 {
-  "project_panel": { "auto_fold_dirs": false, "dock": "right" },
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_features": { "calt": true, "zero": true, "cv14": true },
@@ -18,7 +17,6 @@
     "Typst": { "formatter": { "external": { "command": "typstyle" } } }
   },
   "lsp": {
-    "gopls": { "initialization_options": { "formatting.gofumpt": true } },
     "golangci-lint": {
       "initialization_options": {
         "command": [
@@ -29,10 +27,13 @@
         ]
       }
     },
+    "gopls": { "initialization_options": { "formatting.gofumpt": true } },
     "rust-analyzer": {
       "initialization_options": { "rustfmt": { "extraArgs": ["+nightly"] } }
     }
   },
+  "project_panel": { "auto_fold_dirs": false, "dock": "right" },
+  "show_edit_predictions": false,
   "tab_bar": { "show_nav_history_buttons": false },
   "telemetry": { "diagnostics": false, "metrics": false },
   "theme": {
