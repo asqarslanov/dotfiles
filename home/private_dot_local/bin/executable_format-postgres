@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+cat |
+  pg_format - |
+  sqruff fix - |
+  head --bytes=-1
