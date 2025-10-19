@@ -99,7 +99,7 @@ auto-format = true
 [[language]]
 name = "sql"
 auto-format = true
-formatter = { command = "pg_format" }
+formatter = { command = "format-postgres" }
 
 [[language]]
 name = "toml"
