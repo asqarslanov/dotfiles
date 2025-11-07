@@ -17,8 +17,11 @@ case "$1" in
   notify-send "Screenshot" "Copied to clipboard."
   ;;
 "window")
-  grim -g "$(hyprctl -j clients | jq --argjson active "$(hyprctl monitors -j | jq -c '[.[].activeWorkspace.id]')" '.[] | select((.hidden | not) and (.workspace.id as $id | $active | contains([$id]))) | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' --raw-output | slurp -b "#000000b0" -c "#00000000")" -t ppm - |
-    satty --filename=-
+  wayfreeze &
+  freeze_pid=$!
+  geometry=$(hyprctl -j clients | jq --argjson active "$(hyprctl monitors -j | jq -c '[.[].activeWorkspace.id]')" '.[] | select((.hidden | not) and (.workspace.id as $id | $active | contains([$id]))) | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' --raw-output | slurp -b "#000000b0" -c "#00000000")
+  kill "$freeze_pid"
+  grim -g "$geometry" -t ppm - | satty --filename=-
   ;;
 "pixel")
   color=$(hyprpicker)
