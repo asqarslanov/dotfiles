@@ -51,4 +51,5 @@ As simple as that. Or is it?..
 |   Command Line Shell   |                                                            [fish](https://github.com/fish-shell/fish-shell)                                                             |
 |      Shell Prompt      |                                                            [Starship](https://github.com/starship/starship)                                                             |
 |        Show-off        |                                                         [Fastfetch](https://github.com/fastfetch-cli/fastfetch)                                                         |
+|   Screenshot Utility   |                   [grim](https://github.com/emersion/grim) + [slurp](https://github.com/emersion/slurp) + [Satty](https://github.com/Satty-org/Satty)                   |
 |  Terminal Multiplexer  |                                                                  [tmux](https://github.com/tmux/tmux)                                                                   |

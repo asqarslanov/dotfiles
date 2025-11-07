@@ -1,45 +1,28 @@
 #!/usr/bin/env sh
 
-# Flags:
-
-# r: region
-# s: screen
-#
-# c: clipboard
-# f: file
-# i: interactive
-
-# p: pixel
-
-if [[ $1 == rc ]]; then
-  grim -g "$(slurp -b '#000000b0' -c '#00000000')" - | wl-copy
-  notify-send 'Copied to Clipboard' Screenshot
-
-elif [[ $1 == rf ]]; then
-  mkdir -p ~/Pictures/Screenshots
-  filename=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
-  grim -g "$(slurp -b '#000000b0' -c '#00000000')" $filename
-  notify-send 'Screenshot Taken' $filename
-
-elif [[ $1 == ri ]]; then
-  grim -g "$(slurp -b '#000000b0' -c '#00000000')" - | swappy -f -
-
-elif [[ $1 == sc ]]; then
+case "$1" in
+"interactive")
+  grim -o "$(hyprctl -j activeworkspace | jq --raw-output .monitor)" - |
+    satty --filename=-
+  ;;
+"file")
+  mkdir --parents ~/Pictures/Screenshots/
+  filename=~/Pictures/Screenshots/"$(date +%Y-%m-%d_%H-%M-%S)".png
+  grim -o "$(hyprctl -j activeworkspace | jq --raw-output .monitor)" "$filename"
+  notify-send "File saved to '$filename'."
+  ;;
+"clipboard")
   filename=~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png
-  grim - | wl-copy
-  notify-send 'Copied to Clipboard' Screenshot
-
-elif [[ $1 == sf ]]; then
-  mkdir -p ~/Pictures/Screenshots
-  filename=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
-  grim $filename
-  notify-send 'Screenshot Taken' $filename
-
-elif [[ $1 == si ]]; then
-  grim - | swappy -f -
-
-elif [[ $1 == p ]]; then
-  color=$(hyprpicker -a)
-  wl-copy $color
-  notify-send 'Copied to Clipboard' $color
-fi
+  grim -o "$(hyprctl -j activeworkspace | jq --raw-output .monitor)" - | wl-copy
+  notify-send "Copied to clipboard" Screenshot
+  ;;
+"window")
+  grim -g "$(hyprctl -j clients | jq --argjson active "$(hyprctl monitors -j | jq -c '[.[].activeWorkspace.id]')" '.[] | select((.hidden | not) and (.workspace.id as $id | $active | contains([$id]))) | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' --raw-output | slurp -b "#000000b0" -c "#00000000")" - |
+    satty --filename=-
+  ;;
+"pixel")
+  color=$(hyprpicker)
+  wl-copy "$color"
+  notify-send "Copied to clipboard" "$color"
+  ;;
+esac
