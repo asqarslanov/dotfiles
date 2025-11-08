@@ -41,7 +41,7 @@
     "light": "Catppuccin Latte",
     "mode": "system"
   },
-  "ui_font_family": "Lexend",
+  "ui_font_family": "Wix Madefor Display",
   "vim": {
     "toggle_relative_line_numbers": true,
     "use_system_clipboard": "on_yank"
