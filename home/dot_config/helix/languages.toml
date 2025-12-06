@@ -56,6 +56,11 @@ auto-format = true
 formatter = { command = "prettierd", args = [".jsx"] }
 
 [[language]]
+name = "kdl"
+auto-format = true
+formatter = { command = "kdlfmt", args = ["format", "-"] }
+
+[[language]]
 name = "lua"
 auto-format = true
 indent = { tab-width = 3, unit = "   " }
