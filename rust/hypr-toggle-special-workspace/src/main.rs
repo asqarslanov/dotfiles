@@ -1,10 +1,6 @@
-#![warn(clippy::pedantic)]
-
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
-
-use color_eyre::eyre;
 
 use hypr_toggle_special_workspace::{SpecialWorkspace, cli};
 

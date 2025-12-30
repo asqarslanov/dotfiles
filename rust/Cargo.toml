@@ -1,10 +1,10 @@
 [workspace]
 resolver = "2"
 members = [
+  "eww-list-workspaces-json",
+  "hypr-brightness",
+  "hypr-toggle-special-workspace",
+  "hypr-volume",
   "install",
   "modules",
-  "eww-list-workspaces-json",
-  "hypr-toggle-special-workspace",
-  "hypr-brightness",
-  "hypr-volume",
 ]

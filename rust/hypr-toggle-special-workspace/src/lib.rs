@@ -1,14 +1,13 @@
-use hyprland::{
-    data::Clients,
-    dispatch::{Dispatch, DispatchType},
-    keyword::Keyword,
-    prelude::HyprData,
-};
-use serde::Deserialize;
-use serde_with::{DurationSeconds, serde_as};
 use std::process::Command;
 use std::thread;
 use std::time::Duration;
+
+use hyprland::data::Clients;
+use hyprland::dispatch::{Dispatch, DispatchType};
+use hyprland::keyword::Keyword;
+use hyprland::prelude::HyprData;
+use serde::Deserialize;
+use serde_with::{DurationSeconds, serde_as};
 
 pub mod cli;
 
@@ -92,7 +91,7 @@ impl SpecialWorkspace {
 
 pub fn set_window_rule(window_class: &str, window_rule: &str) {
     let window_class = format!("^{}$", regex::escape(window_class));
-    let rule = format!("{window_rule}, class:{window_class}");
+    let rule = format!("{window_rule}, match:class {window_class}");
 
     Keyword::set("windowrule", rule).expect("the window rule should be applied successfully");
 }
