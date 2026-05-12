@@ -1,7 +1,7 @@
 # name: 'Catppuccin Frappé'
 # url: 'https://github.com/catppuccin/fish'
-# preferred_background: 303446
 
+# preferred_background: 303446
 fish_color_normal c6d0f5
 fish_color_command 8caaee
 fish_color_param eebebe
